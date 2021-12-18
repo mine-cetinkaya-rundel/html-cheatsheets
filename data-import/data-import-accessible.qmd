@@ -347,10 +347,32 @@ read_excel(path, sheet = NULL, range = NULL)
     )
     ```
 
-    **\
-    **
+-   **Column types:**
+
+    | logical | numeric | text  | date       | list  |
+    |---------|---------|-------|------------|-------|
+    | TRUE    | 2       | hello | 1947-01-08 | hello |
+    | FALSE   | 3.45    | world | 1956-10-21 | 1     |
+
+    -   `skip`
+
+    -   `guess`
+
+    -   `logical`
+
+    -   `date`
+
+    -   `numeric`
+
+    -   `text`
+
+    -   Use `list`for columns that include multiple data types.
+        See **tidyr** and **purrr** for list-column data.
 
 ### Other useful Excel packages
+
+-   For functions to write data to Excel files: **openxlsx** and **writexl**
+-   For working with non-tabular Excel data: **tidyxl**
 
 ## Import spreadsheets with googlesheets4
 
@@ -497,4 +519,3 @@ fs::file_delete(
   "googlesheet.csv")
 )
 ```
-

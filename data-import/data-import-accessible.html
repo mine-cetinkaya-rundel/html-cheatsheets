@@ -500,13 +500,52 @@
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  path,</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="fu">c</span>(<span class="st">"text"</span>, <span class="st">"guess"</span>, <span class="st">"guess"</span>,<span class="st">"numeric"</span>)</span>
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><strong><br>
-</strong></p></li>
+</div></li>
+<li><p><strong>Column types:</strong></p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>logical</th>
+<th>numeric</th>
+<th>text</th>
+<th>date</th>
+<th>list</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>TRUE</td>
+<td>2</td>
+<td>hello</td>
+<td>1947-01-08</td>
+<td>hello</td>
+</tr>
+<tr class="even">
+<td>FALSE</td>
+<td>3.45</td>
+<td>world</td>
+<td>1956-10-21</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><code>skip</code></p></li>
+<li><p><code>guess</code></p></li>
+<li><p><code>logical</code></p></li>
+<li><p><code>date</code></p></li>
+<li><p><code>numeric</code></p></li>
+<li><p><code>text</code></p></li>
+<li><p>Use <code>list</code>for columns that include multiple data types. See <strong>tidyr</strong> and <strong>purrr</strong> for list-column data.</p></li>
+</ul></li>
 </ul>
 </section>
 <section id="other-useful-excel-packages" class="level3">
 <h3 class="anchored" data-anchor-id="other-useful-excel-packages">Other useful Excel packages</h3>
+<ul>
+<li>For functions to write data to Excel files: <strong>openxlsx</strong> and <strong>writexl</strong></li>
+<li>For working with non-tabular Excel data: <strong>tidyxl</strong></li>
+</ul>
 </section>
 </section>
 <section id="import-spreadsheets-with-googlesheets4" class="level2">
