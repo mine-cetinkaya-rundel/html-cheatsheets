@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>RStudio IDE :: Cheat Shee</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-docs.css">
+    <link rel="stylesheet" href="assets/css/rstudio.css">
+  </head>
+  <body>
+    <!-- Skip link(s) -->
+    <div class="skippy visually-hidden-focusable overflow-hidden">
+      <a class="d-inline-flex p-2 m-1" href="#maincontent">
+        Skip to main content
+      </a>
+    </div> 
+
+    <!-- Stickey header -->
+    <header class="sticky py-2 bg-dark header">
+      <div class="container-xxl d-flex align-items-md-center">
+        <img class="position-relative me-auto" 
+             alt="RStudio, PBC logo" 
+             src="https://www.rstudio.com/assets/img/logo.svg" 
+             width="130" 
+             height="auto">
+
+        <h1 class="position-relative me-auto">
+          RStudio IDE ::&nbsp;<span class="uppercase">Cheat Sheet</span>
+        </h1>
+        <a href="assets/pdf/rstudio-ide.pdf" 
+          class="header-pdf-link position-relative ms-3">
+          <i class="bi bi-cloud-arrow-down-fill"></i>
+          Download PDF version (3.5 MB)
+        </a>
+      </div>
+    </header>
+
+    <!-- Page main content -->
+    <div class="container-xxl my-md-4 bd-layout">
+      <main id="maincontent" class="bd-main order-1">
+        <!-- Table of contents -->
+        <div class="bd-toc mt-4 mb-5 my-md-0 ps-xl-3 mb-lg-5 text-muted">
+          <h2 class="d-block h6 my-2 pb-2 border-bottom">On this page</h2>
+          <nav id="TableOfContents">
+            <ul>
+              <li>
+                <a href="#section-documents-and-apps">
+                  Documents and Apps
+                </a>
+              </li>
+              <li>
+                <a href="#section-source-editor">
+                  Source Editor
+                </a>
+              </li>
+              <li>
+                <a href="#section-tab-panes">
+                  Tab Panes
+                </a>
+              </li>
+              <li>
+                <a href="#section-version-control">
+                  Version Control
+                </a>
+              </li>
+              <li>
+                <a href="#section-package-development">
+                  Package Development
+                </a>
+              </li>
+              <li>
+                <a href="#section-debug-mode">
+                  Debug Mode
+                </a>
+              </li>
+              <li>
+                <a href="#section-keyboard-shortcuts">
+                  Keyboard Shortcuts
+                </a>
+              </li>
+              <li>
+                <a href="#section-visual-editor">
+                  Visual Editor
+                </a>
+              </li>
+              <li>
+                <a href="#section-rstudio-workbench">
+                  RStudio Workbench
+                </a>
+              </li>
+              <li>
+                <a href="#section-share-projects">
+                  Share Projects
+                </a>
+              </li>
+              <li>
+                <a href="#section-run-remote-jobs">
+                  Run Remote Jobs
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <!-- Main content area -->
+        <div class="bd-content ps-lg-4">
+        <section id="section-documents-and-apps">
+          <header>
+            <h2>Documents and Apps</h2>
+          </header>
+          <img src="assets/images/r-markdown-shiny-latex.png"
+              width="137"
+              height="56"
+              alt="">
+          <p>
+            Open Shiny, R Markdown, knitr, Sweave, LaTeX, .Rd files
+            and more in Source Pane
+          </p>
+          <figure class="wrap-collabsible">
+            <img src="assets/images/document-and-apps-rstudio-ide.png"
+                width="373"
+                height="314"
+                alt="RStudio Source Pane view">
+            <input id="collapsible-1" class="toggle" type="checkbox" aria-hidden="true">
+            <label for="collapsible-1" class="lbl-toggle" aria-hidden="true">Expand to read about the features in the RStudio Source Pane</label>
+            <figcaption class="collapsible-content">
+              <h3>Features within the RStudio Source Pane</h3>
+              <ul>
+                <li>Check spelling</li>
+                <li>Render output</li>
+                <li>Choose output format</li>
+                <li>Configure render options</li>
+                <li>Insert code chunk</li>
+                <li>Publish to server</li>
+                <li>Jump to previous chunk</li>
+                <li>Jump to next chunk</li>
+                <li>Run code</li>
+                <li>Show file outline</li>
+                <li>Visual Editor (reverse side)</li>
+                <li>Jump to section or chunk</li>
+                <li>Run this and all previous code chunks</li>
+                <li>Run this code chunk</li>
+                <li>Set knitr chunk options</li>
+              </ul>
+            </figcaption>
+          </figure>
+          <p>
+            Access markdown guide at <strong>Help > Markdown Quick Reference</strong>.
+          </p>
+          <p>
+            See below for more on <a href="#section-visual-editor"><strong>Visual Editor</strong></a>.
+          </p>
+        </section>
+
+        <section id="section-source-editor">
+          <header>
+            <h2>Source Editor</h2>
+          </header>
+          <figure class="wrap-collabsible">
+            <img src="assets/images/source-editor-rstudio-ide.png"
+                width="448"
+                height="602"
+                alt="RStudio Source Editor view">
+            
+            <input id="collapsible-2" class="toggle" type="checkbox" aria-hidden="true">
+            <label for="collapsible-2" class="lbl-toggle" aria-hidden="true">Expand to read about the features in the Source Editor</label>
+            <figcaption class="collapsible-content">
+              <h3>Features within the Source Editor</h3>
+              <ul>
+                <li>Navigate backwards/forwards</li>
+                <li>Open in new window</li>
+                <li>Save</li>
+                <li>Find and replace</li>
+                <li>Compile as notebook</li>
+                <li>Run selected code</li>
+                <li>Re-run previous code</li>
+                <li>Source with or without Echo or as a Local Job</li>
+                <li>Show file outline</li>
+                <li>Multiple cursors/column selection with Alt + mouse drag.</li>
+                <li>
+                  Code diagnostics that appear in the margin.
+                  Hover over diagnostic symbols for details.
+                </li>
+                <li>Syntax highlighting based on your file's extension</li>
+                <li>Tab completion to finish function names, file paths, arguments, and more.</li>
+                <li>Multi-language code snippets to quickly use common blocks of code.</li>
+                <li>Jump to function in file</li>
+                <li>Change file type</li>
+                <li>Working Directory</li>
+                <li>Run scripts in separate sessions</li>
+                <li>Maximize, minimize panes</li>
+                <li><kbd>Ctrl/Cmd + &uarr;</kbd> to see history</li>
+                <li>R Markdown Build Log</li>
+                <li>Drag pane boundaries</li>
+              </ul>
+            </figcaption>
+          </figure>
+        </section>
+
+        <section id="section-tab-panes">
+          <header>
+            <h2>Tab Panes</h2>
+          </header>
+          <figure class="wrap-collabsible">
+            <img src="assets/images/tab-panes.png"
+                width="417"
+                height="592"
+                alt="RStudio Tab Panes view">
+            <input id="collapsible-3" class="toggle" type="checkbox" aria-hidden="true">
+            <label for="collapsible-3" class="lbl-toggle" aria-hidden="true">Expand to read about the features in the Tab Panes</label>
+            <figcaption class="collapsible-content">
+              <h3>Features within the Tab Panes</h3>
+              <ul>
+                <li><strong>Import data</strong> with wizard</li>
+                <li>History of past commands to run/copy</li>
+                <li>Manage external databases</li>
+                <li>View memory usage</li>
+                <li>R tutorials</li>
+                <li>Load workspace</li>
+                <li>Save workspace</li>
+                <li>Clear R workspace</li>
+                <li>Search inside environment</li>
+                <li>Choose environment to display from list of parent environments</li>
+                <li>Display objects as list or grid</li>
+                <li>Displays saved objects by type with short description</li>
+                <li>View in data viewer</li>
+                <li>View function source code</li>
+                <li>Create folder</li>
+                <li>Path to displayed directory</li>
+                <li>Delete file</li>
+                <li>Rename file</li>
+                <li>More file options</li>
+                <li>Change directory</li>
+                <li>
+                  A File browser keyed to your working directory.
+                  Click on file or directory name to open.
+                </li>
+              </ul>
+            </figcaption>
+          </figure>
+        </section>
+
+        <section id="section-version-control">
+          <header>
+            <h2>Version Control</h2>
+          </header>
+          <p>Turn on at <strong>Tools > Project Options > Git/SVN</strong></p>
+          <ul class="inline">  
+            <li><span class="git added">A</span> - Added</li>
+            <li><span class="git deleted">D</span> - Deleted</li>
+            <li><span class="git modified">M</span> - Modified</li>
+            <li><span class="git renamed">R</span> - Renamed</li>
+            <li><span class="git untracked">?</span> - Untracked</li>
+          </ul>
+          <figure class="wrap-collabsible">
+            <img src="assets/images/version-control.png"
+                width="365"
+                height="247"
+                alt="">
+            
+            <input id="collapsible-vc" class="toggle" type="checkbox" aria-hidden="true">
+            <label for="collapsible-vc" class="lbl-toggle" aria-hidden="true">Expand to read about the features in the version control view</label>
+            <figcaption class="collapsible-content">
+              <h3>Features within the version control view</h3>
+              <ul>
+                <li>Stage files</li>
+                <li>Commit staged files</li>
+                <li>Push/Pull to remote</li>
+                <li>View History</li>
+                <li>Current branch</li>
+                <li>Show file diff to view file differences</li>
+              </ul>
+            </figcaption>
+          </figure>
+        </section>
+
+        <section id="section-package-development">
+          <header>
+            <h2>Package Development</h2>
+          </header>
+          <p>
+            Create a new package with
+            <strong>File > New Project > New Directory > R Package</strong>
+          </p>
+          <p>
+            Enable roxygen documentation with
+            <strong>Tools > Project Options > Build Tools</strong>
+          </p>
+          <p>Roxygen guide at <strong>Help > Roxygen Quick Reference</strong></p>
+          <p>See package information in the <strong>Build Tab</strong></p>
+          <figure class="wrap-collabsible">
+            <img src="assets/images/pd-build-tab.png"
+                width="372"
+                height="210"
+                alt="">
+            
+            <input id="collapsible-pd-1" class="toggle" type="checkbox" aria-hidden="true">
+            <label for="collapsible-pd-1" class="lbl-toggle" aria-hidden="true">Expand to read about the features in the Build Tab</label>
+            <figcaption class="collapsible-content">
+              <h3>Features within the Build Tab</h3>
+              <ul>
+                <li>Install package and restart R</li>
+                <li>Run devtools::load_all() and reload changes</li>
+                <li>Run R CMD check</li>
+                <li>Clear output and rebuild</li>
+                <li>Customize package build options</li>
+                <li>Run package tests</li>
+              </ul>
+            </figcaption>
+          </figure>
+          <p>RStudio opens plots in a dedicated <strong>Plots</strong> pane</p>
+          <figure class="wrap-collabsible">
+            <img src="assets/images/pd-plots-pane.png"
+                width="359"
+                height="105"
+                alt="">
+            
+            <input id="collapsible-pd-2" class="toggle" type="checkbox" aria-hidden="true">
+            <label for="collapsible-pd-2" class="lbl-toggle" aria-hidden="true">Expand to read about the features in the Plots pane</label>
+            <figcaption class="collapsible-content">
+              <h3>Features within the Plots pane</h3>
+              <ul>
+                <li>Navigate recent plots</li>
+                <li>Open in window</li>
+                <li>Export plot</li>
+                <li>Delete plot</li>
+                <li>Delete all plots</li>
+              </ul>
+            </figcaption>
+          </figure>
+          <p>GUI <strong>Package</strong> manager lists every installed package</p>
+          <figure class="wrap-collabsible">
+            <img src="assets/images/pd-package-manager.png"
+                width="359"
+                height="190"
+                alt="">
+            
+            <input id="collapsible-pd-3" class="toggle" type="checkbox" aria-hidden="true">
+            <label for="collapsible-pd-3" class="lbl-toggle" aria-hidden="true">Expand to read about the features in the Package manager</label>
+            <figcaption class="collapsible-content">
+              <h3>Features within the Package manager</h3>
+              <ul>
+                <li>Install Packages</li>
+                <li>Update Packages</li>
+                <li>Browse package site</li>
+                <li>
+                  Click to load package with library().
+                  Unclick to detach package with detach().
+                </li>
+                <li>Package version installed</li>
+                <li>Delete from library</li>
+              </ul>
+            </figcaption>
+          </figure>
+          <p>RStudio opens documentation in a dedicated <strong>Help</strong> pane</p>
+          <figure class="wrap-collabsible">
+            <img src="assets/images/pd-help-pane.png"
+                width="357"
+                height="97"
+                alt="">
+            
+            <input id="collapsible-pd-4" class="toggle" type="checkbox" aria-hidden="true">
+            <label for="collapsible-pd-4" class="lbl-toggle" aria-hidden="true">Expand to read about the features in the Help pane</label>
+            <figcaption class="collapsible-content">
+              <h3>Features within the Help pane</h3>
+              <ul>
+                <li>Home page of helpful links</li>
+                <li>Search within help file</li>
+                <li>Search for help file</li>
+              </ul>
+            </figcaption>
+          </figure>
+          <p>
+            <strong>Viewer</strong> pane displays HTML content, such as Shiny
+            apps, RMarkdown reports, and interactive visualizations
+          </p>
+          <figure class="wrap-collabsible">
+            <img src="assets/images/pd-viewer-pane.png"
+                width="358"
+                height="82"
+                alt="">
+            
+            <input id="collapsible-pd-5" class="toggle" type="checkbox" aria-hidden="true">
+            <label for="collapsible-pd-5" class="lbl-toggle" aria-hidden="true">Expand to read about the features in the Viewer pane</label>
+            <figcaption class="collapsible-content">
+              <h3>Features within the Viewer pane</h3>
+              <ul>
+                <li>Stop Shiny apps</li>
+                <li>Publish to shinyapps.io, rpubs, RSConnect, …</li>
+                <li>Refresh</li>
+              </ul>
+            </figcaption>
+          </figure>
+          <p><strong>View(&lt;data&gt;)</strong> opens spreadsheet like view of data set</p>
+          <figure class="wrap-collabsible">
+            <img src="assets/images/pd-view-data.png"
+                  width="357"
+                  height="117"
+                  alt="">
+            
+            <input id="collapsible-pd-6" class="toggle" type="checkbox" aria-hidden="true">
+            <label for="collapsible-pd-6" class="lbl-toggle" aria-hidden="true">Expand to read about the features in the data set spreadsheet</label>
+            <figcaption class="collapsible-content">
+              <h3>Features within the data set spreadsheet</h3>
+              <ul>
+                <li>Filter rows by value or value range</li>
+                <li>Sort by values</li>
+                <li>Search for value</li>
+              </ul>
+            </figcaption>
+          </figure>
+        </section>
+
+        <section id="section-debug-mode">
+          <header>
+            <h2>Debug Mode</h2>
+          </header>
+          <p>
+            Use <strong>debug()</strong>, <strong>browser()</strong>, 
+            or a breakpoint and execute your code to open the debugger mode.
+          </p>
+          <figure class="wrap-collabsible">
+            <img src="assets/images/dm-console.png"
+                  width="391"
+                  height="611"
+                  alt="">
+            
+            <input id="collapsible-dm-1" class="toggle" type="checkbox" aria-hidden="true">
+            <label for="collapsible-dm-1" class="lbl-toggle" aria-hidden="true">Expand to read about the features in the debug console</label>
+            <figcaption class="collapsible-content">
+              <h3>Features within the debug console</h3>
+              <ul>
+                <li>Launch debugger mode from origin of error</li>
+                <li>Open traceback to examine the functions that R called before the error occurred</li>
+                <li>Click next to line number to add/remove a breakpoint.</li>
+                <li>Highlighted line shows where execution has paused</li>
+                <li>Run commands in environment where execution has paused</li>
+                <li>Examine variables in executing environment</li>
+                <li>Select function in traceback to debug</li>
+                <li>Step through code one line at a time</li>
+                <li>Step into and out of functions to run</li>
+                <li>Resume execution</li>
+                <li>Quit debug mode</li>
+              </ul>
+            </figcaption>
+          </figure>
+        </section>
+
+        <section id="section-keyboard-shortcuts">
+          <header>
+            <h2>Keyboard Shortcuts</h2>
+          </header>
+          <table class="table-keyboard-shortcuts">
+            <caption class="visually-hidden">Keyboard Shortcuts</caption>
+            <tbody>
+              <tr class="header">
+                <th class="uppercase" id="rc">Run code</th>
+                <th id="wl" scope="col">Windows/Linux</th>
+                <th id="mac" scope="col">Mac</th>
+              </tr>
+              <tr>
+                <th id="sc" headers="rc" scope="row">Search command</th>
+                <td headers="rc sc wl"><kbd>Ctrl+a</kbd></td>
+                <td headers="rc sc mac"><kbd>Cmd+a</kbd></td>
+              </tr>
+              <tr>
+                <th id="icm" headers="rc" scope="row">Interrupt current command</th>
+                <td headers="rc icm wl"><kbd>Esc</kbd></td>
+                <td headers="rc icm mac"><kbd>Esc</kbd></td>
+              </tr>
+              <tr>
+                <th id="cc" headers="rc" scope="row">Clear console</th>
+                <td headers="rc cc wl"><kbd>Ctrl+L</kbd></td>
+                <td headers="rc cc mac"><kbd>Ctrl+L</kbd></td>
+              </tr>
+              <tr class="header">
+                <th colspan="3" scope="colgroup" class="uppercase" id="nc">Navigate code</th>
+              </tr>
+              <tr>
+                <th id="gtff" headers="nc" scope="row">Go to File/Function</th>
+                <td headers="nc gtff wl"><kbd>Ctrl+.</kbd></td>
+                <td headers="nc gtff mac"><kbd>Ctrl+.</kbd></td>
+              </tr>
+              <tr class="header">
+                <th colspan="3" scope="colgroup" class="uppercase" id="wc">Write code</th>
+              </tr>
+              <tr>
+                <th id="ac" headers="wc" scope="row">Attempt completion</th>
+                <td headers="wc ac wl"><kbd>Tab or Ctrl+Space</kbd></td>
+                <td headers="wc ac mac"><kbd>Tab or Ctrl+Space</kbd></td>
+              </tr>
+              <tr>
+                <th id="iao" headers="wc" scope="row">Insert &lt;- (assignment operator)</th>
+                <td headers="wc iao wl"><kbd>Alt+-</kbd></td>
+                <td headers="wc iao mac"><kbd>Option+-</kbd></td>
+              </tr>
+              <tr>
+                <th id="ipo" headers="wc" scope="row">Insert %&gt;% (pipe operator)</th>
+                <td headers="wc ipo wl"><kbd>Ctrl+Shift+M</kbd></td>
+                <td headers="wc ipo mac"><kbd>Cmd+Shift+M</kbd></td>
+              </tr>
+              <tr>
+                <th id="ucs" headers="wc" scope="row">(Un)Comment selection</th>
+                <td headers="wc ucs wl"><kbd>Ctrl+Shift+C</kbd></td>
+                <td headers="wc ucs mac"><kbd>Cmd+Shift+C</kbd></td>
+              </tr>
+              <tr class="header">
+                <th colspan="3" scope="colgroup" class="uppercase" id="mp">Make packages</th>
+              </tr>
+              <tr>
+                <th id="ladt" headers="mp" scope="row">Load All (devtools)</th>
+                <td headers="mp ladt wl"><kbd>Ctrl+Shift+L</kbd></td>
+                <td headers="mp ladt mac"><kbd>Cmd+Shift+L</kbd></td>
+              </tr>
+              <tr>
+                <th id="tpd" headers="mp" scope="row">Test Package (Desktop)</th>
+                <td headers="mp tpd wl"><kbd>Ctrl+Shift+T</kbd></td>
+                <td headers="mp tpd mac"><kbd>Cmd+Shift+T</kbd></td>
+              </tr>
+              <tr>
+                <th id="dp" headers="mp" scope="row">Document Package</th>
+                <td headers="mp dp wl"><kbd>Ctrl+Shift+D</kbd></td>
+                <td headers="mp dp mac"><kbd>Cmd+Shift+D</kbd></td>
+              </tr>
+              <tr class="header">
+                <th colspan="3" scope="colgroup" class="uppercase" id="da">DOCUMENTS AND APPS</th>
+              </tr>
+              <tr>
+                <th id="kdk" headers="da" scope="row">Knit Document (knitr)</th>
+                <td headers="da kdk wl"><kbd>Ctrl+Shift+K</kbd></td>
+                <td headers="da kdk mac"><kbd>Cmd+Shift+K</kbd></td>
+                </tr>
+              <tr>
+                <th id="icsk" headers="da" scope="row">Insert chunk (Sweave & Knitr)</th>
+                <td headers="da icsk wl"><kbd>Ctrl+Alt+I</kbd></td>
+                <td headers="da icsk mac"><kbd>Cmd+Option+I</kbd></td>
+              </tr>
+              <tr>
+                <th id="rfstcl" headers="da" scope="row">Run from start to current line</th>
+                <td headers="da rfstcl wl"><kbd>Ctrl+Alt+B</kbd></td>
+                <td headers="da rfstcl mac"><kbd>Cmd+Option+B</kbd></td>
+              </tr>
+              <tr class="header">
+                <th colspan="3" scope="colgroup" class="uppercase" id="mks">More keyboard shortcuts</th>
+              </tr>
+              <tr>
+                <th id="ksh" headers="mks" scope="row">Keyboard Shortcuts Help</th>
+                <td headers="mks ksh wl"><kbd>Alt+Shift+K</kbd></td>
+                <td headers="mks ksh mac"><kbd>Option+Shift+K</kbd></td>
+              </tr>
+              <tr>
+                <th id="scp" headers="mks" scope="row">Show Command Palette</th>
+                <td headers="mks scp wl"><kbd>Ctrl+Shift+P</kbd></td>
+                <td headers="mks scp mac"><kbd>Cmd+Shift+P</kbd></td>
+              </tr>
+            </tbody>
+          </table>
+          <figure>
+            <figcaption>
+              <p>
+                View the Keyboard Shortcut Quick Reference with 
+                <strong>Tools > Keyboard Shortcuts</strong> or 
+                <kbd>Alt/Option + Shift + K</kbd>
+              </p>
+            </figcaption>
+            <img src="assets/images/tools-keyboard-shortcuts.png"
+                width="459" 
+                height="261"
+                alt="">
+          </figure>
+
+          <figure>
+            <figcaption>
+              <p>
+                Search for keyboard shortcuts with
+                <strong>Tools > Show Command Palette</strong>
+                or <kbd>Ctrl/Cmd + Shift + P.</kbd>
+              </p>
+            </figcaption>
+            <img src="assets/images/tools-show-command-palette.png" 
+                width="548" 
+                height="211"
+                alt="">
+          </figure>
+        </section>
+
+        <section id="section-visual-editor">
+          <header>
+            <h2>Visual Editor</h2>
+          </header>
+          <figure class="wrap-collabsible">
+            <img src="assets/images/visual-editor.png"
+                width="537"
+                height="332"
+                alt="Visual Editor view">
+            
+            <input id="collapsible-4" class="toggle" type="checkbox" aria-hidden="true">
+            <label for="collapsible-4" class="lbl-toggle" aria-hidden="true">Expand to read about the features in the Source Editor</label>
+            <figcaption class="collapsible-content">
+              <h3>Features within the Visual Editor</h3>
+              <ul>
+                <li>Check spelling</li>
+                <li>Render output</li>
+                <li>Choose output format</li>
+                <li>Choose output location</li>
+                <li>Insert code chunk</li>
+                <li>Jump to previous chunk</li>
+                <li>Jump to next chunk</li>
+                <li>Run selected lines</li>
+                <li>Publish to server</li>
+                <li>Show file outline</li>
+                <li>Block format</li>
+                <li>Back to Source Editor (front page)</li>
+                <li>Insert verbatim code</li>
+                <li>Clear formatting</li>
+                <li>Lists and block quotes</li>
+                <li>Links</li>
+                <li>Citations</li>
+                <li>Images</li>
+                <li>More formatting</li>
+                <li>Insert blocks, citations, equations, and special characters</li>
+                <li>Insert and edit tables</li>
+                <li>File outline</li>
+                <li>Add/Edit attributes</li>
+                <li>Jump to chunk or header</li>
+                <li>Set knitr chunk options</li>
+                <li>Run this and all previous code chunks</li>
+                <li>Run this code chunk</li>
+              </ul>
+            </figcaption>
+          </figure>
+        </section>
+
+        <section id="section-rstudio-workbench">
+          <header>
+            <h2>RStudio Workbench</h2>
+          </header>
+          <h3>Why RStudio Workbench?</h3>
+          <p>Extend the open source server with a commercial license, support, and more:</p>
+          <ul>
+            <li>open and run multiple R sessions at once</li>
+            <li>tune your resources to improve performance</li>
+            <li>administrative tools for managing user sessions</li>
+            <li>collaborate real-time with others in shared projects</li>
+            <li>switch easily from one version of R to a different version</li>
+            <li>integrate with your authentication, authorization, and audit practices</li>
+            <li>work in the RStudio IDE, JupyterLab, Jupyter Notebooks, or VS Code</li>
+          </ul>
+          <p>Download a <a href="www.rstudio.com/products/workbench/evaluation/">free 45 day evaluation</a>.</p>
+        </section>
+
+        <section id="section-share-projects">
+          <header>
+            <h2>Share Projects</h2>
+          </header>
+          <p><strong>File > New Project</strong></p>
+          <p>
+            RStudio saves the call history, workspace, and working
+            directory associated with a project. It reloads each when
+            you re-open a project.
+          </p>
+          <figure class="wrap-collabsible">
+            <img src="assets/images/share-projects.png"
+                width="489"
+                height="272"
+                alt="Share Project views">
+            
+            <input id="collapsible-5" class="toggle" type="checkbox" aria-hidden="true">
+            <label for="collapsible-5" class="lbl-toggle" aria-hidden="true">Expand to read about the features in the Share Project</label>
+            <figcaption class="collapsible-content">
+              <h3>Features within the Share Project</h3>
+              <ul>
+                <li>Start <strong>new R Session</strong> in current project</li>
+                <li>Close R Session in project</li>
+                <li>Active shared collaborators</li>
+                <li>Name of current project</li>
+                <li><strong>Share Project</strong> with Collaborators</li>
+                <li><strong>Select R Version</strong></li>
+              </ul>
+            </figcaption>
+          </figure>
+        </section>
+
+        <section id="section-run-remote-jobs">
+          <header>
+            <h2>Run Remote Jobs</h2>
+          </header>
+          <p>Run R on remote clusters (Kubernetes/Slurm) via the Job Launcher</p>
+          <figure class="wrap-collabsible">
+            <img src="assets/images/run-remote-job.png"
+                width="494"
+                height="338"
+                alt="Job Launcher views">
+            
+            <input id="collapsible-6" class="toggle" type="checkbox" aria-hidden="true">
+            <label for="collapsible-6" class="lbl-toggle" aria-hidden="true">Expand to read about the features in the Job Launcher</label>
+            <figcaption class="collapsible-content">
+              <h3>Features within the Job Launcher</h3>
+              <ul>
+                <li>Launch a job</li>
+                <li>Monitor launcher jobs</li>
+                <li>Run launcher jobs remotely</li>
+              </ul>
+            </figcaption>
+          </figure>
+        </section>
+        </div>
+      </main>
+    </div>
+
+    <!-- Page footer -->    
+    <footer class="bd-footer px-5 py-5 mt-5 bg-light">
+      <h2 id="footer-title" 
+          class="visually-hidden">
+        Footer information
+      </h2>
+      <div class="container">
+        <div class="row justify-content-center text-center">
+          <div class="col-lg-3 mb-3">
+            <p>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY SA</a> RStudio</p>
+          </div>
+          
+          <div class="col-lg-3 mb-3">
+            <p>Packages and versions featured</p>
+            <ul class="no-style">
+              <li><a href="https://fontawesome.com/">Font Awesome 5.15.3</a></li>
+              <li><a href="http://rstudio.com">RStudio IDE 1.4.1717</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 mb-3">
+            <p>Updated:&nbsp; <time>2021-07</time></p>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row justify-content-center text-center">
+          <div class="col-lg-9 mb-3">
+            <p>
+              RStudio® is a trademark of RStudio, PBC, 
+              <a href="mailto:info@rstudio.com">info@rstudio.com</a>, 844-448-1212, 
+              <a href="http://rstudio.com">rstudio.com</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>
