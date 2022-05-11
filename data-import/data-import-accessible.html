@@ -1,131 +1,151 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>
-  <meta charset="utf-8">
-  <meta name="generator" content="quarto-0.2.328">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Data import with the tidyverse : : CHEAT SHEET</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      {   }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-    code span.at { color: #7d9029; } /* Attribute */
-    code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #4070a0; } /* Char */
-    code span.cn { color: #880000; } /* Constant */
-    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-    code span.dt { color: #902000; } /* DataType */
-    code span.dv { color: #40a070; } /* DecVal */
-    code span.er { color: #ff0000; font-weight: bold; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #40a070; } /* Float */
-    code span.fu { color: #06287e; } /* Function */
-    code span.im { } /* Import */
-    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-    code span.op { color: #666666; } /* Operator */
-    code span.ot { color: #007020; } /* Other */
-    code span.pp { color: #bc7a00; } /* Preprocessor */
-    code span.sc { color: #4070a0; } /* SpecialChar */
-    code span.ss { color: #bb6688; } /* SpecialString */
-    code span.st { color: #4070a0; } /* String */
-    code span.va { color: #19177c; } /* Variable */
-    code span.vs { color: #4070a0; } /* VerbatimString */
-    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-  </style>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
-  <script src="data-import-accessible_files/libs/clipboard/clipboard.min.js"></script>
-  <script src="data-import-accessible_files/libs/quarto-html/quarto.js"></script>
-  <script src="data-import-accessible_files/libs/quarto-html/popper.min.js"></script>
-  <script src="data-import-accessible_files/libs/quarto-html/tippy.umd.min.js"></script>
-  <script src="data-import-accessible_files/libs/quarto-html/anchor.min.js"></script>
-  <link href="data-import-accessible_files/libs/quarto-html/tippy.css" rel="stylesheet">
-  <link href="data-import-accessible_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
-  <script src="data-import-accessible_files/libs/bootstrap/bootstrap.min.js"></script>
-  <link href="data-import-accessible_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-  <link href="data-import-accessible_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-99.9.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Data import with the tidyverse :: Cheat Sheet</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<script src="data-import-accessible_files/libs/clipboard/clipboard.min.js"></script>
+<script src="data-import-accessible_files/libs/quarto-html/quarto.js"></script>
+<script src="data-import-accessible_files/libs/quarto-html/popper.min.js"></script>
+<script src="data-import-accessible_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="data-import-accessible_files/libs/quarto-html/anchor.min.js"></script>
+<link href="data-import-accessible_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link id="quarto-text-highlighting-styles" href="data-import-accessible_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+<script src="data-import-accessible_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="data-import-accessible_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="data-import-accessible_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+
+
 </head>
+
 <body>
-<div id="quarto-content" class="container-fluid page-layout-article">
-<div class="page-columns">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
   <nav id="TOC" role="doc-toc">
-<h2 id="toc-title">Table of contents</h2>
-<ul>
-<li><a href="#read-tabular-data-with-readr" class="nav-link active" data-scroll-target="#read-tabular-data-with-readr">Read Tabular Data with readr</a>
-<ul class="collapse">
-<li><a href="#examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
-<li><a href="#useful-read-arguments" class="nav-link" data-scroll-target="#useful-read-arguments">Useful read arguments</a></li>
-<li><a href="#save-data-with-readr" class="nav-link" data-scroll-target="#save-data-with-readr">Save data with readr</a></li>
-<li><a href="#column-specification-with-readr" class="nav-link" data-scroll-target="#column-specification-with-readr">Column specification with readr</a></li>
-</ul></li>
-<li><a href="#import-spreadsheets-with-readxl" class="nav-link" data-scroll-target="#import-spreadsheets-with-readxl">Import spreadsheets with readxl</a>
-<ul class="collapse">
-<li><a href="#read-excel-files" class="nav-link" data-scroll-target="#read-excel-files">Read Excel files</a></li>
-<li><a href="#read-sheets" class="nav-link" data-scroll-target="#read-sheets">Read sheets</a></li>
-<li><a href="#readxl-column-specification" class="nav-link" data-scroll-target="#readxl-column-specification">readxl column specification</a></li>
-<li><a href="#other-useful-excel-packages" class="nav-link" data-scroll-target="#other-useful-excel-packages">Other useful Excel packages</a></li>
-</ul></li>
-<li><a href="#import-spreadsheets-with-googlesheets4" class="nav-link" data-scroll-target="#import-spreadsheets-with-googlesheets4">Import spreadsheets with googlesheets4</a>
-<ul class="collapse">
-<li><a href="#read-sheets-1" class="nav-link" data-scroll-target="#read-sheets-1">Read sheets</a></li>
-<li><a href="#sheet-metadata" class="nav-link" data-scroll-target="#sheet-metadata">Sheet metadata</a></li>
-<li><a href="#write-sheets" class="nav-link" data-scroll-target="#write-sheets">Write sheets</a></li>
-<li><a href="#googlesheets4-column-specification" class="nav-link" data-scroll-target="#googlesheets4-column-specification">googlesheets4 column specification</a></li>
-<li><a href="#file-level-operations" class="nav-link" data-scroll-target="#file-level-operations">File level operations</a></li>
-</ul></li>
-<li><a href="#cell-specification-for-readxl-and-googlesheets4" class="nav-link" data-scroll-target="#cell-specification-for-readxl-and-googlesheets4">Cell specification for readxl and googlesheets4</a></li>
-</ul>
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#read-tabular-data-with-readr" id="toc-read-tabular-data-with-readr" class="nav-link active" data-scroll-target="#read-tabular-data-with-readr">Read Tabular Data with readr</a>
+  <ul class="collapse">
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
+  <li><a href="#useful-read-arguments" id="toc-useful-read-arguments" class="nav-link" data-scroll-target="#useful-read-arguments">Useful read arguments</a></li>
+  <li><a href="#save-data-with-readr" id="toc-save-data-with-readr" class="nav-link" data-scroll-target="#save-data-with-readr">Save data with readr</a></li>
+  <li><a href="#column-specification-with-readr" id="toc-column-specification-with-readr" class="nav-link" data-scroll-target="#column-specification-with-readr">Column specification with readr</a></li>
+  </ul></li>
+  <li><a href="#import-spreadsheets-with-readxl" id="toc-import-spreadsheets-with-readxl" class="nav-link" data-scroll-target="#import-spreadsheets-with-readxl">Import spreadsheets with readxl</a>
+  <ul class="collapse">
+  <li><a href="#read-excel-files" id="toc-read-excel-files" class="nav-link" data-scroll-target="#read-excel-files">Read Excel files</a></li>
+  <li><a href="#read-sheets" id="toc-read-sheets" class="nav-link" data-scroll-target="#read-sheets">Read sheets</a></li>
+  <li><a href="#readxl-column-specification" id="toc-readxl-column-specification" class="nav-link" data-scroll-target="#readxl-column-specification">readxl column specification</a></li>
+  <li><a href="#other-useful-excel-packages" id="toc-other-useful-excel-packages" class="nav-link" data-scroll-target="#other-useful-excel-packages">Other useful Excel packages</a></li>
+  </ul></li>
+  <li><a href="#import-spreadsheets-with-googlesheets4" id="toc-import-spreadsheets-with-googlesheets4" class="nav-link" data-scroll-target="#import-spreadsheets-with-googlesheets4">Import spreadsheets with googlesheets4</a>
+  <ul class="collapse">
+  <li><a href="#read-sheets-1" id="toc-read-sheets-1" class="nav-link" data-scroll-target="#read-sheets-1">Read sheets</a></li>
+  <li><a href="#sheet-metadata" id="toc-sheet-metadata" class="nav-link" data-scroll-target="#sheet-metadata">Sheet metadata</a></li>
+  <li><a href="#write-sheets" id="toc-write-sheets" class="nav-link" data-scroll-target="#write-sheets">Write sheets</a></li>
+  <li><a href="#googlesheets4-column-specification" id="toc-googlesheets4-column-specification" class="nav-link" data-scroll-target="#googlesheets4-column-specification">googlesheets4 column specification</a></li>
+  <li><a href="#file-level-operations" id="toc-file-level-operations" class="nav-link" data-scroll-target="#file-level-operations">File level operations</a></li>
+  </ul></li>
+  <li><a href="#cell-specification-for-readxl-and-googlesheets4" id="toc-cell-specification-for-readxl-and-googlesheets4" class="nav-link" data-scroll-target="#cell-specification-for-readxl-and-googlesheets4">Cell specification for readxl and googlesheets4</a></li>
+  </ul>
 </nav>
 </div>
-<main class="content">
-<header id="title-block-header">
-<h1 class="title display-7">Data import with the tidyverse : : CHEAT SHEET</h1>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Data import with the tidyverse :: Cheat Sheet</h1>
+</div>
+
+
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
 </header>
 
 <p>One of the first steps of a project is to import outside data into R. Data is often stored in tabular formats, like csv files or spreadsheets.</p>
@@ -147,7 +167,7 @@
 <h2 class="anchored" data-anchor-id="read-tabular-data-with-readr">Read Tabular Data with readr</h2>
 <p>See <code>?read_delim</code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>read_<span class="sc">*</span>(file, <span class="at">col_names =</span> <span class="cn">TRUE</span>, <span class="at">col_types =</span> <span class="cn">NULL</span>, <span class="at">col_select =</span> <span class="cn">NULL</span>, <span class="at">id =</span> <span class="cn">NULL</span>, locale, <span class="at">n_max =</span> <span class="cn">Inf</span>, <span class="at">skip =</span> <span class="dv">0</span>, <span class="at">na =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"NA"</span>), <span class="at">guess_max =</span> <span class="fu">min</span>(<span class="dv">1000</span>, n_max), <span class="at">show_col_types =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>read_<span class="sc">*</span>(file, <span class="at">col_names =</span> <span class="cn">TRUE</span>, <span class="at">col_types =</span> <span class="cn">NULL</span>, <span class="at">col_select =</span> <span class="cn">NULL</span>, <span class="at">id =</span> <span class="cn">NULL</span>, locale, <span class="at">n_max =</span> <span class="cn">Inf</span>, <span class="at">skip =</span> <span class="dv">0</span>, <span class="at">na =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"NA"</span>), <span class="at">guess_max =</span> <span class="fu">min</span>(<span class="dv">1000</span>, n_max), <span class="at">show_col_types =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="examples" class="level3">
 <h3 class="anchored" data-anchor-id="examples">Examples</h3>
@@ -160,7 +180,7 @@
 4|5|NA</code></pre></li>
 <li><p>It will look like the following when imported:</p>
 <div class="cell">
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
       A     B     C
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -178,7 +198,7 @@
 4,5,NA</code></pre></li>
 <li><p>It will look like the following when imported:</p>
 <div class="cell">
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
       A     B     C
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -196,7 +216,7 @@
 4,5;5;NA</code></pre></li>
 <li><p>It will look like the following when imported:</p>
 <div class="cell">
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
       A     B     C
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -215,7 +235,7 @@
 4 5 NA</code></pre></li>
 <li><p>It will look like the following when imported:</p>
 <div class="cell">
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
       A     B     C
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -235,13 +255,13 @@
 4,5,NA</code></pre>
 <p>To make this file, run:</p>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_file</span>(<span class="st">"A,B,C</span><span class="sc">\n</span><span class="st">1,2,3</span><span class="sc">\n</span><span class="st">4,5,NA"</span>, <span class="at">file =</span> <span class="st">"file.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_file</span>(<span class="st">"A,B,C</span><span class="sc">\n</span><span class="st">1,2,3</span><span class="sc">\n</span><span class="st">4,5,NA"</span>, <span class="at">file =</span> <span class="st">"file.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><p>No header: <code>col_names = FALSE</code></p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"file.csv"</span>, <span class="at">col_names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"file.csv"</span>, <span class="at">col_names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
   X1    X2    X3   
   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
@@ -252,8 +272,8 @@
 </div></li>
 <li><p>Provide header: <code>col_names = c("x", "y", "z")</code></p>
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"file.csv"</span>, <span class="at">col_names =</span> <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"file.csv"</span>, <span class="at">col_names =</span> <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
   x     y     z    
   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
@@ -264,8 +284,8 @@
 </div></li>
 <li><p>Skip lines:</p>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"file.csv"</span>, <span class="at">skip =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"file.csv"</span>, <span class="at">skip =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
     `1`   `2` `3`  
   &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;
@@ -274,8 +294,8 @@
 </div></li>
 <li><p>Read a subset of lines:</p>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"file.csv"</span>, <span class="at">skip =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"file.csv"</span>, <span class="at">skip =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
     `1`   `2` `3`  
   &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;
@@ -284,8 +304,8 @@
 </div></li>
 <li><p>Read values as missing:</p>
 <div class="cell">
-<div class="sourceCode" id="cb20"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"file.csv"</span>, <span class="at">na =</span> <span class="fu">c</span>(<span class="st">"1"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"file.csv"</span>, <span class="at">na =</span> <span class="fu">c</span>(<span class="st">"1"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
       A     B C    
   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
@@ -295,8 +315,8 @@
 </div></li>
 <li><p>Specify decimal marks:</p>
 <div class="cell">
-<div class="sourceCode" id="cb22"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_delim</span>(<span class="st">"file2.csv"</span>, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">decimal_mark =</span> <span class="st">","</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_delim</span>(<span class="st">"file2.csv"</span>, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">decimal_mark =</span> <span class="st">","</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
       A     B     C
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -306,14 +326,14 @@
 </div></li>
 <li><p>Read multiple files into a single table:</p>
 <div class="cell">
-<div class="sourceCode" id="cb24"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="fu">c</span>(<span class="st">"f1.csv"</span>, <span class="st">"f2.csv"</span>, <span class="st">"f3.csv"</span>), <span class="at">id =</span> <span class="st">"origin_file"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="fu">c</span>(<span class="st">"f1.csv"</span>, <span class="st">"f2.csv"</span>, <span class="st">"f3.csv"</span>), <span class="at">id =</span> <span class="st">"origin_file"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 </ul>
 </section>
 <section id="save-data-with-readr" class="level3">
 <h3 class="anchored" data-anchor-id="save-data-with-readr">Save data with readr</h3>
 <div class="cell">
-<div class="sourceCode" id="cb25"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>write_<span class="sc">*</span>(x, file, <span class="at">na =</span> <span class="st">"NA"</span>, append, col_names, quote, escape, eol, num_threads, progress)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>write_<span class="sc">*</span>(x, file, <span class="at">na =</span> <span class="st">"NA"</span>, append, col_names, quote, escape, eol, num_threads, progress)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Write files with any delimiter: <code>write_delim(x, file, delim = " ")</code></li>
@@ -327,7 +347,7 @@
 <p>Column specifications define what data type each column of a file will be imported as. By default readr will generate a column spec when a file is read and output a summary.</p>
 <p><code>spec(x)</code>: Extract the full column specification for the given imported data frame.</p>
 <div class="cell">
-<div class="sourceCode" id="cb26"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">spec</span>(x)</span>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">spec</span>(x)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># cols(</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   age = col_integer(),   # age is an integer</span></span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   sex = col_character(), # sex is a character</span></span>
@@ -356,15 +376,15 @@
 <ul>
 <li><p>Hide col spec message:</p>
 <div class="cell">
-<div class="sourceCode" id="cb27"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>read_<span class="sc">*</span>(file, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>read_<span class="sc">*</span>(file, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 <li><p>Select columns to import: Use names, position, or selection helpers.</p>
 <div class="cell">
-<div class="sourceCode" id="cb28"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>read_<span class="sc">*</span>(file, <span class="at">col_select =</span> <span class="fu">c</span>(age, earn))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>read_<span class="sc">*</span>(file, <span class="at">col_select =</span> <span class="fu">c</span>(age, earn))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 <li><p>Guess column types: To guess a column type, <code>read_ *()</code> looks at the first 1000 rows of data. Increase with <code>guess_max</code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb29"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>read_<span class="sc">*</span>(file, <span class="at">guess_max =</span> <span class="cn">Inf</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>read_<span class="sc">*</span>(file, <span class="at">guess_max =</span> <span class="cn">Inf</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 </ul>
 </section>
@@ -373,21 +393,21 @@
 <ul>
 <li><p>Set a default type:</p>
 <div class="cell">
-<div class="sourceCode" id="cb30"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(</span>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  file, </span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_type =</span> <span class="fu">list</span>(<span class="at">.default =</span> <span class="fu">col_double</span>())</span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 <li><p>Use column type or string abbreviation:</p>
 <div class="cell">
-<div class="sourceCode" id="cb31"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(</span>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  file, </span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_type =</span> <span class="fu">list</span>(<span class="at">x =</span> <span class="fu">col_double</span>(), <span class="at">y =</span> <span class="st">"l"</span>, <span class="at">z =</span> <span class="st">"_"</span>)</span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 <li><p>Use a single string of abbreviations:</p>
 <div class="cell">
-<div class="sourceCode" id="cb32"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># col types: skip, guess, integer, logical, character</span></span>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># col types: skip, guess, integer, logical, character</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  file, </span>
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_type =</span> <span class="st">"_?ilc"</span></span>
@@ -403,7 +423,7 @@
 <h3 class="anchored" data-anchor-id="read-excel-files">Read Excel files</h3>
 <p>Read a .xls or .xlsx file based on the file extension, e.g.&nbsp;<code>read_excel("excel_file.xlsx")</code>. See <a href="#useful-read-arguments">Useful read arguments</a> for more read arguments. Also <code>read_xls()</code> and <code>read_xlsx()</code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb33"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_excel</span>(path, <span class="at">sheet =</span> <span class="cn">NULL</span>, <span class="at">range =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_excel</span>(path, <span class="at">sheet =</span> <span class="cn">NULL</span>, <span class="at">range =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><p>If the Google sheet you want to import is the following:</p>
@@ -447,7 +467,7 @@
 </table></li>
 <li><p>It will look like the following when imported:</p>
 <div class="cell">
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
   x1       x2 x3       x4    x5
   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -473,7 +493,7 @@
 <li><p>Set the vector names to be the sheet names.</p></li>
 <li><p>Use <code>purrr::map_dfr()</code> to read multiple files into one data frame.</p>
 <div class="cell">
-<div class="sourceCode" id="cb35"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"your_file_path.xlsx"</span></span>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"your_file_path.xlsx"</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>path <span class="sc">%&gt;%</span> <span class="fu">excel_sheets</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_names</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">map_dfr</span>(read_excel, <span class="at">path =</span> path)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -488,15 +508,15 @@
 <li><p>Use the <code>col_types</code> argument of <code>read_excel()</code> to set the column specification.</p></li>
 <li><p>Guess column types: To guess a column type, <code>read_excel()</code> looks at the first 1000 rows of data. Increase with the <code>guess_max</code> argument.</p>
 <div class="cell">
-<div class="sourceCode" id="cb36"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_excel</span>(path, <span class="at">guess_max =</span> <span class="cn">Inf</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_excel</span>(path, <span class="at">guess_max =</span> <span class="cn">Inf</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 <li><p>Set all columns to same type, e.g.&nbsp;character:</p>
 <div class="cell">
-<div class="sourceCode" id="cb37"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_excel</span>(path, <span class="at">col_types =</span> <span class="st">"text"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_excel</span>(path, <span class="at">col_types =</span> <span class="st">"text"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 <li><p>Set each column individually:</p>
 <div class="cell">
-<div class="sourceCode" id="cb38"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_excel</span>(</span>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_excel</span>(</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  path,</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="fu">c</span>(<span class="st">"text"</span>, <span class="st">"guess"</span>, <span class="st">"guess"</span>,<span class="st">"numeric"</span>)</span>
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -554,7 +574,7 @@
 <h3 class="anchored" data-anchor-id="read-sheets-1">Read sheets</h3>
 <p>Read a sheet from a URL, a Sheet ID, or a dribble samefrom the googledrive package. See <a href="#useful-read-arguments">Useful read arguments</a> for more read arguments.</p>
 <div class="cell">
-<div class="sourceCode" id="cb39"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_sheet</span>(ss, <span class="at">sheet =</span> <span class="cn">NULL</span>, <span class="at">range =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_sheet</span>(ss, <span class="at">sheet =</span> <span class="cn">NULL</span>, <span class="at">range =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Same as <code>range_read()</code>.</p>
 <ul>
@@ -599,7 +619,7 @@
 </table></li>
 <li><p>It will look like the following when imported:</p>
 <div class="cell">
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
   x1       x2 x3       x4    x5
   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -635,15 +655,15 @@
 <ul>
 <li><p>Guess column types: To guess a column type <code>read_sheet()</code>/<code>range_read()</code> looks at the first 1000 rows of data. Increase with <code>guess_max</code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb42"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_sheet</span>(path, <span class="at">guess_max =</span> <span class="cn">Inf</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_sheet</span>(path, <span class="at">guess_max =</span> <span class="cn">Inf</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 <li><p>Set all columns to same type, e.g.&nbsp;character:</p>
 <div class="cell">
-<div class="sourceCode" id="cb43"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_sheet</span>(path, <span class="at">col_types =</span> <span class="st">"c"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_sheet</span>(path, <span class="at">col_types =</span> <span class="st">"c"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 <li><p>Set each column individually:</p>
 <div class="cell">
-<div class="sourceCode" id="cb44"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># col types: skip, guess, integer, logical, character</span></span>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># col types: skip, guess, integer, logical, character</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read_sheets</span>(ss, <span class="at">col_types =</span> <span class="st">"_?ilc"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 <li><p>Column types:</p>
@@ -675,7 +695,7 @@
 <h2 class="anchored" data-anchor-id="cell-specification-for-readxl-and-googlesheets4">Cell specification for readxl and googlesheets4</h2>
 <p>Use the <strong>range</strong> argument of <strong>readxl::read_excel()</strong> or <strong>googlesheets4::read_sheet()</strong> to read a subset of cells from a sheet.</p>
 <div class="cell">
-<div class="sourceCode" id="cb45"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_excel</span>(path, <span class="at">range =</span> <span class="st">"Sheet1!B1:D2"</span>)</span>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_excel</span>(path, <span class="at">range =</span> <span class="st">"Sheet1!B1:D2"</span>)</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read_sheet</span>(ss, <span class="at">range =</span> <span class="st">"B1:D2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Also use the range argument with cell specification functions <code>cell_limits()</code>, <code>cell_rows()</code>, <code>cell_cols()</code>, and <code>anchored()</code><strong>.</strong></p>
@@ -690,9 +710,10 @@
 <p>Updated:&nbsp; 2021-08</p>
 <p>RStudio® is a trademark of RStudio, PBC, <a href="mailto:info@rstudio.com">info@rstudio.com</a>, 844-448-1212, <a href="http://rstudio.com">rstudio.com</a>.</p>
 </section>
+
 </main>
 <!-- /main column -->
-<script type="application/javascript">
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const icon = "";
   const anchorJS = new window.AnchorJS();
@@ -713,7 +734,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.blur();
     // flash "checked"
     button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
     setTimeout(function() {
+      button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
     // clear code selection
@@ -768,8 +792,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-</div> <!-- /grid -->
 </div> <!-- /content -->
+
 
 
 </body></html>

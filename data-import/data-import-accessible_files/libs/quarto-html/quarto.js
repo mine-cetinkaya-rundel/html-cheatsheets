@@ -6,10 +6,12 @@ const sectionChanged = new CustomEvent("quarto-sectionChanged", {
 });
 
 window.document.addEventListener("DOMContentLoaded", function (_event) {
-  var tocEl = window.document.getElementById("TOC");
-  var sidebarEl = window.document.getElementById("quarto-sidebar");
-  var marginSidebarEl = window.document.getElementById("quarto-margin-sidebar");
-
+  const tocEl = window.document.querySelector('nav[role="doc-toc"]');
+  const sidebarEl = window.document.getElementById("quarto-sidebar");
+  const leftTocEl = window.document.getElementById("quarto-sidebar-toc-left");
+  const marginSidebarEl = window.document.getElementById(
+    "quarto-margin-sidebar"
+  );
   // function to determine whether the element has a previous sibling that is active
   const prevSiblingIsActiveLink = (el) => {
     const sibling = el.previousElementSibling;
@@ -57,7 +59,11 @@ window.document.addEventListener("DOMContentLoaded", function (_event) {
 
   const sections = tocLinks.map((link) => {
     const target = link.getAttribute("data-scroll-target");
-    return window.document.querySelector(`${target}`);
+    if (target.startsWith("#")) {
+      return window.document.getElementById(decodeURI(`${target.slice(1)}`));
+    } else {
+      return window.document.querySelector(decodeURI(`${target}`));
+    }
   });
 
   const sectionMargin = 200;
@@ -105,6 +111,122 @@ window.document.addEventListener("DOMContentLoaded", function (_event) {
     return false;
   };
 
+  const categorySelector = "header.quarto-title-block .quarto-category";
+  const activateCategories = (href) => {
+    // Find any categories
+    // Surround them with a link pointing back to:
+    // #category=Authoring
+    try {
+      const categoryEls = window.document.querySelectorAll(categorySelector);
+      for (const categoryEl of categoryEls) {
+        const categoryText = categoryEl.textContent;
+        if (categoryText) {
+          const link = `${href}#category=${encodeURIComponent(categoryText)}`;
+          const linkEl = window.document.createElement("a");
+          linkEl.setAttribute("href", link);
+          for (const child of categoryEl.childNodes) {
+            linkEl.append(child);
+          }
+          categoryEl.appendChild(linkEl);
+        }
+      }
+    } catch {
+      // Ignore errors
+    }
+  };
+  function hasTitleCategories() {
+    return window.document.querySelector(categorySelector) !== null;
+  }
+
+  function offsetRelativeUrl(url) {
+    const offset = getMeta("quarto:offset");
+    return offset ? offset + url : url;
+  }
+
+  function offsetAbsoluteUrl(url) {
+    const offset = getMeta("quarto:offset");
+    const baseUrl = new URL(offset, window.location);
+    const projRelativeUrl = url.replace(baseUrl, "");
+    return "/" + projRelativeUrl;
+  }
+
+  // read a meta tag value
+  function getMeta(metaName) {
+    const metas = window.document.getElementsByTagName("meta");
+    for (let i = 0; i < metas.length; i++) {
+      if (metas[i].getAttribute("name") === metaName) {
+        return metas[i].getAttribute("content");
+      }
+    }
+    return "";
+  }
+
+  async function findAndActivateCategories() {
+    const thisPath = window.location.pathname;
+    const response = await fetch(offsetRelativeUrl("listings.json"));
+    if (response.status == 200) {
+      return response.json().then(function (listingPaths) {
+        const listingHrefs = [];
+        for (const listingPath of listingPaths) {
+          for (const item of listingPath.items) {
+            if (item === thisPath || item === thisPath + "index.html") {
+              listingHrefs.push(listingPath.listing);
+              break;
+            }
+          }
+        }
+
+        // Look up the tree for a nearby linting and use that if we find one
+        const nearestListing = findNearestParentListing(
+          offsetAbsoluteUrl(window.location.pathname),
+          listingHrefs
+        );
+        if (nearestListing) {
+          activateCategories(nearestListing);
+        } else {
+          // See if the referrer is a listing page for this item
+          const referredRelativePath = offsetAbsoluteUrl(document.referrer);
+          const referrerListing = listingHrefs.find((listingHref) => {
+            const isListingReferrer =
+              listingHref === referredRelativePath ||
+              listingHref === referredRelativePath + "index.html";
+            return isListingReferrer;
+          });
+
+          if (referrerListing) {
+            // Try to use the referrer if possible
+            activateCategories(referrerListing);
+          } else if (listingHrefs.length > 0) {
+            // Otherwise, just fall back to the first listing
+            activateCategories(listingHrefs[0]);
+          }
+        }
+      });
+    }
+  }
+  if (hasTitleCategories()) {
+    findAndActivateCategories();
+  }
+
+  const findNearestParentListing = (href, listingHrefs) => {
+    if (!href || !listingHrefs) {
+      return undefined;
+    }
+    // Look up the tree for a nearby linting and use that if we find one
+    const relativeParts = href.substring(1).split("/");
+    while (relativeParts.length > 0) {
+      const path = relativeParts.join("/");
+      for (const listingHref of listingHrefs) {
+        if (listingHref.startsWith(path)) {
+          return listingHref;
+        }
+      }
+      relativeParts.pop();
+    }
+
+    return undefined;
+  };
+
   const manageSidebarVisiblity = (el, placeholderDescriptor) => {
     let isVisible = true;
 
@@ -122,136 +244,161 @@ window.document.addEventListener("DOMContentLoaded", function (_event) {
         const elBottom =
           elTop + lastChildEl.offsetTop + lastChildEl.offsetHeight;
 
-        if (!isVisible) {
-          // If the element is current not visible reveal if there are
-          // no conflicts with overlay regions
-          if (!inHiddenRegion(elTop, elBottom, hiddenRegions)) {
-            for (const child of el.children) {
-              child.style.opacity = 1;
-            }
-
-            const placeholderEl = window.document.getElementById(
-              placeholderDescriptor.id
-            );
-            if (placeholderEl) {
-              placeholderEl.remove();
-            }
-
-            el.classList.remove("rollup");
-            isVisible = true;
+        // Converts the sidebar to a menu
+        const convertToMenu = () => {
+          for (const child of el.children) {
+            child.style.opacity = 0;
           }
-        } else {
-          // If the element is visible, hide it if it conflicts with overlay regions
-          // and insert a placeholder toggle
-          if (inHiddenRegion(elTop, elBottom, hiddenRegions)) {
-            const elBackground = window
-              .getComputedStyle(window.document.body, null)
-              .getPropertyValue("background");
-            el.classList.add("rollup");
 
-            for (const child of el.children) {
-              child.style.opacity = 0;
-            }
+          const toggleContainer = window.document.createElement("div");
+          toggleContainer.style.width = "100%";
+          toggleContainer.classList.add("zindex-over-content");
+          toggleContainer.classList.add("quarto-sidebar-toggle");
+          toggleContainer.classList.add("headroom-target"); // Marks this to be managed by headeroom
+          toggleContainer.id = placeholderDescriptor.id;
+          toggleContainer.style.position = "fixed";
 
-            const toggleContainer = window.document.createElement("div");
-            toggleContainer.style.width = "100%";
-            toggleContainer.classList.add("zindex-modal");
-            toggleContainer.classList.add("quarto-sidebar-toggle");
-            toggleContainer.classList.add("headroom-target"); // Marks this to be managed by headeroom
-            toggleContainer.id = placeholderDescriptor.id;
-            toggleContainer.style.position = "fixed";
+          const toggleIcon = window.document.createElement("i");
+          toggleIcon.classList.add("quarto-sidebar-toggle-icon");
+          toggleIcon.classList.add("bi");
+          toggleIcon.classList.add("bi-caret-down-fill");
 
-            const toggleIcon = window.document.createElement("i");
-            toggleIcon.classList.add("quarto-sidebar-toggle-icon");
-            toggleIcon.classList.add("bi");
-            toggleIcon.classList.add("bi-caret-down-fill");
-
-            const toggleTitle = window.document.createElement("div");
-            const titleEl = window.document.body.querySelector(
-              placeholderDescriptor.titleSelector
-            );
+          const toggleTitle = window.document.createElement("div");
+          const titleEl = window.document.body.querySelector(
+            placeholderDescriptor.titleSelector
+          );
+          if (titleEl) {
             toggleTitle.append(titleEl.innerText, toggleIcon);
-            toggleTitle.classList.add("zindex-modal");
-            toggleTitle.classList.add("quarto-sidebar-toggle-title");
-            toggleContainer.append(toggleTitle);
+          }
+          toggleTitle.classList.add("zindex-over-content");
+          toggleTitle.classList.add("quarto-sidebar-toggle-title");
+          toggleContainer.append(toggleTitle);
 
-            const toggleContents = window.document.createElement("div");
-            toggleContents.style.background = elBackground;
-            toggleContents.classList = el.classList;
-            toggleContents.classList.add("zindex-modal");
-            toggleContents.classList.add("quarto-sidebar-toggle-contents");
-            for (const child of el.children) {
-              if (child.id === "toc-title") {
-                continue;
-              }
-
-              const clone = child.cloneNode(true);
-              clone.style.opacity = 1;
-              toggleContents.append(clone);
+          const toggleContents = window.document.createElement("div");
+          toggleContents.classList = el.classList;
+          toggleContents.classList.add("zindex-over-content");
+          toggleContents.classList.add("quarto-sidebar-toggle-contents");
+          for (const child of el.children) {
+            if (child.id === "toc-title") {
+              continue;
             }
-            toggleContents.style.height = "0px";
-            toggleContainer.append(toggleContents);
-            el.parentElement.prepend(toggleContainer);
 
-            // Process clicks
-            let tocShowing = false;
-            // Allow the caller to control whether this is dismissed
-            // when it is clicked (e.g. sidebar navigation supports
-            // opening and closing the nav tree, so don't dismiss on click)
-            const clickEl = placeholderDescriptor.dismissOnClick
-              ? toggleContainer
-              : toggleTitle;
+            const clone = child.cloneNode(true);
+            clone.style.opacity = 1;
+            toggleContents.append(clone);
+          }
+          toggleContents.style.height = "0px";
+          toggleContainer.append(toggleContents);
+          el.parentElement.prepend(toggleContainer);
 
-            const closeToggle = () => {
-              if (tocShowing) {
-                toggleContainer.classList.remove("expanded");
-                toggleContents.style.height = "0px";
-                tocShowing = false;
-              }
-            };
+          // Process clicks
+          let tocShowing = false;
+          // Allow the caller to control whether this is dismissed
+          // when it is clicked (e.g. sidebar navigation supports
+          // opening and closing the nav tree, so don't dismiss on click)
+          const clickEl = placeholderDescriptor.dismissOnClick
+            ? toggleContainer
+            : toggleTitle;
 
-            const positionToggle = () => {
-              // position the element (top left of parent, same width as parent)
-              const elRect = el.getBoundingClientRect();
-              toggleContainer.style.left = `${elRect.left}px`;
-              toggleContainer.style.top = `${elRect.top}px`;
-              toggleContainer.style.width = `${elRect.width}px`;
-            };
+          const closeToggle = () => {
+            if (tocShowing) {
+              toggleContainer.classList.remove("expanded");
+              toggleContents.style.height = "0px";
+              tocShowing = false;
+            }
+          };
 
-            // Get rid of any expanded toggle if the user scrolls
-            window.document.addEventListener(
-              "scroll",
-              throttle(() => {
-                closeToggle();
-              }, 50)
-            );
+          const positionToggle = () => {
+            // position the element (top left of parent, same width as parent)
+            const elRect = el.getBoundingClientRect();
+            toggleContainer.style.left = `${elRect.left}px`;
+            toggleContainer.style.top = `${elRect.top}px`;
+            toggleContainer.style.width = `${elRect.width}px`;
+          };
 
-            // Handle positioning of the toggle
-            window.addEventListener(
-              "resize",
-              throttle(() => {
-                positionToggle();
-              }, 50)
-            );
-            positionToggle();
+          // Get rid of any expanded toggle if the user scrolls
+          window.document.addEventListener(
+            "scroll",
+            throttle(() => {
+              closeToggle();
+            }, 50)
+          );
 
-            // Process the click
-            clickEl.onclick = () => {
-              if (!tocShowing) {
-                toggleContainer.classList.add("expanded");
-                toggleContents.style.height = null;
-                tocShowing = true;
-              } else {
-                closeToggle();
-              }
-            };
+          // Handle positioning of the toggle
+          window.addEventListener(
+            "resize",
+            throttle(() => {
+              positionToggle();
+            }, 50)
+          );
+          positionToggle();
 
-            isVisible = false;
+          // Process the click
+          clickEl.onclick = () => {
+            if (!tocShowing) {
+              toggleContainer.classList.add("expanded");
+              toggleContents.style.height = null;
+              tocShowing = true;
+            } else {
+              closeToggle();
+            }
+          };
+        };
+
+        // Converts a sidebar from a menu back to a sidebar
+        const convertToSidebar = () => {
+          for (const child of el.children) {
+            child.style.opacity = 1;
+          }
+
+          const placeholderEl = window.document.getElementById(
+            placeholderDescriptor.id
+          );
+          if (placeholderEl) {
+            placeholderEl.remove();
+          }
+
+          el.classList.remove("rollup");
+        };
+
+        if (isReaderMode()) {
+          convertToMenu();
+          isVisible = false;
+        } else {
+          if (!isVisible) {
+            // If the element is current not visible reveal if there are
+            // no conflicts with overlay regions
+            if (!inHiddenRegion(elTop, elBottom, hiddenRegions)) {
+              convertToSidebar();
+              isVisible = true;
+            }
+          } else {
+            // If the element is visible, hide it if it conflicts with overlay regions
+            // and insert a placeholder toggle (or if we're in reader mode)
+            if (inHiddenRegion(elTop, elBottom, hiddenRegions)) {
+              convertToMenu();
+              isVisible = false;
+            }
           }
         }
       }
     };
   };
+
+  // Find any conflicting margin elements and add margins to the
+  // top to prevent overlap
+  const marginChildren = window.document.querySelectorAll(
+    ".column-margin.column-container > * "
+  );
+  let lastBottom = 0;
+  for (const marginChild of marginChildren) {
+    const top = marginChild.getBoundingClientRect().top;
+    if (top < lastBottom) {
+      const margin = lastBottom - top;
+      marginChild.style.marginTop = `${margin}px`;
+    }
+    lastBottom = top + marginChild.getBoundingClientRect().height;
+  }
 
   // Manage the visibility of the toc and the sidebar
   const marginScrollVisibility = manageSidebarVisiblity(marginSidebarEl, {
@@ -264,6 +411,15 @@ window.document.addEventListener("DOMContentLoaded", function (_event) {
     titleSelector: ".title",
     dismissOnClick: false,
   });
+  let tocLeftScrollVisibility;
+  if (leftTocEl) {
+    tocLeftScrollVisibility = manageSidebarVisiblity(leftTocEl, {
+      id: "quarto-lefttoc-toggle",
+      titleSelector: "#toc-title",
+      dismissOnClick: true,
+    });
+  }
+
   // Find the first element that uses formatting in special columns
   const conflictingEls = window.document.body.querySelectorAll(
     '[class^="column-"], [class*=" column-"], aside, [class*="margin-caption"], [class*=" margin-caption"], [class*="margin-ref"], [class*=" margin-ref"]'
@@ -325,7 +481,75 @@ window.document.addEventListener("DOMContentLoaded", function (_event) {
   const hideOverlappedSidebars = () => {
     marginScrollVisibility(toRegions(rightSideConflictEls));
     sidebarScrollVisiblity(toRegions(leftSideConflictEls));
+    if (tocLeftScrollVisibility) {
+      tocLeftScrollVisibility(toRegions(leftSideConflictEls));
+    }
   };
+
+  window.quartoToggleReader = () => {
+    // Applies a slow class (or removes it)
+    // to update the transition speed
+    const slowTransition = (slow) => {
+      const manageTransition = (id, slow) => {
+        const el = document.getElementById(id);
+        if (el) {
+          if (slow) {
+            el.classList.add("slow");
+          } else {
+            el.classList.remove("slow");
+          }
+        }
+      };
+
+      manageTransition("TOC", slow);
+      manageTransition("quarto-sidebar", slow);
+    };
+
+    const readerMode = !isReaderMode();
+    setReaderModeValue(readerMode);
+
+    // If we're entering reader mode, slow the transition
+    if (readerMode) {
+      slowTransition(readerMode);
+    }
+    highlightReaderToggle(readerMode);
+    hideOverlappedSidebars();
+
+    // If we're exiting reader mode, restore the non-slow transition
+    if (!readerMode) {
+      slowTransition(!readerMode);
+    }
+  };
+
+  const highlightReaderToggle = (readerMode) => {
+    const els = document.querySelectorAll(".quarto-reader-toggle");
+    if (els) {
+      els.forEach((el) => {
+        if (readerMode) {
+          el.classList.add("reader");
+        } else {
+          el.classList.remove("reader");
+        }
+      });
+    }
+  };
+
+  const setReaderModeValue = (val) => {
+    if (window.location.protocol !== "file:") {
+      window.localStorage.setItem("quarto-reader-mode", val);
+    } else {
+      localReaderMode = val;
+    }
+  };
+
+  const isReaderMode = () => {
+    if (window.location.protocol !== "file:") {
+      return window.localStorage.getItem("quarto-reader-mode") === "true";
+    } else {
+      return localReaderMode;
+    }
+  };
+  let localReaderMode = null;
 
   // Walk the TOC and collapse/expand nodes
   // Nodes are expanded if:
@@ -379,20 +603,25 @@ window.document.addEventListener("DOMContentLoaded", function (_event) {
         updateActiveLink();
         walk(tocEl, 0);
       }
-      hideOverlappedSidebars();
+      if (!isReaderMode()) {
+        hideOverlappedSidebars();
+      }
     }, 5)
   );
   window.addEventListener(
     "resize",
     throttle(() => {
-      hideOverlappedSidebars();
+      if (!isReaderMode()) {
+        hideOverlappedSidebars();
+      }
     }, 10)
   );
   hideOverlappedSidebars();
+  highlightReaderToggle(isReaderMode());
 });
 
 function throttle(func, wait) {
-  var waiting = false;
+  let waiting = false;
   return function () {
     if (!waiting) {
       func.apply(this, arguments);
