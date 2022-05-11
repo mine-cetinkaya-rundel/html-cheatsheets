@@ -3,6 +3,7 @@ title: "Data import with the tidyverse :: Cheat Sheet"
 format: 
   html:
     toc: true
+    highlight-style: a11y-dark
 editor: visual
 ---
 
@@ -519,3 +520,4 @@ fs::file_delete(
   "googlesheet.csv")
 )
 ```
+
