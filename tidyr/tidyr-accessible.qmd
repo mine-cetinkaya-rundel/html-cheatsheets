@@ -1,0 +1,414 @@
+---
+title: "Data tidying with tidyr :: Cheat Sheet"
+format: 
+  html:
+    toc: true
+    highlight-style: a11y-dark
+editor: visual
+---
+
+<!-- Page 1 -->
+
+```{r}
+#| include: false
+library(tidyr)
+library(tibble)
+library(dplyr)
+```
+
+**Tidy data** is a way to organize tabular data in a consistent data structure across packages. A table is tidy if:
+
+-   Each **variable** is in its own **column**
+-   Each **observation**, or **case**, is in its own **row**
+-   Access **variables** as **vectors**
+-   Preserve **cases** in vectorized operations
+
+## Tibbles
+
+### An Enhanced Data Frame
+
+Tibbles are a table format provided by the **tibble** package. They inherit the data frame class, but have improved behaviors:
+
+-   **Subset** a new tibble with `]`, a vector with `[[` and `$`.
+
+-   **No partial matching** when subsetting columns.
+
+-   **Display** concise views of the data on one screen.
+
+-   `options(tibble.print_max = n, tibble.print_min = m, tibble.width = Inf)`: Control default display settings.
+
+-   `View()` or `glimpse()`: View the entire data set.
+
+### Construct a Tibble
+
+-   `tibble(...)`: Construct by columns.
+
+    ```{r}
+    #| eval: false
+    tibble(x = 1:3, 
+           y = c("a", "b", "c"))
+    ```
+
+    -   A tibble will look like the following. The two dimensions (3 x 2) make this a tibble:
+
+        ```{r echo = FALSE}
+        example_tibble <- tibble(x = 1:3, y = c("a", "b", "c"))
+        print(example_tibble)
+        ```
+
+-   `tribble(...)`: Construct by rows.
+
+    ```{r}
+    #| eval: false
+    tibble(~x, ~y,
+           1, "a",
+           2, "b",
+           3, "c")
+    ```
+
+-   `as_tibble(x, ...)`: Convert a data frame to a tibble.
+
+-   `enframe(x, name = "name", value = "value")`: Convert a named vector to a tibble. Also `deframe()`.
+
+-   `is_tibble(x)`: Test whether x is a tibble.
+
+## Reshape Data
+
+Pivot data to reorganize values into a new layout.
+
+-   `pivot_longer(data, cols, name_to = "name", values_to = "value", values_drop_na = FALSE)`: "Lengthen" data by collapsing several columns into two. Column names move to a new `names_to` column and values to a new `values_to` column.
+
+    ```{r}
+    #| eval: false
+    pivot_longer(table4a, cols = 2:3, names_to = "year", values_to = "cases")
+    ```
+
+    -   The initial `table4a` looks like the following:
+
+        ```{r echo = FALSE}
+        table4a <- tibble(country = c("A", "B", "C"),
+                          `1999` = c(700, 37000, 212000),
+                          `2000` = c(2000, 80000, 213000))
+        print(table4a)
+        ```
+
+    -   The output of `pivot_longer()` will look like the following:
+
+        ```{r echo = FALSE}
+        table4a <- tibble(country = c("A", "B", "C"),
+                          `1999` = c(700, 37000, 212000),
+                          `2000` = c(2000, 80000, 213000))
+        table4a_pivot <- pivot_longer(table4a, cols = 2:3, names_to = "year", values_to = "cases")
+        print(table4a_pivot)
+        ```
+
+-   `pivot_wider(data, name_from = "name", values_from = "value")`: The inverse of `pivot_longer()`. "Widen" data by expanding two columns into several. One column provides the new column names, the other the values.
+
+    ```{r}
+    #| eval: false
+    pivot_wider(table2, names_from = type, values_from = count)
+    ```
+
+    -   The initial `table2` looks like the following:
+
+        ```{r echo = FALSE}
+        table2 <- tibble(country = c("A", "A", "A", "A", "B", "B", "B", "B", "C", "C", "C", "C"),
+                         year = c(1999, 1999, 2000, 2000, 1999, 1999, 2000, 2000, 1999, 1999, 2000, 2000),
+                         type = c("cases", "pop", "cases", "pop", "cases", "pop", "cases", "pop", "cases", "pop", "cases", "pop"),
+                         count = c("0.7K", "19M", "2K", "20M", "37K", "172M", "80K", "174M", "212K", "1T", "213K", "1T"))
+        print(table2)
+        ```
+
+    -   The output of `pivot_wider()` will look like the following:
+
+        ```{r echo = FALSE}
+        table2 <- tibble(country = c("A", "A", "A", "A", "B", "B", "B", "B", "C", "C", "C", "C"),
+                         year = c(1999, 1999, 2000, 2000, 1999, 1999, 2000, 2000, 1999, 1999, 2000, 2000),
+                         type = c("cases", "pop", "cases", "pop", "cases", "pop", "cases", "pop", "cases", "pop", "cases", "pop"),
+                         count = c("0.7K", "19M", "2K", "20M", "37K", "172M", "80K", "174M", "212K", "1T", "213K", "1T"))
+        table2_pivot <- pivot_wider(table2, names_from = type, values_from = count)
+        print(table2_pivot)
+        ```
+
+## Split Cells
+
+Use these functions to split or combine cells into individual, isolated values.
+
+-   `unite(data, col, ..., sep = "_", remove = TRUE, na.rm = FALSE)`: Collapse cells across several columns into a single column.
+
+    ```{r}
+    #| eval: false
+    unite(table5, century, year, col = "year", sep = "")
+    ```
+
+    -   The initial `table5` looks like the following:
+
+        ```{r echo = FALSE}
+        table5 <- tibble(country = c("A", "A", "B", "B"),
+                         century = c("19", "20", "19", "20"),
+                         year = c("99", "00", "99", "00"))
+        print(table5)
+        ```
+
+    -   The output of `unite()` will look like the following:
+
+        ```{r echo = FALSE}
+        table5 <- tibble(country = c("A", "A", "B", "B"),
+                         century = c("19", "20", "19", "20"),
+                         year = c("99", "00", "99", "00"))
+        table5_unite <- unite(table5, century, year, col = "year", sep = "")
+        print(table5_unite)
+        ```
+
+-   `separate(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE, convert = FALSE, extra = "warn", fill = "warn", ...)`: Separate each cell in a column into several columns. Also `extract()`.
+
+    ```{r}
+    #| eval: false
+    separate(table3, rate, sep = "/", into = c("cases", "pop"))
+    ```
+
+    -   The initial `table3` looks like the following:
+
+        ```{r echo = FALSE}
+        table3 <- tibble(country = c("A", "A", "B", "B"),
+                         year = c(1999, 2000, 1999, 2000),
+                         rate = c("0.7K/19M", "2K/20M", "37K/172M", "80K/174M"))
+        print(table3)
+        ```
+
+    -   The output of `separate()` will look like the following:
+
+        ```{r echo = FALSE}
+         table3 <- tibble(country = c("A", "A", "B", "B"),
+                         year = c(1999, 2000, 1999, 2000),
+                         rate = c("0.7K/19M", "2K/20M", "37K/172M", "80K/174M"))
+        table3_separate <- separate(table3, rate, sep = "/", into = c("cases", "pop"))
+        print(table3_separate)
+        ```
+
+-   `separate_rows(data, ..., sep = "[^[:alnum:].]+", convert = FALSE)`: Separate each cell in a column into several rows.
+
+    ```{r}
+    #| eval: false
+    separate_rows(table3, rate, sep = "/")
+    ```
+
+    -   The initial `table3` looks like the following:
+
+        ```{r echo = FALSE}
+        table3 <- tibble(country = c("A", "A", "B", "B"),
+                         year = c(1999, 2000, 1999, 2000),
+                         rate = c("0.7K/19M", "2K/20M", "37K/172M", "80K/174M"))
+        print(table3)
+        ```
+
+    -   The output of `separate_rows()` will look like the following:
+
+        ```{r echo = FALSE}
+         table3 <- tibble(country = c("A", "A", "B", "B"),
+                         year = c(1999, 2000, 1999, 2000),
+                         rate = c("0.7K/19M", "2K/20M", "37K/172M", "80K/174M"))
+        table3_separate2 <- separate_rows(table3, rate, sep = "/")
+        print(table3_separate2)
+        ```
+
+## Expand Tables
+
+Create new combinations of variables or identify implicit missing values (combinations of variables not present in the data).
+
+-   `expand(data, ...)`: Create a new tibble with all possible combinations of the values of the variables listed in ... Drop other variables.
+
+    ```{r}
+    #| eval: false
+    expand(mtcars, cyl, gear, carb)
+    ```
+
+-   `complete(data, ..., fill = list())`: Add missing possible combinations of values of variables listed in ... Fill remaining variables with NA.
+
+    ```{r}
+    #| eval: false
+    complete(mycars, cyl, gear, carb)
+    ```
+
+## Handle Missing Values
+
+Drop or replace explicit missing values (NA).
+
+-   `drop_na(data, ...)`: Drop rows containing NA's in ... columns.
+
+    ```{r}
+    #| eval: false
+    drop_na(x, x2)
+    ```
+
+-   `fill(data, ..., .direction = "down")`: Fill in NA's in ... columns using the next or previous value.
+
+    ```{r}
+    #| eval: false
+    fill(x, x2)
+    ```
+
+-   `replace_na(data, replace)`: Specify a valye to replace NA in selected columns.
+
+    ```{r}
+    #| eval: false
+    replace_na(x, list(x2 = 2))
+    ```
+
+<!-- Page 2 -->
+
+## Nested Data
+
+A **nested data frame** stores individual tables as a list-column of data frames within a larger organizing data frame. List-columns can also be lists of vectors or lists of varying data types. Use a nested data frame to:
+
+-   Preserve relationships between observations and subsets of data. Preserve the type of the variables being nested (factors and datetimes aren't coerced to character).
+-   Manipulate many sub-tables are once with **purrr** functions like `map()`, `map2()`, or `pmap()` or with **dplyr** `rowwise()` grouping.
+
+### Create Nested Data
+
+-   `nest(data, ...)`: Moves groups of cells into a list-column of a data frame. Use alone or with `dplyr::group_by()`.
+
+1.  Group the data frame with `group_by()` and use `nest()` to move the groups into a list-column.
+
+    ```{r}
+    #| eval: false
+    n_storms <- storms %>%
+      group_by(name) %>%
+      nest()
+    ```
+
+2.  Use `nest(new_col = c(x,y))` to specify the columns to group using `dplyr::select()` syntax.
+
+    ```{r}
+    #| eval: false
+    n_storms <- storms %>%
+      nest(data = c(year:long))
+    ```
+
+-   Index list-columns with `[[]]`.
+
+    ```{r}
+    #| eval: false
+    n_storms$data[[1]]
+    ```
+
+### Create Tibbles With List-Columns
+
+-   `tibble::tribble(...)`: Makes list-columns when needed.
+
+    ```{r}
+    #| eval: false
+    tribble(~max, ~seq,
+            3, 1:3,
+            4, 1:4,
+            5, 1:5)
+    ```
+
+-   `tibble::tibble(...)`: Saves list input as list-columns.
+
+    ```{r}
+    #| eval: false
+    tibble(max = c(3,4,5),
+           seq = list(1:3, 1:4, 1:5))
+    ```
+
+-   `tibble::enframe(x, name = "name", value = "value")`: Converst multi-level list to a tibble with list-cols.
+
+    ```{r}
+    #| eval: false
+    enframe(list("3" = 1:3, "4" = 1:4, "5" = 1:5), "max", "seq")
+    ```
+
+### Output List-Columns From Other Functions
+
+-   `dplyr::mutate()`, `transmute()`, and `summarise()` will output list-columns if they return a list.
+
+    ```{r}
+    #| eval: false
+    mtcars %>%
+      group_by(cyl) %>%
+      summarise(q = list(quantile(mpg)))
+    ```
+
+### Reshape Nested Data
+
+-   `unnest(data, cols, ..., keep_empty = FALSE)`: Flatten nested columns back to regular columns. The inverse of `nest()`.
+
+    ```{r}
+    #| eval: false
+    n_storms %>% unnest(data)
+    ```
+
+-   `unnest_longer(data, col, values_to = NULL, indices_to = NULL)`: Turn each element of a list-column into a row.
+
+    ```{r}
+    #| eval: false
+    starwars %>%
+      select(name, films) %>%
+      unnest_longer(films)
+    ```
+
+-   `unnest_wider(data, col)`: Turn each element of a list-column into a regular column.
+
+    ```{r}
+    #| eval: false
+    starwars %>%
+      select(name, films) %>%
+      unnest_wider(films)
+    ```
+
+-   `hoist(.data, .col, ..., remove = TRUE)`: Selectively pull list components out into their own top-level columns. Uses `purrr::pluck()` syntax for selecting from lists.
+
+    ```{r}
+    #| eval: false
+    starwars %>%
+      select(name, films) %>%
+      hoist(films, first_film = 1, second_film = 2)
+    ```
+
+### Transform Nested Data
+
+A vectorized function takes a vector, transforms each element in parallel, and returns a vector of the same length. By themselves vectorized functions cannot work with lists, such as list-columns.
+
+-   `dplyr::rowwise(.data, ...)`: Group data so that each row is one group, and within the groups, elements of list-columns appear directly (accessed with `[[`), not as lists of length one. **When you use rowwise(), dplyr functions will seem to apply functions to list-columns in a vectorized fashion.**
+
+-   Apply a function to a list-column and **create a new list-column.** In this example, `dim()` returns two values per row and so is wrapped with `list()` to tell `mutate()` to create a list-column.
+
+    ```{r}
+    #| eval: false
+    n_storms %>%
+      rowwise() %>%
+      mutate(n = list(dim(data))) # dim() returns two values per row
+      # wrap with list to tell mutate to create a list-column
+    ```
+
+-   Apply a function to a list-column and **create a regular column.** In this example, `nrow()` returns one integer per row.
+
+    ```{r}
+    #| eval: false
+    n_storms() %>%
+      rowwise() %>%
+      mutate(n = nrow(data)) # nrow() returns one integer per row
+    ```
+
+-   Collapse **multiple list-columns** into a single list-column. In this example, `append()` returns a list for each row, so col type must be list.
+
+    ```{r}
+    #| eval: false
+    starwars %>%
+      rowwise() %>%
+      mutate(transport = list(append(vehicles, starships)))
+      # append() returns a list for each row, so col type must be list
+    ```
+
+-   Apply a function to **multiple list-columns.** In this example, `length()` returns one integer per row.
+
+    ```{r}
+    #| eval: false
+    starwars %>%
+      rowwise() %>%
+      mutate(n_transports = length(c(vehicles, starships)))
+      # length() returns one integer per row
+    ```
+
+-   See **purrr** package for more list functions.
