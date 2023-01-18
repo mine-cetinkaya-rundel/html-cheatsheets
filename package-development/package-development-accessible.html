@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Package Development :: Cheat Sheet</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="package-development-accessible_files/libs/clipboard/clipboard.min.js"></script>
+<script src="package-development-accessible_files/libs/quarto-html/quarto.js"></script>
+<script src="package-development-accessible_files/libs/quarto-html/popper.min.js"></script>
+<script src="package-development-accessible_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="package-development-accessible_files/libs/quarto-html/anchor.min.js"></script>
+<link href="package-development-accessible_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="package-development-accessible_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="package-development-accessible_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="package-development-accessible_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="package-development-accessible_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#package-structure" id="toc-package-structure" class="nav-link active" data-scroll-target="#package-structure">Package Structure</a></li>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting Started</a></li>
+  <li><a href="#workflow" id="toc-workflow" class="nav-link" data-scroll-target="#workflow">Workflow</a></li>
+  <li><a href="#r" id="toc-r" class="nav-link" data-scroll-target="#r">R/</a></li>
+  <li><a href="#description" id="toc-description" class="nav-link" data-scroll-target="#description">DESCRIPTION</a></li>
+  <li><a href="#namespace" id="toc-namespace" class="nav-link" data-scroll-target="#namespace">NAMESPACE</a></li>
+  <li><a href="#man" id="toc-man" class="nav-link" data-scroll-target="#man">man/</a>
+  <ul class="collapse">
+  <li><a href="#roxygen2" id="toc-roxygen2" class="nav-link" data-scroll-target="#roxygen2">roxygen2</a></li>
+  </ul></li>
+  <li><a href="#vignettes" id="toc-vignettes" class="nav-link" data-scroll-target="#vignettes">vignettes/</a></li>
+  <li><a href="#websites-with-pkgdown" id="toc-websites-with-pkgdown" class="nav-link" data-scroll-target="#websites-with-pkgdown">Websites with pkgdown</a></li>
+  <li><a href="#readme.rmd-news.md" id="toc-readme.rmd-news.md" class="nav-link" data-scroll-target="#readme.rmd-news.md">README.Rmd + NEWS.md</a></li>
+  <li><a href="#tests" id="toc-tests" class="nav-link" data-scroll-target="#tests">tests/</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">data/</a></li>
+  <li><a href="#package-states" id="toc-package-states" class="nav-link" data-scroll-target="#package-states">Package States</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Package Development :: Cheat Sheet</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Visit <a href="r-pkgs.org">r-pkgs.org</a> to learn more about writing and publishing packages for R.</p>
+<section id="package-structure" class="level2">
+<h2 class="anchored" data-anchor-id="package-structure">Package Structure</h2>
+<p>A package is a convention for organizing files into directories. This cheat sheet shows how to work with the 7 most common parts of an R package:</p>
+<ul>
+<li>DESCRIPTION: Set up metadata and organize package functions</li>
+<li>NAMESPACE</li>
+<li>R/: Write R code for your package</li>
+<li>tests/: Verify your code is correct</li>
+<li>man/</li>
+<li>vignettes/: Document your code and write tutorials and how-tos</li>
+<li>data/: Include data sets in your package</li>
+</ul>
+<p>There are multiple packages useful to package development, including <code>usethis</code> which handily automates many of the more repetitive tasks, Load and install <code>devtools</code> which wraps together several of these packages to access everything in one step.</p>
+</section>
+<section id="getting-started" class="level2">
+<h2 class="anchored" data-anchor-id="getting-started">Getting Started</h2>
+<p>Once per machine:</p>
+<ul>
+<li><p>Get set up with <code>use_r_profile()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">iteractive</span>()) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">require</span>(<span class="st">"devtools"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># automatically attaches usethis</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p><code>create_github_token()</code>: Set up GitHub credentials.</p></li>
+<li><p><code>git_vaccinate()</code>: Ignores common special files.</p></li>
+</ul>
+<p>Once per package:</p>
+<ul>
+<li><p><code>use_git()</code>: Activate git.</p></li>
+<li><p><code>use_github()</code>: Connect to GitHub.</p></li>
+<li><p><code>use_github_actions()</code>: Set up automated checks.</p></li>
+</ul>
+<p>Having problems with git? Get a situation report with <code>git_sitrep()</code>.</p>
+</section>
+<section id="workflow" class="level2">
+<h2 class="anchored" data-anchor-id="workflow">Workflow</h2>
+<p>TODO diagram</p>
+<ul>
+<li><p><code>load_all()</code> or <code>Ctrl/Cmd + Shift + L</code>: Load code.</p></li>
+<li><p><code>document()</code> or <code>Ctrl/Cmd + Shift + D</code>: Rebuild docs and NAMESPACE.</p></li>
+<li><p><code>test()</code> or <code>Ctrl/Cmd + Shift + T</code>: Run tests.</p></li>
+<li><p><code>check()</code> or <code>Ctrl/Cmd + Shift + E</code>: Check complete package.</p></li>
+</ul>
+</section>
+<section id="r" class="level2">
+<h2 class="anchored" data-anchor-id="r">R/</h2>
+<p>All of the R code in your package goes in <code>R/</code>. A package with just an <code>R/</code> directory is still a very useful package.</p>
+<ul>
+<li><p>Create a new package project with <code>create_package("path/to/name")</code>.</p></li>
+<li><p>Create R files with <code>use_r("file-name")</code>.</p></li>
+<li><p>Follow the tidyverse style guide at <a href="style.tidyverse.org" title="Tidyverse style guide">style.tidyverse.org</a></p></li>
+<li><p>Click on a function and press <code>F2</code> to open its definition</p></li>
+<li><p>Find a function or file with <code>Ctrl + .</code></p></li>
+</ul>
+</section>
+<section id="description" class="level2">
+<h2 class="anchored" data-anchor-id="description">DESCRIPTION</h2>
+<p>The DESCRIPTION file describes your work, sets up how your package will work with other packages, and applies a license.</p>
+<ul>
+<li><p>Pick a license with <code>use_mit_license()</code>, <code>use_gpl3_license()</code>, <code>use_proprietary_license()</code>.</p></li>
+<li><p>Add packages that you need with <code>use_package()</code>.</p></li>
+</ul>
+<p><strong>Import</strong> packages users of your packages need. R will install them when it installs your package.</p>
+<p><strong>Suggest</strong> packages that developers of your package need. Users can install or not, as they like.</p>
+</section>
+<section id="namespace" class="level2">
+<h2 class="anchored" data-anchor-id="namespace">NAMESPACE</h2>
+<p>The <code>NAMESPACE</code> file helps you make your packages self-contained: it won’t interfere with other packages, and other packages won’t interfere with it.</p>
+<ul>
+<li><p>Export functions for users by placing <code>@export</code> in their roxygen comments.</p></li>
+<li><p>Access objects from other packages with <code>package::object</code> or <code>@importFrom package object</code> (recommended) or <code>@import package</code> (use with caution).</p></li>
+<li><p>Call <code>document()</code> to generate <code>NAMESPACE</code> and <code>load_all()</code> to reload.</p></li>
+</ul>
+<table class="table">
+<caption>Table comparing features/purpose of DESCRIPTION (left column) vs NAMESPACE (right column)</caption>
+<thead>
+<tr class="header">
+<th>DESCRIPTION</th>
+<th>NAMESPACE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Makes <strong>packages</strong> available</td>
+<td>Makes <strong>functions</strong> available</td>
+</tr>
+<tr class="even">
+<td>Mandatory</td>
+<td>Optional (can use <code>::</code> instead)</td>
+</tr>
+<tr class="odd">
+<td><code>use_package()</code></td>
+<td><code>use_import_from()</code></td>
+</tr>
+</tbody>
+</table>
+<!-- Page 2 -->
+</section>
+<section id="man" class="level2">
+<h2 class="anchored" data-anchor-id="man">man/</h2>
+<p>The documentation will become the help pages in your package.</p>
+<ul>
+<li><p>Document each function with a roxygen block above its definition. In RStudio, <strong>Code &gt; Insert Roxygen Skeleton</strong> helps.</p></li>
+<li><p>Document each data set with an roxygen block above the name of the data set in quotes.</p></li>
+<li><p>Document the package with <code>use_package_doc()</code>.</p></li>
+</ul>
+<section id="roxygen2" class="level3">
+<h3 class="anchored" data-anchor-id="roxygen2">roxygen2</h3>
+<p>The <strong>roxygen2</strong> package lets you write documentation inline in your .R files with shorthand syntax.</p>
+<ul>
+<li><p>Add roxygen documentation as comments beginning with <code>#'</code>.</p></li>
+<li><p>Place an roxygen <code>@</code> tag (right) after <code>#'</code> to supply a specific section of documentation.</p></li>
+<li><p>Untagged paragraphs will be used to generate a title, description, and details section (in that order).</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Add together two numbers</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#' </span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param x A number.</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param y A number.</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#' @returns The sum of `x` and `y`</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#' @export</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#' @examples</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#' add(1, 1)</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>add <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">+</span> y</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="common-roxygen-tags" class="level4">
+<h4 class="anchored" data-anchor-id="common-roxygen-tags">Common roxygen Tags:</h4>
+<ul>
+<li><code>@examples</code></li>
+<li><code>@export</code></li>
+<li><code>@param</code></li>
+<li><code>@returns</code></li>
+</ul>
+<p>Also:</p>
+<ul>
+<li><p><code>@description</code></p></li>
+<li><p><code>@exampleslf</code></p></li>
+<li><p><code>@family</code></p></li>
+<li><p><code>@inheritParams</code></p></li>
+<li><p><code>@rdname</code></p></li>
+<li><p><code>@seealso</code></p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="vignettes" class="level2">
+<h2 class="anchored" data-anchor-id="vignettes">vignettes/</h2>
+<ul>
+<li>Create a vignette that is included with your package with <code>use_vignette()</code>.</li>
+<li>Create an article that only appears on the website with <code>use_article()</code>.</li>
+<li>Write the body of your vignettes in R Markdown.</li>
+</ul>
+</section>
+<section id="websites-with-pkgdown" class="level2">
+<h2 class="anchored" data-anchor-id="websites-with-pkgdown">Websites with pkgdown</h2>
+<ul>
+<li>Use GitHub and <code>use_pkgdown_github_pages()</code> to set up pkgdown and configure an automated workflow using GitHub Actions and Pages.</li>
+<li>If you’re not using GitHub, call <code>use_pkgdown()</code> to configure pkgdown. Then build locally with <code>pkgdown::build_site()</code>.</li>
+</ul>
+</section>
+<section id="readme.rmd-news.md" class="level2">
+<h2 class="anchored" data-anchor-id="readme.rmd-news.md">README.Rmd + NEWS.md</h2>
+<ul>
+<li>Create a README and NEWS markdown files with <code>use_readme_rmd()</code> and <code>use_news_md()</code>.</li>
+</ul>
+</section>
+<section id="tests" class="level2">
+<h2 class="anchored" data-anchor-id="tests">tests/</h2>
+<ul>
+<li>Create a test file with <code>use_test()</code>.</li>
+<li>Write tests with <code>test_that()</code> and <code>expect_()</code>.</li>
+<li>Run all tests with <code>test()</code> and run tests for current file with <code>test_active_file()</code>.</li>
+<li>See coverage of all files with <code>test_coverage()</code> and see coverage of current file with <code>test_coverage_active_file()</code>.</li>
+</ul>
+<table class="table">
+<caption>Table of expect functions and what each one tests</caption>
+<thead>
+<tr class="header">
+<th>Expect statement</th>
+<th>Tests</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>expect_equal()</code></td>
+<td>Is equal? (within numerical tolerance)</td>
+</tr>
+<tr class="even">
+<td><code>expect_error()</code></td>
+<td>Throws specified error?</td>
+</tr>
+<tr class="odd">
+<td><code>expect_snapshot()</code></td>
+<td>Output is unchanged?</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">"Math works"</span>, {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">data/</h2>
+<ul>
+<li>Record how a data set was prepared as an R script and save that script to <code>data-raw/</code> with <code>use_data_raw()</code>.</li>
+<li>Save a prepared data object to <code>data/</code> with <code>use_data()</code>.</li>
+</ul>
+</section>
+<section id="package-states" class="level2">
+<h2 class="anchored" data-anchor-id="package-states">Package States</h2>
+<p>The contents of a package can be stored on disk as a:</p>
+<ul>
+<li><strong>source</strong> - a directory with sub-directories (as shown in Package Structure)</li>
+<li><strong>bundle</strong> - a single compressed file (.tar.gz)</li>
+<li><strong>binary</strong> - a single compressed file optimized for a specific OS</li>
+</ul>
+<p>Packages exist in those states locally or remotely, e.g.&nbsp;on CRAN or on GitHub.</p>
+<p>From those states, a package can be installed into an R library an then loaded into memory during an R session.</p>
+<p>Use the functions below to move between these states:</p>
+<ul>
+<li><code>install.packages()</code>: CRAN repository to Binary.</li>
+<li><code>install.packages(type = "source")</code>: CRAN repository to Bundle.</li>
+<li><code>R CMD install</code>: Source, Binary, or Bundle to Installed.</li>
+<li><code>install()</code>: Reinstall/Reload a Source package.</li>
+<li><code>build()</code>: Source to Bundle</li>
+<li><code>install_github()</code>: GitHub repository to Source</li>
+<li><code>load_all()</code>: Source to Memory.</li>
+<li><code>Install &amp; Restart (RStudio)</code>: Source to Installed to Memory.</li>
+<li><code>library()</code>: Installed to Memory.</li>
+</ul>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
