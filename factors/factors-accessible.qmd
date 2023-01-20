@@ -11,7 +11,9 @@ The **forcats** package provides tools for working with factors, which are R's d
 
 ## Factors
 
-R represents categorical data with factors. A **factor** is an integer vector with a **levels** attribute that stores a set of mappings between integers and categorical values. When you view a factor, R displays not the integers but the levels associated with them.
+R represents categorical data with factors.
+A **factor** is an integer vector with a **levels** attribute that stores a set of mappings between integers and categorical values.
+When you view a factor, R displays not the integers but the levels associated with them.
 
 For example, R will display `c("a", "c", "b", "a")` with levels `c("a", "b", "c")` but will store `c(1, 3, 2, 1)` where 1 = a, 2 = b, and 3 = c.
 
@@ -33,7 +35,8 @@ unclass(f)
 
 Create a factor with `factor()`
 
--   `factor(x = character(), levels, labels = levels, exclude = NA, ordered = is.ordered(x), nmax = NA)`: Convert a vector to a factor. Also `as_factor()`.
+-   `factor(x = character(), levels, labels = levels, exclude = NA, ordered = is.ordered(x), nmax = NA)`: Convert a vector to a factor.
+    Also `as_factor()`.
 
     ```{r}
     #| eval: false
@@ -82,7 +85,8 @@ Use `unclass()` to see its structure.
 
 ## Combine Factors
 
--   `fct_c(...)`: Combine factors with different levels. Also `fct_cross()`.
+-   `fct_c(...)`: Combine factors with different levels.
+    Also `fct_cross()`.
 
     ```{r}
     #| eval: false
@@ -110,7 +114,8 @@ Use `unclass()` to see its structure.
     fct_relevel(f, c("b", "c", "a"))
     ```
 
--   `fct_infreq(f, ordered = NA)`: Reorder levels by the frequency in which they appear in the data (highest frequency first). Also `fct_inseq()`.
+-   `fct_infreq(f, ordered = NA)`: Reorder levels by the frequency in which they appear in the data (highest frequency first).
+    Also `fct_inseq()`.
 
     ```{r}
     #| eval: false
@@ -157,8 +162,7 @@ Use `unclass()` to see its structure.
     ```{r}
     #| eval: false
 
-    boxplot(data = PlantGrowth,
-            weight ~ reorder(group, weight))
+    boxplot(data = PlantGrowth, weight ~ reorder(group, weight))
     ```
 
 -   `fct_reorder2(.f, .x, .y, .fun = last2, ..., .desc = TRUE)`: Reorder levels by their final values when plotted with two other variables.
@@ -166,14 +170,17 @@ Use `unclass()` to see its structure.
     ```{r}
     #| eval: false
 
-    ggplot(diamonds,aes(carat, price,
-                        color = fct_reorder2(color, carat,
-                                             price))) + geom_smooth()
+    ggplot(
+      diamonds,
+      aes(carat, price, color = fct_reorder2(color, carat, price))
+      ) + 
+      geom_smooth()
     ```
 
 ## Change the value of levels
 
--   `fct_recode(.f, ...)`: Manually change levels. Also `fct_relabel()` which obeys `purrr::map` syntax to apply a function or expression to each level.
+-   `fct_recode(.f, ...)`: Manually change levels.
+    Also `fct_relabel()` which obeys `purrr::map` syntax to apply a function or expression to each level.
 
     ```{r}
     #| eval: false
@@ -198,7 +205,8 @@ Use `unclass()` to see its structure.
     fct_collapse(f, x = c("a", "b"))
     ```
 
--   `fct_lump_min(f, min, w = NULL, other_level = "Other")`: Lumps together factors that appear fewer than `min` times. Also `fct_lump_n()`, `fct_lump_prop()`, and `fct_lump_lowfreq()`.
+-   `fct_lump_min(f, min, w = NULL, other_level = "Other")`: Lumps together factors that appear fewer than `min` times.
+    Also `fct_lump_n()`, `fct_lump_prop()`, and `fct_lump_lowfreq()`.
 
     ```{r}
     #| eval: false
