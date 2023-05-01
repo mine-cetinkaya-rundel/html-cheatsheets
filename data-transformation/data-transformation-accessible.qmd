@@ -5,53 +5,61 @@ format:
     toc: true
     highlight-style: a11y-dark
 editor: visual
+execute:
+  eval: true
+  output: false
+  warning: false
 ---
+
+```{r}
+library(dplyr)
+library(tibble)
+```
 
 <!-- PAGE 1 -->
 
-**dplyr** functions work with pipes and expect **tidy data**. In tidy data:
+**dplyr** functions work with pipes and expect **tidy data**.
+In tidy data:
 
 -   Each **variable** is in its own **column**
 -   Each **observation**, or **case**, is in its own **row**
 -   **pipes** `x %>% f(y)` becomes `f(x,y)`
 
-## Summarise Cases
+## Summarize Cases
 
-Apply **summary** functions to columns to create a new table of summary statistics. Summary functions take vectors as input and return one value back (see Summary Functions).
+Apply **summary** functions to columns to create a new table of summary statistics.
+Summary functions take vectors as input and return one value back (see Summary Functions).
 
--   `summarise(.data, ...)`: Compute table of summaries.
+-   `summarize(.data, ...)`: Compute table of summaries.
 
     ```{r}
-    #| eval: false
-
-    summarise(mtcars, avg = mean(mpg))
+    summarize(mtcars, avg = mean(mpg))
     ```
 
--   `count(.data, ..., wt = NULL, sort = FLASE, name = NULL)`: Count number of rows in each group defined by the variables in `...`. Also `tally()`.
+-   `count(.data, ..., wt = NULL, sort = FLASE, name = NULL)`: Count number of rows in each group defined by the variables in `...`.
+    Also `tally()`, `add_count()`, and `add_tally()`.
 
     ```{r}
-    #| eval: false
-
     count(mtcars, cyl)
     ```
 
 ## Group Cases
 
--   Use `group_by(.data, ..., .add = FALSE, .drop = TRUE)` to created a "grouped" copy of a table grouped by columns in `...`. dplyr functions will manipulate each "group" separately and combine the results.
+-   Use `group_by(.data, ..., .add = FALSE, .drop = TRUE)` to created a "grouped" copy of a table grouped by columns in `...`.
+    dplyr functions will manipulate each "group" separately and combine the results.
 
     ```{r}
-    #| eval: false
-
     mtcars %>%
       group_by(cyl) %>%
-      summarise(avg = mean(mpg))
+      summarize(avg = mean(mpg))
     ```
 
--   Use `rowwise(.data, ...)` to group data into individual rows. dplyr functions will compute results for each row. Also apply functions to list-columns. See tidyr cheat sheet for list-column workflow.
+-   Use `rowwise(.data, ...)` to group data into individual rows.
+    dplyr functions will compute results for each row.
+    Also apply functions to list-columns.
+    See tidyr cheat sheet for list-column workflow.
 
     ```{r}
-    #| eval: false
-
     starwars %>%
       rowwise() %>%
       mutate(film_count = length(films))
@@ -60,8 +68,9 @@ Apply **summary** functions to columns to create a new table of summary statisti
 -   `ungroup(x, ...)`: Returns ungrouped copy of table.
 
     ```{r}
-    #| eval: false
+    #| include: false
 
+    g_mtcars <- mtcars %>% group_by(cyl)
     ungroup(g_mtcars)
     ```
 
@@ -74,48 +83,37 @@ Row functions return a subset of rows as a new table.
 -   `filter(.data, ..., .preserve = FALSE)`: Extract rows that meet logical criteria.
 
     ```{r}
-    #| eval: false
-
     filter(mtcars, mpg > 20)
     ```
 
 -   `distinct(.data, ..., .keep_all = FALSE)`: Remove rows with duplicate values.
 
     ```{r}
-    #| eval: false
-
     distinct(mtcars, gear)
     ```
 
 -   `slice(.data, ...,, .preserve = FALSE)`: Select rows by position.
 
     ```{r}
-    #| eval: false
-
     slice(mtcars, 10:15)
     ```
 
--   `slice_sample(.data, ..., n, prop, weight_by = NULL, replace = FALSE)`: Randomly select rows. Use `n` to select a number of rows and `prop` to select a fraction of rows.
+-   `slice_sample(.data, ..., n, prop, weight_by = NULL, replace = FALSE)`: Randomly select rows.
+    Use `n` to select a number of rows and `prop` to select a fraction of rows.
 
     ```{r}
-    #| eval: false
-
     slice_sample(mtcars, n = 5, replace = TRUE)
     ```
 
 -   `slice_min(.data, order_by, ..., n, prop, with_ties = TRUE)` and `slice_max()`: Select rows with the lowest and highest values.
 
     ```{r}
-    #| eval: false
-
     slice_min(mtcars, mpg, prop = 0.25)
     ```
 
 -   `slice_head(.data, ..., n, prop)` and `slice_tail()`: Select the first or last rows.
 
     ```{r}
-    #| eval: false
-
     slice_head(mtcars, n = 5)
     ```
 
@@ -141,8 +139,6 @@ Row functions return a subset of rows as a new table.
 -   `arrange(.data, ..., .by_group = FALSE)`: Order rows by values of a column or columns (low to high), use with `desc()` to order from high to low.
 
     ```{r}
-    #| eval: false
-
     arrange(mtcars, mpg)
     arrange(mtcars, desc(mpg))
     ```
@@ -152,8 +148,6 @@ Row functions return a subset of rows as a new table.
 -   `add_row(.data, ..., .before = NULL, .after = NULL)`: Add one or more rows to a table.
 
     ```{r}
-    #| eval: false
-
     add_row(cars, speed = 1, dist = 1)
     ```
 
@@ -166,88 +160,72 @@ Column functions return a set of columns as a new vector or table.
 -   `pull(.data, var = -1, name = NULL, ...)`: Extract column values as a vector, by name or index.
 
     ```{r}
-    #| eval: false
-
     pull(mtcars, wt)
     ```
 
 -   `select(.data, ...)`: Extract columns as a table.
 
     ```{r}
-    #| eval: false
-
     select(mtcars, mpg, wt)
     ```
 
 -   `relocate(.data, ..., .before = NULL, .after = NULL)`: Move columns to new position.
 
     ```{r}
-    #| eval: false
-
     relocate(mtcars, mpg, cyl, after = last_col())
     ```
 
 #### Use these helpers with `select()` and `across()`
 
 ```{r}
-#| eval: false
-    
 select(mtcars, mpg:cyl)
 ```
 
 -   `contains(match)`
 -   `num_range(prefix, range)`
--   `:`, eg. `mpg:cyl`
+-   `:`, e.g., `mpg:cyl`
 -   `ends_with(match)`
 -   `all_of(x)` or `any_of(x, ..., vars)`
--   `-`, eg `-gear`
+-   `!`, e.g., `!gear`
 -   `starts_with(match)`
 -   `matches(match)`
 -   `everything()`
 
 ### Manipulate Multiple Variables at Once
 
--   `across(.cols, .fun, ..., .name = NULL)`: Summarise or mutate multiple columns in the same way.
+```{r}
+df <- tibble(x_1 = c(1, 2), x_2 = c(3, 4), y = c(4, 5))
+```
+
+-   `across(.cols, .fun, ..., .name = NULL)`: summarize or mutate multiple columns in the same way.
 
     ```{r}
-    #| eval: false
-
-    summarise(mtcars, across(everything(), mean))
+    summarize(df, across(everything(), mean))
     ```
 
 -   `c_across(.cols)`: Compute across columns in row-wise data.
 
     ```{r}
-    #| eval: false
-
-    transmute(rowwise(UKgas), total = sum(c_across(1:2)))
+    mutate(rowwise(df), x_total = sum(c_across(1:2)))
     ```
 
 ### Make New Variables
 
-Apply **vectorized functions** to columns. Vectorized functions take vectors as input and return vectors of the same length as output (see Vectorized Functions).
+Apply **vectorized functions** to columns.
+Vectorized functions take vectors as input and return vectors of the same length as output (see Vectorized Functions).
 
--   `mutate(.data, ..., .keep = "all", .before = NULL, .after = NULL)`: Compute new column(s). Also `add_column()`, `add_count()`, and `add_tally()`.
+-   `mutate(.data, ..., .keep = "all", .before = NULL, .after = NULL)`: Compute new column(s).
+    Also `add_column()`.
 
     ```{r}
-    #| eval: false
-
     mutate(mtcars, gpm = 1 / mpg)
+    mutate(mtcars, gpm = 1 / mpg, .keep = "none")
     ```
 
--   `transmute(.data, ...)`: Compute new column(s), drop others.
+-   `rename(.data, ...)`: Rename columns.
+    Use `rename_with()` to rename with a function.
 
     ```{r}
-    #| eval: false
-
-    transmute(mtcars, gpm = 1 / mpg)
-    ```
-
--   `rename(.data, ...)`: Rename columns. Use `rename_with()` to rename with a function.
-
-    ```{r}
-    #| eval: false
-
     rename(cars, distance = dist)
     ```
 
@@ -257,7 +235,8 @@ Apply **vectorized functions** to columns. Vectorized functions take vectors as 
 
 ### To Use with `mutate()`
 
-`mutate()` and`transmutate()` apply vectorized functions to columns to create new columns. Vectorized functions take vectors as input and return vectors of the same length as output.
+`mutate()` applies vectorized functions to columns to create new columns.
+Vectorized functions take vectors as input and return vectors of the same length as output.
 
 ### Offset
 
@@ -296,8 +275,6 @@ Apply **vectorized functions** to columns. Vectorized functions take vectors as 
 -   `dplyr::case_when()`: multi-case `if_else()`
 
     ```{r}
-    #| eval: false
-
     starwars %>%
       mutate(type = case_when(
         height > 200 | mass > 200 ~ "large",
@@ -318,9 +295,10 @@ Apply **vectorized functions** to columns. Vectorized functions take vectors as 
 
 ## Summary Functions
 
-### To Use with `summarise()`
+### To Use with `summarize()`
 
-`summarise()` applies summary functions to columns to create a new table. Summary functions take vectors as input and return single values as output.
+`summarize()` applies summary functions to columns to create a new table.
+Summary functions take vectors as input and return single values as output.
 
 ### Count
 
@@ -359,27 +337,40 @@ Apply **vectorized functions** to columns. Vectorized functions take vectors as 
 
 ## Row Names
 
-Tidy data does not use rownames, which store a variable outside of the columns. To work with the rownames, first move them into a column.
+Tidy data does not use rownames, which store a variable outside of the columns.
+To work with the rownames, first move them into a column.
 
 -   `tibble::rownames_to_column()`: Move row names into col.
 
     ```{r}
-    #| eval: false
-
     a <- rownames_to_column(mtcars, var = "C")
     ```
 
 -   `tibble::columns_to_rownames()`: Move col into row names.
 
     ```{r}
-    #| eval: false
-
     column_to_rownames(a, var = "C")
     ```
 
 -   Also `tibble::has_rownames()` and `tibble::remove_rownames()`.
 
 ## Combine Tables
+
+```{r}
+x <- tribble(
+   ~A,  ~B, ~C,
+  "a", "t",  1,
+  "b", "u",  2,
+  "c", "v",  3
+)
+
+y <- tribble(
+   ~A,  ~B, ~D,
+  "a", "t",  3,
+  "b", "u",  2,
+  "d", "w",  1
+)
+```
 
 ### Combine Variables
 
@@ -391,7 +382,8 @@ Tidy data does not use rownames, which store a variable outside of the columns. 
 
 ### Relational Data
 
-Use a **"Mutating Join"** to join one table to columns from another, matching values with the rows that the correspond to. Each join retains a different combination of values from the tables.
+Use a **"Mutating Join"** to join one table to columns from another, matching values with the rows that the correspond to.
+Each join retains a different combination of values from the tables.
 
 -   `left_join(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ..., keep = FALSE, na_matches = "na")`: Join matching values from `y` to `x`.
 -   `right_join(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ..., keep = FALSE, na_matches = "na")`: Join matching values from `x` to `y`.
@@ -412,24 +404,18 @@ Use a **"Nest Join"** to inner join one table to another into a nested data fram
 -   Use `by = c("col1", "col2", ...)` to specify one or more common columns to match on.
 
     ```{r}
-    #| eval: false
-
     left_join(x, y, by = "A")
     ```
 
 -   Use a named vector, `by = c("col1" = "col2")`, to match on columns that have different names in each table.
 
     ```{r}
-    #| eval: false
-
     left_join(x, y, by = c("C" = "D"))
     ```
 
 -   Use `suffix` to specify the suffix to give to unmatched columns that have the same name in both tables.
 
     ```{r}
-    #| eval: false
-
     left_join(x, y, by = c("C" = "D"), suffix = c("1", "2"))
     ```
 
@@ -437,5 +423,5 @@ Use a **"Nest Join"** to inner join one table to another into a nested data fram
 
 -   `intersect(x, y, ...)`: Rows that appear in both `x` and `y`.
 -   `setdiff(x, y, ...)`: Rows that appear in `x` but not `y`.
--   `union(x, y, ...)`: Rows that appear in x or y. (Duplicates removed.) `union_all()` retains duplicates.
+-   `union(x, y, ...)`: Rows that appear in x or y, duplicates removed. `union_all()` retains duplicates.
 -   Use `setequal()` to test whether two data sets contain the exact same rows (in any order).
