@@ -33,14 +33,14 @@ Summary functions take vectors as input and return one value back (see Summary F
 -   `summarize(.data, ...)`: Compute table of summaries.
 
     ```{r}
-    summarize(mtcars, avg = mean(mpg))
+    mtcars |> summarize(avg = mean(mpg))
     ```
 
 -   `count(.data, ..., wt = NULL, sort = FLASE, name = NULL)`: Count number of rows in each group defined by the variables in `...`.
     Also `tally()`, `add_count()`, and `add_tally()`.
 
     ```{r}
-    count(mtcars, cyl)
+    mtcars |> summarize(cyl)
     ```
 
 ## Group Cases
@@ -83,38 +83,38 @@ Row functions return a subset of rows as a new table.
 -   `filter(.data, ..., .preserve = FALSE)`: Extract rows that meet logical criteria.
 
     ```{r}
-    filter(mtcars, mpg > 20)
+    mtcars |> filter(mpg > 20)
     ```
 
 -   `distinct(.data, ..., .keep_all = FALSE)`: Remove rows with duplicate values.
 
     ```{r}
-    distinct(mtcars, gear)
+    mtcars |> distinct(gear)
     ```
 
 -   `slice(.data, ...,, .preserve = FALSE)`: Select rows by position.
 
     ```{r}
-    slice(mtcars, 10:15)
+    mtcars |> slice(10:15)
     ```
 
 -   `slice_sample(.data, ..., n, prop, weight_by = NULL, replace = FALSE)`: Randomly select rows.
     Use `n` to select a number of rows and `prop` to select a fraction of rows.
 
     ```{r}
-    slice_sample(mtcars, n = 5, replace = TRUE)
+    mtcars |> slice_sample(n = 5, replace = TRUE)
     ```
 
 -   `slice_min(.data, order_by, ..., n, prop, with_ties = TRUE)` and `slice_max()`: Select rows with the lowest and highest values.
 
     ```{r}
-    slice_min(mtcars, mpg, prop = 0.25)
+    mtcars |> slice_min(mpg, prop = 0.25)
     ```
 
 -   `slice_head(.data, ..., n, prop)` and `slice_tail()`: Select the first or last rows.
 
     ```{r}
-    slice_head(mtcars, n = 5)
+    mtcars |> slice_head(n = 5)
     ```
 
 #### Logical and boolean operations to use with `filter()`
@@ -139,8 +139,8 @@ Row functions return a subset of rows as a new table.
 -   `arrange(.data, ..., .by_group = FALSE)`: Order rows by values of a column or columns (low to high), use with `desc()` to order from high to low.
 
     ```{r}
-    arrange(mtcars, mpg)
-    arrange(mtcars, desc(mpg))
+    mtcars |> arrange(mpg)
+    mtcars |> arrange(desc(mpg))
     ```
 
 ### Add Cases
@@ -148,7 +148,7 @@ Row functions return a subset of rows as a new table.
 -   `add_row(.data, ..., .before = NULL, .after = NULL)`: Add one or more rows to a table.
 
     ```{r}
-    add_row(cars, speed = 1, dist = 1)
+    cars |> add_row(speed = 1, dist = 1)
     ```
 
 ## Manipulate Variables
@@ -160,25 +160,25 @@ Column functions return a set of columns as a new vector or table.
 -   `pull(.data, var = -1, name = NULL, ...)`: Extract column values as a vector, by name or index.
 
     ```{r}
-    pull(mtcars, wt)
+    mtcars |> pull(wt)
     ```
 
 -   `select(.data, ...)`: Extract columns as a table.
 
     ```{r}
-    select(mtcars, mpg, wt)
+    mtcars |> select(mpg, wt)
     ```
 
 -   `relocate(.data, ..., .before = NULL, .after = NULL)`: Move columns to new position.
 
     ```{r}
-    relocate(mtcars, mpg, cyl, after = last_col())
+    mtcars |> relocate(mpg, cyl, after = last_col())
     ```
 
 #### Use these helpers with `select()` and `across()`
 
 ```{r}
-select(mtcars, mpg:cyl)
+mtcars |> select(mpg:cyl)
 ```
 
 -   `contains(match)`
@@ -200,13 +200,15 @@ df <- tibble(x_1 = c(1, 2), x_2 = c(3, 4), y = c(4, 5))
 -   `across(.cols, .fun, ..., .name = NULL)`: summarize or mutate multiple columns in the same way.
 
     ```{r}
-    summarize(df, across(everything(), mean))
+    df |> summarize(across(everything(), mean))
     ```
 
 -   `c_across(.cols)`: Compute across columns in row-wise data.
 
     ```{r}
-    mutate(rowwise(df), x_total = sum(c_across(1:2)))
+    df |> 
+      rowwise() |>
+      mutate(x_total = sum(c_across(1:2)))
     ```
 
 ### Make New Variables
@@ -218,15 +220,15 @@ Vectorized functions take vectors as input and return vectors of the same length
     Also `add_column()`.
 
     ```{r}
-    mutate(mtcars, gpm = 1 / mpg)
-    mutate(mtcars, gpm = 1 / mpg, .keep = "none")
+    mtcars |> mutate(gpm = 1 / mpg)
+    mtcars |> mutate(mtcars, gpm = 1 / mpg, .keep = "none")
     ```
 
 -   `rename(.data, ...)`: Rename columns.
     Use `rename_with()` to rename with a function.
 
     ```{r}
-    rename(cars, distance = dist)
+    mtcars |> rename(miles_per_gallon = mpg)
     ```
 
 <!-- PAGE 2 -->
@@ -279,8 +281,8 @@ Vectorized functions take vectors as input and return vectors of the same length
       mutate(type = case_when(
         height > 200 | mass > 200 ~ "large",
         species == "Droid" ~ "robot",
-        TRUE ~ "other")
-      )
+        TRUE ~ "other"
+      ))
     ```
 
 -   `dplyr::coalesce()`: first non-NA values by element across a set of vectors
@@ -304,7 +306,7 @@ Summary functions take vectors as input and return single values as output.
 
 -   `dplyr::n()`: number of values/rows
 -   `dplyr::n_distinct()`: \# of uniques
--   `sum(!is.na())`: \# of non-NA's
+-   `sum(!is.na())`: \# of non-NAs
 
 ### Position
 
@@ -313,8 +315,8 @@ Summary functions take vectors as input and return single values as output.
 
 ### Logical
 
--   `mean()`: proportion of TRUE's
--   `sum()`: \# of TRUE's
+-   `mean()`: proportion of TRUEs
+-   `sum()`: \# of TRUEs
 
 ### Order
 
