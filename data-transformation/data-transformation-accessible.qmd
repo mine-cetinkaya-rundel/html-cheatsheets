@@ -23,7 +23,7 @@ In tidy data:
 
 -   Each **variable** is in its own **column**
 -   Each **observation**, or **case**, is in its own **row**
--   **pipes** `x %>% f(y)` becomes `f(x,y)`
+-   **pipes** `x |> f(y)` becomes `f(x,y)`
 
 ## Summarize Cases
 
@@ -49,8 +49,8 @@ Summary functions take vectors as input and return one value back (see Summary F
     dplyr functions will manipulate each "group" separately and combine the results.
 
     ```{r}
-    mtcars %>%
-      group_by(cyl) %>%
+    mtcars |>
+      group_by(cyl) |>
       summarize(avg = mean(mpg))
     ```
 
@@ -60,8 +60,8 @@ Summary functions take vectors as input and return one value back (see Summary F
     See tidyr cheat sheet for list-column workflow.
 
     ```{r}
-    starwars %>%
-      rowwise() %>%
+    starwars |>
+      rowwise() |>
       mutate(film_count = length(films))
     ```
 
@@ -70,7 +70,7 @@ Summary functions take vectors as input and return one value back (see Summary F
     ```{r}
     #| include: false
 
-    g_mtcars <- mtcars %>% group_by(cyl)
+    g_mtcars <- mtcars |> group_by(cyl)
     ungroup(g_mtcars)
     ```
 
@@ -275,7 +275,7 @@ Vectorized functions take vectors as input and return vectors of the same length
 -   `dplyr::case_when()`: multi-case `if_else()`
 
     ```{r}
-    starwars %>%
+    starwars |>
       mutate(type = case_when(
         height > 200 | mass > 200 ~ "large",
         species == "Droid" ~ "robot",
