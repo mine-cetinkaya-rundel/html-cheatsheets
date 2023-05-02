@@ -11,10 +11,14 @@ execute:
   warning: false
 ---
 
+------------------------------------------------------------------------
+
 ```{r}
 library(dplyr)
 library(tibble)
 ```
+
+------------------------------------------------------------------------
 
 <!-- PAGE 1 -->
 
@@ -427,3 +431,20 @@ Use a **"Nest Join"** to inner join one table to another into a nested data fram
 -   `setdiff(x, y, ...)`: Rows that appear in `x` but not `y`.
 -   `union(x, y, ...)`: Rows that appear in x or y, duplicates removed. `union_all()` retains duplicates.
 -   Use `setequal()` to test whether two data sets contain the exact same rows (in any order).
+
+------------------------------------------------------------------------
+
+CC BY SA Posit Software, PBC • [info\@posit.co](mailto:info@posit.co) • [posit.co](https://posit.co)
+
+Learn more at [dplyr.tidyverse.org](https://dplyr.tidyverse.org).
+
+Updated: `r format(Sys.Date(), "%Y-%m")`.
+
+```{r}
+#| output: true
+
+packageVersion("dplyr")
+packageVersion("tibble")
+```
+
+------------------------------------------------------------------------
