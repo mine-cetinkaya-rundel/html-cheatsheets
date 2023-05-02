@@ -211,7 +211,7 @@ attr(,"levels")
 </div></li>
 <li><p><code>fct_reorder(.f, .x, .fun = median, ..., .desc = FALSE)</code>: Reorder levels by their relationship with another variable.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(<span class="at">data =</span> PlantGrowth, weight <span class="sc">~</span> <span class="fu">fct_reorder</span>(group, weight))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(PlantGrowth, weight <span class="sc">~</span> <span class="fu">fct_reorder</span>(group, weight))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 <li><p><code>fct_reorder2(.f, .x, .y, .fun = last2, ..., .desc = TRUE)</code>: Reorder levels by their final values when plotted with two other variables.</p>
 <div class="cell">

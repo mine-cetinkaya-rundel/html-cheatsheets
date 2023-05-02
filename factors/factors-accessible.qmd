@@ -152,7 +152,7 @@ Use `unclass()` to see its structure.
 -   `fct_reorder(.f, .x, .fun = median, ..., .desc = FALSE)`: Reorder levels by their relationship with another variable.
 
     ```{r}
-    boxplot(data = PlantGrowth, weight ~ fct_reorder(group, weight))
+    boxplot(PlantGrowth, weight ~ fct_reorder(group, weight))
     ```
 
 -   `fct_reorder2(.f, .x, .y, .fun = last2, ..., .desc = TRUE)`: Reorder levels by their final values when plotted with two other variables.
