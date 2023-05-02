@@ -5,7 +5,16 @@ format:
     toc: true
     highlight-style: a11y-dark
 editor: visual
+execute:
+  eval: true
+  output: false
+  warning: false
 ---
+
+```{r}
+library(forcats)
+library(ggplot2)
+```
 
 The **forcats** package provides tools for working with factors, which are R's data structure for categorical data.
 
@@ -20,7 +29,9 @@ For example, R will display `c("a", "c", "b", "a")` with levels `c("a", "b", "c"
 R will display:
 
 ```{r}
-#| echo: False
+#| echo: false
+#| output: true
+
 f <- factor(c("a", "c", "b", "a"), levels = c("a", "b", "c"))
 f
 ```
@@ -28,29 +39,26 @@ f
 R will store:
 
 ```{r}
-#| echo: False
-f <- factor(c("a", "c", "b", "a"), levels = c("a", "b", "c"))
+#| echo: false
+#| output: true
+
 unclass(f)
 ```
 
-Create a factor with `factor()`
+Create a factor with `factor()`:
 
 -   `factor(x = character(), levels, labels = levels, exclude = NA, ordered = is.ordered(x), nmax = NA)`: Convert a vector to a factor.
     Also `as_factor()`.
 
     ```{r}
-    #| eval: false
-
     f <- factor(c("a", "c", "b", "a"), levels = c("a", "b", "c"))
     ```
 
-Return its levels with `levels()`
+Return its levels with `levels()`:
 
 -   `levels(x)`: Return/set the levels of a factor.
 
     ```{r}
-    #| eval: false
-
     levels(f)
     levels(f) <- c("x", "y", "z")
     ```
@@ -62,24 +70,24 @@ Use `unclass()` to see its structure.
 -   `fct_count(f, sort = FALSE, prop = FALSE)`: Count the number of values with each level.
 
     ```{r}
-    #| eval: false
-
     fct_count(f)
     ```
 
 -   `fct_match(f, lvls)`: Check for `lvls` in `f`.
 
     ```{r}
-    #| eval: false
+    #| include: false
 
+    f <- factor(c("a", "c", "b", "a"), levels = c("a", "b", "c"))
+    ```
+
+    ```{r}
     fct_match(f, "a")
     ```
 
 -   `fct_unique(f)`: Return the unique values, removing duplicates.
 
     ```{r}
-    #| eval: false
-
     fct_unique(f)
     ```
 
@@ -89,8 +97,6 @@ Use `unclass()` to see its structure.
     Also `fct_cross()`.
 
     ```{r}
-    #| eval: false
-
     f1 <- factor(c("a", "c"))
     f2 <- factor(c("b", "a"))
     fct_c(f1, f2)
@@ -99,8 +105,6 @@ Use `unclass()` to see its structure.
 -   `fct_unify(fs, levels = lvls_union(fs))`: Standardize levels across a list of factors.
 
     ```{r}
-    #| eval: false
-
     fct_unify(list(f2, f1))
     ```
 
@@ -109,8 +113,6 @@ Use `unclass()` to see its structure.
 -   `fct_relevel(.f, ..., after = 0L)`: Manually reorder factor levels.
 
     ```{r}
-    #| eval: false
-
     fct_relevel(f, c("b", "c", "a"))
     ```
 
@@ -118,8 +120,6 @@ Use `unclass()` to see its structure.
     Also `fct_inseq()`.
 
     ```{r}
-    #| eval: false
-
     f3 <- factor(c("c", "c", "a"))
     fct_infreq(f3)
     ```
@@ -127,16 +127,12 @@ Use `unclass()` to see its structure.
 -   `fct_inorder(f, ordered = NA)`: Reorder levels by order in which they appear in the data.
 
     ```{r}
-    #| eval: false
-
     fct_inorder(f2)
     ```
 
 -   `fct_rev(f)`: Reverse level order.
 
     ```{r}
-    #| eval: false
-
     f4 <- factor(c("a","b","c"))
     fct_rev(f4)
     ```
@@ -144,32 +140,24 @@ Use `unclass()` to see its structure.
 -   `fct_shift(f)`: Shift levels to left or right, wrapping around end.
 
     ```{r}
-    #| eval: false
-
     fct_shift(f4)
     ```
 
 -   `fct_shuffle(f, n = 1L)`: Randomly permute order of factor levels.
 
     ```{r}
-    #| eval: false
-
     fct_shuffle(f4)
     ```
 
 -   `fct_reorder(.f, .x, .fun = median, ..., .desc = FALSE)`: Reorder levels by their relationship with another variable.
 
     ```{r}
-    #| eval: false
-
-    boxplot(data = PlantGrowth, weight ~ reorder(group, weight))
+    boxplot(data = PlantGrowth, weight ~ fct_reorder(group, weight))
     ```
 
 -   `fct_reorder2(.f, .x, .y, .fun = last2, ..., .desc = TRUE)`: Reorder levels by their final values when plotted with two other variables.
 
     ```{r}
-    #| eval: false
-
     ggplot(
       diamonds,
       aes(carat, price, color = fct_reorder2(color, carat, price))
@@ -183,8 +171,6 @@ Use `unclass()` to see its structure.
     Also `fct_relabel()` which obeys `purrr::map` syntax to apply a function or expression to each level.
 
     ```{r}
-    #| eval: false
-
     fct_recode(f, v = "a", x = "b", z = "c")
     fct_relabel(f, ~ paste0("x", .x))
     ```
@@ -192,16 +178,12 @@ Use `unclass()` to see its structure.
 -   `fct_anon(f, prefix = "")`: Anonymize levels with random integers.
 
     ```{r}
-    #| eval: false
-
     fct_anon(f)
     ```
 
 -   `fct_collapse(.f, …, other_level = NULL)`: Collapse levels into manually defined groups.
 
     ```{r}
-    #| eval: false
-
     fct_collapse(f, x = c("a", "b"))
     ```
 
@@ -209,16 +191,12 @@ Use `unclass()` to see its structure.
     Also `fct_lump_n()`, `fct_lump_prop()`, and `fct_lump_lowfreq()`.
 
     ```{r}
-    #| eval: false
-
     fct_lump_min(f, min = 2)
     ```
 
 -   `fct_other(f, keep, drop, other_level = "Other")`: Replace levels with "other."
 
     ```{r}
-    #| eval: false
-
     fct_other(f, keep = c("a", "b"))
     ```
 
@@ -227,8 +205,6 @@ Use `unclass()` to see its structure.
 -   `fct_drop(f, only)`: Drop unused levels.
 
     ```{r}
-    #| eval: false
-
     f5 <- factor(c("a","b"),c("a","b","x"))
     f6 <- fct_drop(f5)
     ```
@@ -236,15 +212,12 @@ Use `unclass()` to see its structure.
 -   `fct_expand(f, ...)`: Add levels to a factor.
 
     ```{r}
-    #| eval: false
-
     fct_expand(f6, "x")
     ```
 
--   `fct_explicit_na(f, na_level="(Missing)")`: Assigns a level to NAs to ensure they appear in plots, etc.
+-   `fct_na_value_to_level(f, level = "(Missing)")`: Assigns a level to NAs to ensure they appear in plots, etc.
 
     ```{r}
-    #| eval: false
-
-    fct_explicit_na(factor(c("a", "b", NA)))
+    f <- factor(c("a", "b", NA))
+    fct_na_value_to_level(f, level = "(Missing)")
     ```
