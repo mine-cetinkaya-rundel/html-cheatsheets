@@ -11,15 +11,6 @@ execute:
   warning: false
 ---
 
-------------------------------------------------------------------------
-
-```{r}
-library(dplyr)
-library(tibble)
-```
-
-------------------------------------------------------------------------
-
 <!-- PAGE 1 -->
 
 **dplyr** functions work with pipes and expect **tidy data**.
@@ -28,6 +19,17 @@ In tidy data:
 -   Each **variable** is in its own **column**
 -   Each **observation**, or **case**, is in its own **row**
 -   **pipes** `x |> f(y)` becomes `f(x,y)`
+
+```{r}
+library(dplyr)
+```
+
+```{r}
+#| label: other-used-packages
+#| include: false
+
+library(tibble)
+```
 
 ## Summarize Cases
 
@@ -444,7 +446,7 @@ Updated: `r format(Sys.Date(), "%Y-%m")`.
 #| output: true
 
 packageVersion("dplyr")
-packageVersion("tibble")
 ```
 
 ------------------------------------------------------------------------
+

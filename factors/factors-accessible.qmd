@@ -11,12 +11,18 @@ execute:
   warning: false
 ---
 
+The **forcats** package provides tools for working with factors, which are R's data structure for categorical data.
+
 ```{r}
 library(forcats)
-library(ggplot2)
 ```
 
-The **forcats** package provides tools for working with factors, which are R's data structure for categorical data.
+```{r}
+#| label: other-used-packages
+#| include: false
+
+library(ggplot2)
+```
 
 ## Factors
 
@@ -221,3 +227,19 @@ Use `unclass()` to see its structure.
     f <- factor(c("a", "b", NA))
     fct_na_value_to_level(f, level = "(Missing)")
     ```
+
+------------------------------------------------------------------------
+
+CC BY SA Posit Software, PBC • [info\@posit.co](mailto:info@posit.co) • [posit.co](https://posit.co)
+
+Learn more at [forcats.tidyverse.org](https://forcats.tidyverse.org).
+
+Updated: `r format(Sys.Date(), "%Y-%m")`.
+
+```{r}
+#| output: true
+
+packageVersion("forcats")
+```
+
+------------------------------------------------------------------------
