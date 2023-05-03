@@ -23,12 +23,12 @@ A table is tidy if:
 
 ```{r}
 library(tidyr)
+library(tibble)
 ```
 
 ```{r}
 #| include: false
 
-library(tibble)
 library(dplyr)
 ```
 
@@ -396,6 +396,7 @@ Updated: `r format(Sys.Date(), "%Y-%m")`.
 #| output: true
 
 packageVersion("tidyr")
+packageVersion("tibble")
 ```
 
 ------------------------------------------------------------------------
