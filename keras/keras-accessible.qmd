@@ -9,9 +9,11 @@ editor: visual
 
 ## Intro
 
-**Keras** is a high-level neural networks API developed with a focus on enabling fast experimentation. It supports multiple back-ends, including TensorFlow, CNTK and Theano.
+**Keras** is a high-level neural networks API developed with a focus on enabling fast experimentation.
+It supports multiple back-ends, including TensorFlow, CNTK and Theano.
 
-TensorFlow is a lower level mathematical library for building deep neural network architectures. The **keras** R package makes it easy to use Keras and TensorFlow in R.
+TensorFlow is a lower level mathematical library for building deep neural network architectures.
+The **keras** R package makes it easy to use Keras and TensorFlow in R.
 
 1.  **Define**: Model, Sequential model, Multi-GPU model
 2.  **Compile**: Optimizer, Loss, Metrics
@@ -25,9 +27,9 @@ Read more at:\
 
 ### Installation
 
-The keras R package uses the Python keras library. You can install all the prerequisites directly from R.\
+The keras R package uses the Python keras library.
+You can install all the prerequisites directly from R.\
 <https://keras.rstudio.com/reference/install_keras.html>
-
 
 ```{r}
 #| eval: false
@@ -284,7 +286,8 @@ model %>% predict_classes(x_test)
 
 ## Pre-trained models
 
-Keras applications are deep learning models that are made available alongside pre-trained weights. These models can be used for prediction, feature extraction, and fine-tuning.
+Keras applications are deep learning models that are made available alongside pre-trained weights.
+These models can be used for prediction, feature extraction, and fine-tuning.
 
 -   `application_xception()`; `xception_preprocess_input()`: Xception v1 model.
 
@@ -304,7 +307,8 @@ ImageNet is a large database of images with labels, extensively used for deep le
 
 ## Callbacks
 
-A callback is a set of functions to be applied at given stages of the training procedure. You can use callbacks to get a view on internal states and statistics of the model during training.
+A callback is a set of functions to be applied at given stages of the training procedure.
+You can use callbacks to get a view on internal states and statistics of the model during training.
 
 -   `allback_early_stopping()`: Stop training when a monitored quantity has stopped improving.
 
