@@ -5,6 +5,10 @@ format:
     toc: true
     highlight-style: a11y-dark
 editor: visual
+execute:
+  eval: false
+  output: true
+  warning: false
 ---
 
 ## Intro
@@ -22,14 +26,13 @@ The **keras** R package makes it easy to use Keras and TensorFlow in R.
 5.  **Predict**: Classes, Probability
 
 Read more at:\
-<https://keras.rstudio.com>\
-<https://www.manning.com/books/deep-learning-with-r>
+<https://tensorflow.rstudio.com>\
+<https://www.manning.com/books/deep-learning-with-r-second-edition>
 
 ### Installation
 
 The keras R package uses the Python keras library.
-You can install all the prerequisites directly from R.\
-<https://keras.rstudio.com/reference/install_keras.html>
+You can install all the prerequisites directly from R: <https://tensorflow.rstudio.com/install>.
 
 ```{r}
 #| eval: false
@@ -47,8 +50,6 @@ This installs the required libraries in an Anaconda environment or virtual envir
 The "Hello, World!" of deep learning
 
 ```{r}
-#| eval: false
-
 # input layer: use MNIST images
 mnist <- dataset_mnist()
 x_train <- mnist$train$x
@@ -315,3 +316,20 @@ You can use callbacks to get a view on internal states and statistics of the mod
 -   `callback_learning_rate_scheduler()`: Learning rate scheduler.
 
 -   `callback_tensorboard()`: TensorBoard basic visualizations.
+
+------------------------------------------------------------------------
+
+CC BY SA Posit Software, PBC • [info\@posit.co](mailto:info@posit.co) • [posit.co](https://posit.co)
+
+Learn more at [tensorflow.rstudio.com](https://tensorflow.rstudio.com/).
+
+Updated: `r format(Sys.Date(), "%Y-%m")`.
+
+```{r}
+#| eval: true
+#| output: true
+
+packageVersion("keras")
+```
+
+------------------------------------------------------------------------
