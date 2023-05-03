@@ -4,58 +4,59 @@ format:
   html:
     toc: true
     highlight-style: a11y-dark
+    tbl-cap-location: bottom
 editor: visual
+execute:
+  eval: true
+  output: false
+  warning: false
 ---
 
 <!-- Page 1 -->
 
+The **stringr** package provides a set of internally consistent tools for working with character strings, i.e. sequences of characters surrounded by quotation marks.
+
+```{r}
+library(stringr)
+```
+
 ```{r}
 #| include: false
-library(stringr)
 see <- function(rx) str_view_all("abc ABC 123\t.!?\\(){}\n", rx)
 ```
 
-The **stringr** package provides a set of internally consistent tools for working with character strings, i.e. sequences of characters surrounded by quotation marks.
-
 ## Detect Matches
 
--   `str_detect(string, pattern, negate = FALSE)`: Detect the presence of a pattern match in a string. Also `str_like()`.
+-   `str_detect(string, pattern, negate = FALSE)`: Detect the presence of a pattern match in a string.
+    Also `str_like()`.
 
     ```{r}
-    #| eval: false
-
     str(fruit, "a")
     ```
 
--   `str_starts(string, pattern, negate = FALSE)`: Detect the presence of a pattern match at the beginning of a string. Also `str_ends()`.
+-   `str_starts(string, pattern, negate = FALSE)`: Detect the presence of a pattern match at the beginning of a string.
+    Also `str_ends()`.
 
     ```{r}
-    #| eval: false
-
     str_starts(fruit, "a")
     ```
 
 -   `str_which(string, pattern, negate = FALSE)`: Find the indexes of strings that contain a pattern match.
 
     ```{r}
-    #| eval: false
-
     str_which(fruit, "a")
     ```
 
--   `str_locate(string, pattern)`: Locate the positions of pattern matches in a string. Also `str_locate_all()`.
+-   `str_locate(string, pattern)`: Locate the positions of pattern matches in a string.
+    Also `str_locate_all()`.
 
     ```{r}
-    #| eval: false
-
     str_locate(fruit, "a")
     ```
 
 -   `str_count(string, pattern)`: Count the number of matches in a string.
 
     ```{r}
-    #| eval: false
-
     str_count(fruit, "a")
     ```
 
@@ -64,48 +65,39 @@ The **stringr** package provides a set of internally consistent tools for workin
 -   `str_sub() <- value`: Replace substrings by identifying the substrings with `str_sub()` and assigning into the results.
 
     ```{r}
-    #| eval: false
-
     str_sub(fruit, 1, 3) <- "str"
     ```
 
--   `str_replace(string, pattern, replacement)`: Replace the first matched pattern in each string. Also `str_remove()`.
+-   `str_replace(string, pattern, replacement)`: Replace the first matched pattern in each string.
+    Also `str_remove()`.
 
     ```{r}
-    #| eval: false
-
     str_replace(fruit, "p", "-")
     ```
 
--   `str_replace_all(string, pattern, replacement)`: Replace all matched patterns in each string. Also `str_remove_all()`.
+-   `str_replace_all(string, pattern, replacement)`: Replace all matched patterns in each string.
+    Also `str_remove_all()`.
 
     ```{r}
-    #| eval: false
-
     str_replace_all(fruit, "p", "-")
     ```
 
 -   `str_to_lower(string, locale = "en")`^1^: Convert strings to lower case.
 
     ```{r}
-    #| eval: false
-
     str_to_lower(sentences)
     ```
 
 -   `str_to_upper(string, locale = "en")`^1^: Convert strings to upper case.
 
     ```{r}
-    #| eval: false
-
     str_to_upper(sentences)
     ```
 
--   `str_to_title(string, locale = "en")`^1^: Convert strings to title case. Also `str_to_setence()`.
+-   `str_to_title(string, locale = "en")`^1^: Convert strings to title case.
+    Also `str_to_setence()`.
 
     ```{r}
-    #| eval: false
-
     str_to_title(sentences)
     ```
 
@@ -114,8 +106,6 @@ The **stringr** package provides a set of internally consistent tools for workin
 -   `str_sub(string, start = 1L, end = -1L)`: Extract substrings from a character vector.
 
     ```{r}
-    #| eval: false
-
     str_sub(fruit, 1, 3)
     str_sub(fruit, -2)
     ```
@@ -123,24 +113,20 @@ The **stringr** package provides a set of internally consistent tools for workin
 -   `str_subset(string, pattern, negate = FALSE)`: Return only the strings that contain a pattern match.
 
     ```{r}
-    #| eval: false
-
     str_subset(fruit, "p")
     ```
 
--   `str_extract(string, pattern)`: Return the first pattern match found in each string, as a vector. Also `str_extract_all()` to return every pattern match.
+-   `str_extract(string, pattern)`: Return the first pattern match found in each string, as a vector.
+    Also `str_extract_all()` to return every pattern match.
 
     ```{r}
-    #| eval: false
-
     str_extract(fruit, "[aeiou]")
     ```
 
--   `str_match(string, pattern)`: Return the first pattern match found in each string, as a matrix with a column for each ( ) group in pattern. Also `str_match_all()`.
+-   `str_match(string, pattern)`: Return the first pattern match found in each string, as a matrix with a column for each ( ) group in pattern.
+    Also `str_match_all()`.
 
     ```{r}
-    #| eval: false
-
     str_match(sentences, "(a|the) ([^ +])")
     ```
 
@@ -149,48 +135,38 @@ The **stringr** package provides a set of internally consistent tools for workin
 -   `str_c(..., sep = "", collapse = NULL)`: Join multiple strings into a single string.
 
     ```{r}
-    #| eval: false
-
     str_c(letters, LETTERS)
     ```
 
 -   `str_flatten(string, collapse = "")`: Combines into a single string, separated by collapse.
 
     ```{r}
-    #| eval: false
-
     str_flatten(fruit, ", ")
     ```
 
--   `str_dup(string, times)`: Repeat strings times times. Also `str_unique()` to remove duplicates.
+-   `str_dup(string, times)`: Repeat strings times times.
+    Also `str_unique()` to remove duplicates.
 
     ```{r}
-    #| eval: false
-
     str_dup(fruit, times = 2)
     ```
 
--   `str_split_fixed(string, pattern, n)`: Split a vector of strings into a matrix of substrings (splitting at occurrences of a pattern match). Also `str_split()` to return a list of substrings and `str_split_n()` to return the nth substring.
+-   `str_split_fixed(string, pattern, n)`: Split a vector of strings into a matrix of substrings (splitting at occurrences of a pattern match).
+    Also `str_split()` to return a list of substrings and `str_split_n()` to return the nth substring.
 
     ```{r}
-    #| eval: false
-
     str_split_fixed(sentences, " ", n = 3)
     ```
 
 -   `str_glue(..., .sep = "", .envir = parent.frame())`: Create a string from strings and {expressions} to evaluate.
 
     ```{r}
-    #| eval: false
-
     str_glue("Pi is {pi}")
     ```
 
 -   `str_glue_data(.x, ..., .sep = "", .envir = parent.frame(), .na = "NA")`: Use a data frame, list, or environment to create a string from strings and {expressions} to evaluate.
 
     ```{r}
-    #| eval: false
-
     str_glue_data(mtcars, "{rownames(mtcars)} has {hp} hp")
     ```
 
@@ -199,40 +175,30 @@ The **stringr** package provides a set of internally consistent tools for workin
 -   `str_length(string)`: The width of strings (i.e. number of code points, which generally equals the number of characters).
 
     ```{r}
-    #| eval: false
-
     str_length(fruit)
     ```
 
 -   `str_pad(string, width, side = c("left", "right", "both"), pad = " ")`: Pad strings to constant width.
 
     ```{r}
-    #| eval: false
-
     str_pad(fruit, 17)
     ```
 
 -   `str_trunc(string, width, side = c("left", "right", "both"), ellipsis = "...")`: Truncate the width of strings, replacing content with ellipsis.
 
     ```{r}
-    #| eval: false
-
     str_trunc(sentences, 6)
     ```
 
 -   `str_trim(string, side = c("left", "right", "both"))`: Trim whitespace from the start and/or end of a string.
 
     ```{r}
-    #| eval: false
-
     str_trim(str_pad(fruit, 17))
     ```
 
 -   `str_squish(string)`: Trim white space from each end and collapse multiple spaces into single spaces.
 
     ```{r}
-    #| eval: false
-
     str_squish(str_pad(fruit, 17, "both"))
     ```
 
@@ -241,16 +207,12 @@ The **stringr** package provides a set of internally consistent tools for workin
 -   `str_order(x, decreasing = FALSE, na_last = TRUE, locale = "en", numeric = FALSE, ...)^1^`: Return the vector of indexes that sorts a character vector.
 
     ```{r}
-    #| eval: false
-
     fruit[str_order(fruit)]
     ```
 
 -   `str_sort(x, decreasing = FALSE, na_last = TRUE, locale = "en", numeric = FALSE, ...)^1^`: Sort a character vector.
 
     ```{r}
-    #| eval: false
-
     str_sort(fruit)
     ```
 
@@ -259,32 +221,25 @@ The **stringr** package provides a set of internally consistent tools for workin
 -   `str_conv(string, encoding)`: Override the encoding of a string.
 
     ```{r}
-    #| eval: false
-
     str_conv(fruit, "ISO-8859-1")
     ```
 
--   `str_view_all(string, pattern, match = NA)`: View HTML rendering of all regex matches. Also `str_view()` to see only the first match.
+-   `str_view_all(string, pattern, match = NA)`: View HTML rendering of all regex matches.
+    Also `str_view()` to see only the first match.
 
     ```{r}
-    #| eval: false
-
     str_view_all(sentences, "[aeiou]")
     ```
 
 -   `str_equal(x, y, locale = "en", ignore_case = FALSE, ...)`^1^: Determine if two strings are equivalent.
 
     ```{r}
-    #| eval: false
-
     str_equal(c("a", "b"), c("a", "c"))
     ```
 
 -   `str_wrap(string, width = 80, indent = 0, exdent = 0)`: Wrap strings into nicely formatted paragraphs.
 
     ```{r}
-    #| eval: false
-
     str_wrap(sentences, 20)
     ```
 
@@ -302,7 +257,9 @@ Pattern arguments in stringr are interpreted as regular expressions *after any s
 
 In R, you write regular expressions as *strings*, sequences of characters surrounded by quotes(`""`) or single quotes (`''`).
 
-Some characters cannot be directly represented in an R string. These must be represented as **special characters**, sequences of characters that have a specific meaning, e.g. `\\` represents `\`, `\"` represents `"`, and `\n` represents a new line. Run `?"'"` to see a complete list. 
+Some characters cannot be directly represented in an R string.
+These must be represented as **special characters**, sequences of characters that have a specific meaning, e.g. `\\` represents `\`, `\"` represents `"`, and `\n` represents a new line.
+Run `?"'"` to see a complete list.
 
 Because of this, whenever a `\` appears in a regular expression, you must write it as `\\` in the string that represents the regular expression.
 
@@ -314,43 +271,38 @@ and `writeLines("\\ is a backslash")` will be parsed as `\ is a backslash`.
 
 ### Interpretation
 
-Patterns in stringr are interpreted as regexs. To change this default, wrap the pattern in one of:
+Patterns in stringr are interpreted as regexs.
+To change this default, wrap the pattern in one of:
 
--   `regex(pattern, ignore_case = FALSE, multiline = FALSE, comments = FALSE, dotall = FALSE, ...)`: Modifies a regex to ignore cases, match end of lines as well as end of strings, allow R comments within regexs, and/or to have `.` match everthing including `\n`. 
+-   `regex(pattern, ignore_case = FALSE, multiline = FALSE, comments = FALSE, dotall = FALSE, ...)`: Modifies a regex to ignore cases, match end of lines as well as end of strings, allow R comments within regexs, and/or to have `.` match everthing including `\n`.
 
     ```{r}
-    #| eval: false
-
     str_detect("I", regex("i", TRUE))
     ```
 
 -   `fixed()`: Matches raw bytes but will miss some characters that can be represented in multiple ways (fast).
 
     ```{r}
-    #| eval: false
-
     str_detect("\u0130", fixed("i"))
     ```
 
 -   `coll()`: Matches raw bytes and will use locale specific collation rules to recognize characters that can be represented in multiple ways (slow).
 
     ```{r}
-    #| eval: false
-
     str_detect("\u0130", coll("i", TRUE, locale = "tr"))
     ```
 
 -   `boundary()`: Matches boundaries between characters, line_breaks, sentences, or words.
 
     ```{r}
-    #| eval: false
-
     str_split(sentences, boundary("word"))
     ```
 
 ### Match Characters
 
-    see <- function(rx) str_view_all("abc ABC 123\t.!?\\(){}\n", rx)
+```{r}
+see <- function(rx) str_view_all("abc ABC 123\t.!?\\(){}\n", rx)
+```
 
 +-------------+----------------+-----------------------------------+--------------------+-------------------------------------------------------------------+
 | string\     | regex\         | matches\                          | example            | example output (highlighted characters are in \<\>)               |
@@ -457,7 +409,7 @@ Patterns in stringr are interpreted as regexs. To change this default, wrap the 
 |             |                |                                   |                    | ```                                                               |
 +-------------+----------------+-----------------------------------+--------------------+-------------------------------------------------------------------+
 
-: TODO Caption
+: <sup>1</sup>Many base R functions require classes to be wrapped in a second set of \[ \], e.g. **\[\[:digit:\]\]**
 
 #### Classes
 
@@ -502,26 +454,26 @@ Patterns in stringr are interpreted as regexs. To change this default, wrap the 
 |            |              |                 | ```                                  |
 +------------+--------------+-----------------+--------------------------------------+
 
-: TODO Caption
+: Alternates
 
 ### Anchors
 
 `anchor <- function(rx) str_view_all("aaa", rx)`
 
-+------------+-----------------+----------------+--------------------------------------+
-| regexp     | matches         | example        | example output\                      |
-|            |                 |                | (highlighted characters are in \<\>) |
-+============+=================+================+======================================+
-| `^a`       | start of string | `anchor("^a")` | ``` html                             |
-|            |                 |                | <a>aa                                |
-|            |                 |                | ```                                  |
-+------------+-----------------+----------------+--------------------------------------+
-| `a$`       | end of string   | `anchor("a$")` | ``` html                             |
-|            |                 |                | aa<a>                                |
-|            |                 |                | ```                                  |
-+------------+-----------------+----------------+--------------------------------------+
++-------------+-----------------+----------------+--------------------------------------+
+| regexp      | matches         | example        | example output\                      |
+|             |                 |                | (highlighted characters are in \<\>) |
++=============+=================+================+======================================+
+| `^a`        | start of string | `anchor("^a")` | ``` html                             |
+|             |                 |                | <a>aa                                |
+|             |                 |                | ```                                  |
++-------------+-----------------+----------------+--------------------------------------+
+| `a$`        | end of string   | `anchor("a$")` | ``` html                             |
+|             |                 |                | aa<a>                                |
+|             |                 |                | ```                                  |
++-------------+-----------------+----------------+--------------------------------------+
 
-: TODO Caption
+: Anchors
 
 ### Look Arounds
 
@@ -548,7 +500,7 @@ Patterns in stringr are interpreted as regexs. To change this default, wrap the 
 |             |                 |                   | ```                                  |
 +-------------+-----------------+-------------------+--------------------------------------+
 
-: TODO Caption
+: Look arounds
 
 ### Quantifiers
 
@@ -583,7 +535,7 @@ Patterns in stringr are interpreted as regexs. To change this default, wrap the 
 |             |                     |                   | ```                                  |
 +-------------+---------------------+-------------------+--------------------------------------+
 
-: TODO Caption
+: Quantifiers
 
 ### Groups
 
@@ -600,9 +552,10 @@ Use parentheses to set precedent (order of evaluation) and create groups
 |             |                 |                  | ```                                  |
 +-------------+-----------------+------------------+--------------------------------------+
 
-: TODO Caption
+: Groups
 
-Use an escaped number to refer to and duplicate parentheses groups that occur earlier in a pattern. Refer to each group by its order of appearance
+Use an escaped number to refer to and duplicate parentheses groups that occur earlier in a pattern.
+Refer to each group by its order of appearance
 
 +-------------+----------------+----------------------+-------------------------------------------+--------------------------------------+
 | string\     | regexp\        | matches\             | example\                                  | example output\                      |
@@ -613,4 +566,20 @@ Use an escaped number to refer to and duplicate parentheses groups that occur ea
 |             |                |                      |                                           | ```                                  |
 +-------------+----------------+----------------------+-------------------------------------------+--------------------------------------+
 
-: TODO Caption
+: More groups
+
+------------------------------------------------------------------------
+
+CC BY SA Posit Software, PBC • [info\@posit.co](mailto:info@posit.co) • [posit.co](https://posit.co)
+
+Learn more at [stringr.tidyverse.org](https://stringr.tidyverse.org).
+
+Updated: `r format(Sys.Date(), "%Y-%m")`.
+
+```{r}
+#| output: true
+
+packageVersion("stringr")
+```
+
+------------------------------------------------------------------------
