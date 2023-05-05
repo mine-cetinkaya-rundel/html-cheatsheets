@@ -331,12 +331,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>see <span class="ot">&lt;-</span> <span class="cf">function</span>(rx) <span class="fu">str_view_all</span>(<span class="st">"abc ABC 123</span><span class="sc">\t</span><span class="st">.!?</span><span class="sc">\\</span><span class="st">(){}</span><span class="sc">\n</span><span class="st">"</span>, rx)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <table class="table">
-<caption><sup>1</sup>Many base R functions require classes to be wrapped in a second set of [ ], e.g.&nbsp;<strong>[[:digit:]]</strong></caption>
+<caption>1Many base R functions require classes to be wrapped in a second set of [ ], e.g.&nbsp;<strong>[[:digit:]]</strong></caption>
 <colgroup>
 <col style="width: 8%">
 <col style="width: 10%">
 <col style="width: 22%">
-<col style="width: 13%">
+<col style="width: 14%">
 <col style="width: 42%">
 </colgroup>
 <thead>
@@ -357,77 +357,77 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><code>a (etc.)</code></td>
 <td><code>a (etc.)</code></td>
 <td><code>see("a")</code></td>
-<td><div class="sourceCode" id="cb39"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;a&gt;</span>bc ABC 123\t.!?\(){}\n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>&lt;a&gt;bc ABC 123\t.!?\(){}\n</code></pre></td>
 </tr>
 <tr class="even">
 <td><code>\\.</code></td>
 <td><code>\.</code></td>
 <td><code>.</code></td>
-<td><code>see("\\.")</code></td>
-<td><div class="sourceCode" id="cb40"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>abc ABC 123\t<span class="er">&lt;</span>.&gt;!?\(){}\n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><code>see("\\.")``</code></td>
+<td><pre><code>abc ABC 123\t&lt;.&gt;!?\(){}\n</code></pre></td>
 </tr>
 <tr class="odd">
 <td><code>\\!</code></td>
 <td><code>\!</code></td>
 <td><code>!</code></td>
 <td><code>see("\\!")</code></td>
-<td><div class="sourceCode" id="cb41"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>abc ABC 123\t.<span class="er">&lt;</span>!&gt;?\(){}\n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>abc ABC 123\t.&lt;!&gt;?\(){}\n</code></pre></td>
 </tr>
 <tr class="even">
 <td><code>\\?</code></td>
 <td><code>\?</code></td>
 <td><code>?</code></td>
 <td><code>see("\\?")</code></td>
-<td><div class="sourceCode" id="cb42"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>abc ABC 123\t.!<span class="kw">&lt;?</span>&gt;\(){}\n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>abc ABC 123\t.!&lt;?&gt;\(){}\n</code></pre></td>
 </tr>
 <tr class="odd">
 <td><code>\\\\</code></td>
 <td><code>\\</code></td>
 <td><code>\</code></td>
 <td><code>see("\\\\")</code></td>
-<td><div class="sourceCode" id="cb43"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>abc ABC 123\t.!?<span class="er">&lt;</span>\&gt;(){}\n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>abc ABC 123\t.!?&lt;\&gt;(){}\n</code></pre></td>
 </tr>
 <tr class="even">
 <td><code>\\(</code></td>
 <td><code>\(</code></td>
 <td><code>(</code></td>
 <td><code>see("\\(")</code></td>
-<td><div class="sourceCode" id="cb44"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>abc ABC 123\t.!?\<span class="er">&lt;</span>(&gt;){}\n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>abc ABC 123\t.!?\&lt;(&gt;){}\n</code></pre></td>
 </tr>
 <tr class="odd">
 <td><code>\\)</code></td>
 <td><code>\)</code></td>
 <td><code>)</code></td>
 <td><code>see("\\)")</code></td>
-<td><div class="sourceCode" id="cb45"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>abc ABC 123\t.!?\(<span class="er">&lt;</span>)&gt;{}\n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>abc ABC 123\t.!?\(&lt;)&gt;{}\n</code></pre></td>
 </tr>
 <tr class="even">
 <td><code>\\{</code></td>
 <td><code>\{</code></td>
 <td><code>{</code></td>
 <td><code>see("\\{")</code></td>
-<td><div class="sourceCode" id="cb46"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>abc ABC 123\t.!?\()<span class="er">&lt;</span>{&gt;}\n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>abc ABC 123\t.!?\()&lt;{&gt;}\n</code></pre></td>
 </tr>
 <tr class="odd">
 <td><code>\\}</code></td>
 <td><code>\}</code></td>
 <td><code>}</code></td>
 <td><code>see("\\}")</code></td>
-<td><div class="sourceCode" id="cb47"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>abc ABC 123\t.!?\(){<span class="er">&lt;</span>}&gt;\n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>abc ABC 123\t.!?\(){&lt;}&gt;\n</code></pre></td>
 </tr>
 <tr class="even">
 <td><code>\\n</code></td>
 <td><code>\n</code></td>
 <td>new line (return)</td>
 <td><code>see("\\n")</code></td>
-<td><div class="sourceCode" id="cb48"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>abc ABC 123\t.!?\(){}<span class="er">&lt;</span>\n&gt;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>abc ABC 123\t.!?\(){}&lt;\n&gt;</code></pre></td>
 </tr>
 <tr class="odd">
 <td><code>\\t</code></td>
 <td><code>\t</code></td>
 <td>tab</td>
 <td><code>see("\\t")</code></td>
-<td><div class="sourceCode" id="cb49"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>abc ABC 123<span class="er">&lt;</span>\t&gt;.!?\(){}\n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>abc ABC 123&lt;\t&gt;.!?\(){}\n</code></pre></td>
 </tr>
 <tr class="even">
 <td><code>\\s</code></td>
@@ -435,7 +435,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>any whitespace<br>
 (<code>\S</code> for non-whitespaces)</td>
 <td><code>see("\\s")</code></td>
-<td><div class="sourceCode" id="cb50"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>abc<span class="er">&lt;</span> &gt;ABC<span class="er">&lt;</span> &gt;123<span class="er">&lt;</span>\t&gt;.!?\(){}<span class="er">&lt;</span>\n&gt;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>abc&lt; &gt;ABC&lt; &gt;123&lt;\t&gt;.!?\(){}&lt;\n&gt;</code></pre></td>
 </tr>
 <tr class="odd">
 <td><code>\\d</code></td>
@@ -443,7 +443,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>any digit<br>
 (<code>\D</code> for non-digits)</td>
 <td><code>see("\\d")</code></td>
-<td><div class="sourceCode" id="cb51"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>abc ABC <span class="er">&lt;</span>1&gt;<span class="er">&lt;</span>2&gt;<span class="er">&lt;</span>3&gt;\t.!?\(){}\n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>abc ABC &lt;1&gt;&lt;2&gt;&lt;3&gt;\t.!?\(){}\n</code></pre></td>
 </tr>
 <tr class="even">
 <td><code>\\w</code></td>
@@ -451,84 +451,84 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>any word character<br>
 (<code>\W</code> for non-word characters)</td>
 <td><code>see("\\w")</code></td>
-<td><div class="sourceCode" id="cb52"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;a&gt;&lt;b&gt;&lt;c&gt;</span> <span class="kw">&lt;A&gt;&lt;B&gt;&lt;C&gt;</span> <span class="er">&lt;</span>1&gt;<span class="er">&lt;</span>2&gt;<span class="er">&lt;</span>3&gt;\t.!?\(){}\n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>&lt;a&gt;&lt;b&gt;&lt;c&gt; &lt;A&gt;&lt;B&gt;&lt;C&gt; &lt;1&gt;&lt;2&gt;&lt;3&gt;\t.!?\(){}\n</code></pre></td>
 </tr>
 <tr class="odd">
 <td><code>\\b</code></td>
 <td><code>\b</code></td>
 <td>word boundaries</td>
 <td><code>see("\\b")</code></td>
-<td><div class="sourceCode" id="cb53"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span>&gt;abc<span class="er">&lt;</span>&gt; <span class="er">&lt;</span>&gt;ABC<span class="er">&lt;</span>&gt; <span class="er">&lt;</span>&gt;123<span class="er">&lt;</span>&gt;\t.!?\(){}\n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>&lt;&gt;abc&lt;&gt; &lt;&gt;ABC&lt;&gt; &lt;&gt;123&lt;&gt;\t.!?\(){}\n</code></pre></td>
 </tr>
 <tr class="even">
 <td></td>
 <td><code>[:digit:]</code><sup>1</sup></td>
 <td>digits</td>
 <td><code>see("[:digit:]")</code></td>
-<td><div class="sourceCode" id="cb54"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>abc ABC <span class="er">&lt;</span>1&gt;<span class="er">&lt;</span>2&gt;<span class="er">&lt;</span>3&gt;\t.!?\(){}\n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>abc ABC &lt;1&gt;&lt;2&gt;&lt;3&gt;\t.!?\(){}\n</code></pre></td>
 </tr>
 <tr class="odd">
 <td></td>
 <td><code>[:alpha:]</code><sup>1</sup></td>
 <td>letters</td>
 <td><code>see("[:alpha:]")</code></td>
-<td><div class="sourceCode" id="cb55"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;a&gt;&lt;b&gt;&lt;c&gt;</span> <span class="kw">&lt;A&gt;&lt;B&gt;&lt;C&gt;</span> 123\t.!?\(){}\n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>&lt;a&gt;&lt;b&gt;&lt;c&gt; &lt;A&gt;&lt;B&gt;&lt;C&gt; 123\t.!?\(){}\n</code></pre></td>
 </tr>
 <tr class="even">
 <td></td>
 <td><code>[:lower:]</code><sup>1</sup></td>
 <td>lowercase letters</td>
 <td><code>see("[:lower:]")</code></td>
-<td><div class="sourceCode" id="cb56"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;a&gt;&lt;b&gt;&lt;c&gt;</span> ABC 123\t.!?\(){}\n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>&lt;a&gt;&lt;b&gt;&lt;c&gt; ABC 123\t.!?\(){}\n</code></pre></td>
 </tr>
 <tr class="odd">
 <td></td>
 <td><code>[:upper:]</code><sup>1</sup></td>
 <td>uppercase letters</td>
 <td><code>see("[:upper:]")</code></td>
-<td><div class="sourceCode" id="cb57"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>abc <span class="kw">&lt;A&gt;&lt;B&gt;&lt;C&gt;</span> 123\t.!?\(){}\n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>abc &lt;A&gt;&lt;B&gt;&lt;C&gt; 123\t.!?\(){}\n</code></pre></td>
 </tr>
 <tr class="even">
 <td></td>
 <td><code>[:alnum:]</code><sup>1</sup></td>
 <td>letters and numbers</td>
 <td><code>see("[:alnum:]")</code></td>
-<td><div class="sourceCode" id="cb58"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;a&gt;&lt;b&gt;&lt;c&gt;</span> <span class="kw">&lt;A&gt;&lt;B&gt;&lt;C&gt;</span> <span class="er">&lt;</span>1&gt;<span class="er">&lt;</span>2&gt;<span class="er">&lt;</span>3&gt;\t.!?\(){}\n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>&lt;a&gt;&lt;b&gt;&lt;c&gt; &lt;A&gt;&lt;B&gt;&lt;C&gt; &lt;1&gt;&lt;2&gt;&lt;3&gt;\t.!?\(){}\n</code></pre></td>
 </tr>
 <tr class="odd">
 <td></td>
 <td><code>[:punct:]</code><sup>1</sup></td>
 <td>punctuation</td>
 <td><code>see("[:punct:]")</code></td>
-<td><div class="sourceCode" id="cb59"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>abc ABC 123\t<span class="er">&lt;</span>.&gt;<span class="er">&lt;</span>!&gt;<span class="kw">&lt;?</span>&gt;&lt;\&gt;&lt;(&gt;&lt;)&gt;&lt;{&gt;&lt;}&gt;\n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>abc ABC 123\t&lt;.&gt;&lt;!&gt;&lt;?&gt;&lt;\&gt;&lt;(&gt;&lt;)&gt;&lt;{&gt;&lt;}&gt;\n</code></pre></td>
 </tr>
 <tr class="even">
 <td></td>
 <td><code>[:graph:]</code><sup>1</sup></td>
 <td>letters, numbers, and punctuation</td>
 <td><code>see("[:graph:]")</code></td>
-<td><div class="sourceCode" id="cb60"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;a&gt;&lt;b&gt;&lt;c&gt;</span> <span class="kw">&lt;A&gt;&lt;B&gt;&lt;C&gt;</span> <span class="er">&lt;</span>1&gt;<span class="er">&lt;</span>2&gt;<span class="er">&lt;</span>3&gt;\t<span class="er">&lt;</span>.&gt;<span class="er">&lt;</span>!&gt;<span class="kw">&lt;?</span>&gt;&lt;\&gt;&lt;(&gt;&lt;)&gt;&lt;{&gt;&lt;}&gt;\n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>&lt;a&gt;&lt;b&gt;&lt;c&gt; &lt;A&gt;&lt;B&gt;&lt;C&gt; &lt;1&gt;&lt;2&gt;&lt;3&gt;\t&lt;.&gt;&lt;!&gt;&lt;?&gt;&lt;\&gt;&lt;(&gt;&lt;)&gt;&lt;{&gt;&lt;}&gt;\n</code></pre></td>
 </tr>
 <tr class="odd">
 <td></td>
 <td><code>[:space:]</code><sup>1</sup></td>
 <td>space characters (i.e.&nbsp;<code>\s</code>)</td>
 <td><code>see("[:space:]")</code></td>
-<td><div class="sourceCode" id="cb61"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>abc<span class="er">&lt;</span> &gt;ABC<span class="er">&lt;</span> &gt;123<span class="er">&lt;</span>\t&gt;.!?\(){}<span class="er">&lt;</span>\n&gt;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>abc&lt; &gt;ABC&lt; &gt;123&lt;\t&gt;.!?\(){}&lt;\n&gt;</code></pre></td>
 </tr>
 <tr class="even">
 <td></td>
 <td><code>[:blank:]</code><sup>1</sup></td>
 <td>space and tab (but not new line)</td>
 <td><code>see("[:blank:]")</code></td>
-<td><div class="sourceCode" id="cb62"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>abc<span class="er">&lt;</span> &gt;ABC<span class="er">&lt;</span> &gt;123<span class="er">&lt;</span>\t&gt;.!?\(){}\n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>abc&lt; &gt;ABC&lt; &gt;123&lt;\t&gt;.!?\(){}\n</code></pre></td>
 </tr>
 <tr class="odd">
 <td></td>
 <td><code>.</code></td>
 <td>every character except a new line</td>
 <td><code>see(".")</code></td>
-<td><div class="sourceCode" id="cb63"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;a&gt;&lt;b&gt;&lt;c&gt;</span><span class="er">&lt;</span> &gt;<span class="kw">&lt;A&gt;&lt;B&gt;&lt;C&gt;</span><span class="er">&lt;</span> &gt;<span class="er">&lt;</span>1&gt;<span class="er">&lt;</span>2&gt;<span class="er">&lt;</span>3&gt;<span class="er">&lt;</span>\t&gt;<span class="er">&lt;</span>.&gt;<span class="er">&lt;</span>!&gt;<span class="kw">&lt;?</span>&gt;&lt;\&gt;&lt;(&gt;&lt;)&gt;&lt;{&gt;&lt;}&gt;&lt;\n&gt;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>&lt;a&gt;&lt;b&gt;&lt;c&gt;&lt; &gt;&lt;A&gt;&lt;B&gt;&lt;C&gt;&lt; &gt;&lt;1&gt;&lt;2&gt;&lt;3&gt;&lt;\t&gt;&lt;.&gt;&lt;!&gt;&lt;?&gt;&lt;\&gt;&lt;(&gt;&lt;)&gt;&lt;{&gt;&lt;}&gt;&lt;\n&gt;</code></pre></td>
 </tr>
 </tbody>
 </table>
@@ -562,7 +562,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="table">
 <caption>Alternates</caption>
 <colgroup>
-<col style="width: 14%">
+<col style="width: 15%">
 <col style="width: 17%">
 <col style="width: 20%">
 <col style="width: 44%">
@@ -581,25 +581,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><code>ab|d</code></td>
 <td>or</td>
 <td><code>alt("ab|d")</code></td>
-<td><div class="sourceCode" id="cb64"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;ab&gt;</span>c<span class="kw">&lt;d&gt;</span>e</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>&lt;ab&gt;c&lt;d&gt;e</code></pre></td>
 </tr>
 <tr class="even">
 <td><code>[abe]</code></td>
 <td>one of</td>
 <td><code>alt("[abe]"</code></td>
-<td><div class="sourceCode" id="cb65"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;a&gt;&lt;b&gt;</span>cd<span class="kw">&lt;e&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>&lt;a&gt;&lt;b&gt;cd&lt;e&gt;</code></pre></td>
 </tr>
 <tr class="odd">
 <td><code>[^abe]</code></td>
 <td>anything but</td>
 <td><code>alt("[^abe]")</code></td>
-<td><div class="sourceCode" id="cb66"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>ab<span class="kw">&lt;c&gt;&lt;d&gt;</span>e</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>ab&lt;c&gt;&lt;d&gt;e</code></pre></td>
 </tr>
 <tr class="even">
 <td><code>[a-c]</code></td>
 <td>range</td>
 <td><code>alt("[a-c]")</code></td>
-<td><div class="sourceCode" id="cb67"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;a&gt;&lt;b&gt;&lt;c&gt;</span>de</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>&lt;a&gt;&lt;b&gt;&lt;c&gt;de</code></pre></td>
 </tr>
 </tbody>
 </table>
@@ -629,13 +629,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><code>^a</code></td>
 <td>start of string</td>
 <td><code>anchor("^a")</code></td>
-<td><div class="sourceCode" id="cb68"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;a&gt;</span>aa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>&lt;a&gt;aa</code></pre></td>
 </tr>
 <tr class="even">
 <td><code>a$</code></td>
 <td>end of string</td>
 <td><code>anchor("a$")</code></td>
-<td><div class="sourceCode" id="cb69"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>aa<span class="kw">&lt;a&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>aa&lt;a&gt;</code></pre></td>
 </tr>
 </tbody>
 </table>
@@ -665,25 +665,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><code>a(?=c)</code></td>
 <td>followed by</td>
 <td><code>look("a(?=c)")</code></td>
-<td><div class="sourceCode" id="cb70"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>b<span class="kw">&lt;a&gt;</span>cad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>b&lt;a&gt;cad</code></pre></td>
 </tr>
 <tr class="even">
 <td><code>a(?!c)</code></td>
 <td>not followed by</td>
 <td><code>look("a(?!c)")</code></td>
-<td><div class="sourceCode" id="cb71"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>bac<span class="kw">&lt;a&gt;</span>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>bac&lt;a&gt;d</code></pre></td>
 </tr>
 <tr class="odd">
 <td><code>(?&lt;=b)a</code></td>
 <td>preceded by</td>
 <td><code>look("(?&lt;=b)a")</code></td>
-<td><div class="sourceCode" id="cb72"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>b<span class="kw">&lt;a&gt;</span>cad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>b&lt;a&gt;cad</code></pre></td>
 </tr>
 <tr class="even">
 <td><code>(?&lt;!b)a</code></td>
 <td>not preceded by</td>
 <td><code>look("(?&lt;!b)a")</code></td>
-<td><div class="sourceCode" id="cb73"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>bac<span class="kw">&lt;a&gt;</span>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>bac&lt;a&gt;d</code></pre></td>
 </tr>
 </tbody>
 </table>
@@ -694,10 +694,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="table">
 <caption>Quantifiers</caption>
 <colgroup>
-<col style="width: 14%">
+<col style="width: 15%">
 <col style="width: 22%">
 <col style="width: 20%">
-<col style="width: 40%">
+<col style="width: 39%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -713,37 +713,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><code>a?</code></td>
 <td>zero or one</td>
 <td><code>quant("a?")</code></td>
-<td><div class="sourceCode" id="cb74"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span>&gt;.<span class="kw">&lt;a&gt;</span><span class="er">&lt;</span>&gt;.<span class="kw">&lt;a&gt;&lt;a&gt;</span><span class="er">&lt;</span>&gt;.<span class="kw">&lt;a&gt;&lt;a&gt;&lt;a&gt;</span><span class="er">&lt;</span>&gt;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>&lt;&gt;.&lt;a&gt;&lt;&gt;.&lt;a&gt;&lt;a&gt;&lt;&gt;.&lt;a&gt;&lt;a&gt;&lt;a&gt;&lt;&gt;</code></pre></td>
 </tr>
 <tr class="even">
 <td><code>a*</code></td>
 <td>zero or more</td>
 <td><code>quant("a*")</code></td>
-<td><div class="sourceCode" id="cb75"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span>&gt;.<span class="kw">&lt;a&gt;</span><span class="er">&lt;</span>&gt;.<span class="kw">&lt;aa&gt;</span><span class="er">&lt;</span>&gt;.<span class="kw">&lt;aaa&gt;</span><span class="er">&lt;</span>&gt;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>&lt;&gt;.&lt;a&gt;&lt;&gt;.&lt;aa&gt;&lt;&gt;.&lt;aaa&gt;&lt;&gt;</code></pre></td>
 </tr>
 <tr class="odd">
 <td><code>a+</code></td>
 <td>one or more</td>
 <td><code>quant("a+")</code></td>
-<td><div class="sourceCode" id="cb76"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>.<span class="kw">&lt;a&gt;</span>.<span class="kw">&lt;aa&gt;</span>.<span class="kw">&lt;aaa&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>.&lt;a&gt;.&lt;aa&gt;.&lt;aaa&gt;</code></pre></td>
 </tr>
 <tr class="even">
 <td><code>a{n}</code></td>
 <td>exactly <code>n</code></td>
 <td><code>quant("a{2}")</code></td>
-<td><div class="sourceCode" id="cb77"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>.a.<span class="kw">&lt;aa&gt;</span>.<span class="kw">&lt;aa&gt;</span>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>.a.&lt;aa&gt;.&lt;aa&gt;a</code></pre></td>
 </tr>
 <tr class="odd">
 <td><code>a{n, }</code></td>
 <td><code>n</code> or more</td>
 <td><code>quant("a{2,}")</code></td>
-<td><div class="sourceCode" id="cb78"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>.a.<span class="kw">&lt;aa&gt;</span>.<span class="kw">&lt;aaa&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>.a.&lt;aa&gt;.&lt;aaa&gt;</code></pre></td>
 </tr>
 <tr class="even">
 <td><code>a{n, m}</code></td>
 <td>between <code>n</code> and <code>m</code></td>
 <td><code>quant("a{2,4}")</code></td>
-<td><div class="sourceCode" id="cb79"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>.a.<span class="kw">&lt;aa&gt;</span>.<span class="kw">&lt;aaa&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>.a.&lt;aa&gt;.&lt;aaa&gt;</code></pre></td>
 </tr>
 </tbody>
 </table>
@@ -755,10 +755,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="table">
 <caption>Groups</caption>
 <colgroup>
-<col style="width: 15%">
+<col style="width: 16%">
 <col style="width: 19%">
 <col style="width: 20%">
-<col style="width: 42%">
+<col style="width: 41%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -774,7 +774,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><code>(ab|d)e</code></td>
 <td>sets precedence</td>
 <td><code>alt("(ab|d)e")</code></td>
-<td><div class="sourceCode" id="cb80"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>abc<span class="kw">&lt;de&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>abc&lt;de&gt;</code></pre></td>
 </tr>
 </tbody>
 </table>
@@ -808,7 +808,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><code>\1</code> (etc.)</td>
 <td>first () group, etc.</td>
 <td><code>ref("(a)(b)\\2\\1")</code></td>
-<td><div class="sourceCode" id="cb81"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;abba&gt;</span>ab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><pre><code>&lt;abba&gt;ab</code></pre></td>
 </tr>
 </tbody>
 </table>
