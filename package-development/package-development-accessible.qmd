@@ -96,6 +96,7 @@ Get a situation report with `git_sitrep()`.
 knitr::include_graphics("diagrams/workflow.png")
 ```
 
+```{=html}
 <!----
 A potential alternative way to describe the image instead
 of alt-text, but need to have it collapsed visually, but
@@ -118,12 +119,11 @@ the IDE cheatsheet...
 11. git push.
 :::
 ---->
-
+```
 -   **`load_all()`** (Ctrl/Cmd + Shift + L): Load code
 -   **`document()`** (Ctrl/Cmd + Shift + D): Rebuild docs and NAMESPACE
 -   **`test()`** (Ctrl/Cmd + Shift + T): Run tests
 -   **`check()`** (Ctrl/Cmd + Shift + E): Check complete package
-
 
 ## R/
 
@@ -290,7 +290,8 @@ From those states, a package can be installed into an R **library** and then loa
 knitr::include_graphics("diagrams/install-load.png")
 ```
 
-<!-- this description does the job of the diagram for screen readers --> 
+<!-- this description does the job of the diagram for screen readers -->
+
 Use the functions below to move between these states:
 
 -   `library()`: Installed in Library to loaded in Memory.
