@@ -5,6 +5,10 @@ format:
     toc: true
     highlight-style: a11y-dark
 editor: visual
+execute:
+  eval: false
+  output: false
+  warning: false
 ---
 
 The **reticulate** package lets you use Python and R together seamlessly in R code, in R Markdown documents, and in the RStudio IDE.
@@ -64,8 +68,6 @@ mpl.pyplot.show()
 `python.r` Example:
 
 ```{r}
-#| eval: false
-
 library(reticulate)
 py_install("seaborn")
 use_virtualenv("r-reticulate")
@@ -75,15 +77,22 @@ sns <- import("seaborn")
 fmri <- sns$load_dataset("fmri")
 dim(fmri)
 
-# creates tips
+# creates fmri
 source_python("python.py")
-dim(tips)
+dim(fmri)
 
-# creates tips in main
+# creates fmri in main
 py_run_file("python.py")
-dim(py$tips)
+dim(py$fmri)
 
-py_run_string("prints(tips.shape)")
+py_run_string("print(fmri.shape)")
+```
+
+`python.py` Example:
+
+``` python
+import seaborn as sns
+fmri = sns.load_dataset("fmri")
 ```
 
 Call Python from R code in three ways:
@@ -94,8 +103,6 @@ Use `import()` to import any Python module.
 Access the attributes of a module with `$`.
 
 ```{r}
-#| eval: false
-
 library(reticulate)
 py_install("seaborn")
 use_virtualenv("r-reticulate")
@@ -111,24 +118,18 @@ dim(fmri)
     Also `import_from_path()`.
 
     ```{r}
-    #| eval: false
-
     import("pandas")
     ```
 
 -   `import_main(convert = TRUE)`: Import the main module, where Python executes code by default.
 
     ```{r}
-    #| eval: false
-
     import_main()
     ```
 
 -   `import_builtings(convert = TRUE)`: Import Python's built-in functions.
 
     ```{r}
-    #| eval: false
-
     import_builtins()
     ```
 
@@ -137,18 +138,14 @@ dim(fmri)
 Use `source_python()` to source a Python script and make the Python functions and objects it creates available in the calling R environment.
 
 ```{r}
-#| eval: false
-
 source_python("python.py")
-dim(py$tips)
+dim(py$fmri)
 ```
 
 -   `source_python(file, envir = parent.frame(), convert = TRUE)`: Run a Python script, assigning objects to a specified R environment.
 
     ```{r}
-    #| eval: false
-
-    source_python("file.py")
+    source_python("python.py")
     ```
 
 ### Run Python Code
@@ -156,19 +153,15 @@ dim(py$tips)
 Execute Python code into the `main` Python modules with `py_run_file()` or `py_run_string()`.
 
 ```{r}
-#| eval: false
-
 py_run_file("python.py")
-dim(py$tips)
+dim(py$fmri)
 
-py_run_string("print(tips.shape)")
+py_run_string("print(fmri.shape)")
 ```
 
 -   `py_run_string(code, local = FALSE, convert = TRUE)`: Run Python code (passed as a string) in the main module.
 
     ```{r}
-    #| eval: false
-
     py_run_string("x = 10")
     py$x
     ```
@@ -176,17 +169,13 @@ py_run_string("print(tips.shape)")
 -   `py_run_file(file, local = FALSE, convert = TRUE)`: Run Python file in the main module.
 
     ```{r}
-    #| eval: false
-
-    py_run_file("script.py")
+    py_run_file("python.py")
     ```
 
 -   `py_eval(code, convert = TRUE)`: Run a Python expression, return the result.
     Also `py_call()`.
 
     ```{r}
-    #| eval: false
-
     py_eval("1 + 1")
     ```
 
@@ -195,8 +184,6 @@ Access the results, and anything else in Python's `main` module, with `py`.
 -   `py`: An R object that contains the Python main module and the results stored there.
 
     ```{r}
-    #| eval: false
-
     py$x
     ```
 
@@ -225,16 +212,12 @@ Or, if you like, you can convert manually with
     Also `r_to_py()`.
 
     ```{r}
-    #| eval: false
-
-    py_to_r(x)
+    py_to_r(py)
     ```
 
 -   `tuple(..., convert = FALSE)`: Create a Python tuple.
 
     ```{r}
-    #| eval: false
-
     tuple("a", "b", "c")
     ```
 
@@ -242,24 +225,18 @@ Or, if you like, you can convert manually with
     Also `py_dict()` to make a dictionary that uses Python objects as keys.
 
     ```{r}
-    #| eval: false
-
     dict(foo = "bar", index = 42L)
     ```
 
 -   `np_array(data, dtype = NULL, order = "C")`: Create NumPy arrays.
 
     ```{r}
-    #| eval: false
-
     np_array(c(1:8), dtype = "float16")
     ```
 
 -   `array_reshape(x, dim, order = c("C", "F"))`: Reshape a Python array.
 
     ```{r}
-    #| eval: false
-
     x <- 1:4
     array_reshape(x, c(2,2))
     ```
@@ -267,9 +244,7 @@ Or, if you like, you can convert manually with
 -   `py_func(f)`: Wrap an R function in a Python function with the same signature.
 
     ```{r}
-    #| eval: false
-
-    py_fuc(xor)
+    py_func(xor)
     ```
 
 -   `py_main_thread_func(f)`: Create a function that will always be called on the main thread.
@@ -286,8 +261,6 @@ Or, if you like, you can convert manually with
 -   `py_interator(fn, completed = NULL)`: Create a Python iterator from an R function.
 
     ```{r}
-    #| eval: false
-
     seq_gen <- function(x) {
       n <- x;
       function() {
@@ -304,8 +277,6 @@ Or, if you like, you can convert manually with
     Also `py_supress_warnings()`.
 
     ```{r}
-    #| eval: false
-
     py_capture_output("x")
     ```
 
@@ -317,6 +288,8 @@ Or, if you like, you can convert manually with
 
     py_get_attr(x)
     ```
+
+<!-- TO DO: Needs name argument. -->
 
 -   `py_help(object)`: Open the documentation page for a Python object.
 
@@ -330,8 +303,6 @@ Or, if you like, you can convert manually with
     Also `py_clear_last_error()` to clear the last error.
 
     ```{r}
-    #| eval: false
-
     py_last_error()
     ```
 
@@ -347,8 +318,6 @@ Or, if you like, you can convert manually with
 -   `with(data, expr, as = NULL, ...)`: Evaluate an expression within a Python context manager.
 
     ```{r}
-    #| eval: false
-
     py <- import_builtins()
     with(py$open("output.txt", "w") %as% file,
          {file$write("Hello, there!")})
@@ -360,11 +329,11 @@ Or, if you like, you can convert manually with
 
 Requires reticulate plus RStudio v1.2+.
 Some features require v1.4+.
-Screenshot Here
 
-Expand to read about the reticulate features in the RStudio IDE.
+![](images/reticulate-ide.png)
 
-#### Reticulate features in the RStudio IDE
+::: {.callout-note appearance="minimal" icon="false" collapse="true"}
+## Expand to read about reticulate features in the RStudio IDE {aria-hidden="true"}
 
 -   Syntax highlighting for Python scripts and chunks.
 -   Tab completion for Python functions and objects (and Python modules imported in R scripts).
@@ -375,6 +344,7 @@ Expand to read about the reticulate features in the RStudio IDE.
 -   A Python REPL opens in the console when you run Python code with a keyboard shortcut. Type `exit` to close.
 -   `matplotlib` plots display in plots pane.
 -   Press `F1` over a Python symbol to display the help topic for that symbol.
+:::
 
 ## Python REPL
 
@@ -387,8 +357,6 @@ A REPL (Read, Eval, Print Loop) is a command line where you can run Python code 
     -   `repl_python(module = NULL, quiet = getOption("reticulate.repl.quiet", default = FALSE), input = NULL)`: Launch a Python REPL. Run `exit` to close.
 
         ```{r}
-        #| eval: false
-
         repl_python()
         ```
 
@@ -402,10 +370,10 @@ A REPL (Read, Eval, Print Loop) is a command line where you can run Python code 
     > reticulate::repl_python()
     Python 3.6.13 (/Users/rstudiointern/Library/r-miniconda/envs/r-reticulate/bin/python)
     Reticulate 1.20 REPL -- A Python interpreter in R.
-    >>> inport seaborn as sns
-    >>> tips = sns.load_dataset("tips")
-    >>> tips.shape
-    (244, 7)
+    >>> import seaborn as sns
+    >>> fmri = sns.load_dataset("fmri")
+    >>> fmri.shape
+    (1064, 5)
     >>> exit
     >
     ```
@@ -431,26 +399,20 @@ Then suggest your instance to reticulate.
     Also `py_module_available()` and `py_numpy_module()`.
 
     ```{r}
-    #| eval: false
-
     py_available()
     ```
 
--   `py_discover_config()`: Return all detected version of Python.
+-   `py_discover_config()`: Return all detected versions of Python.
     Use `py_config()` to check which version has been loaded.
 
     ```{r}
-    #| eval: false
-
     py_config()
     ```
 
--   `virtualenv_list()`: List all available virtualenvs.
+-   `virtualenv_list()`: List all available virtual environments.
     Also `virtualenv_root()`.
 
     ```{r}
-    #| eval: false
-
     virtualenv_list()
     ```
 
@@ -458,8 +420,6 @@ Then suggest your instance to reticulate.
     Also `conda_binary()` and `conda_version()`.
 
     ```{r}
-    #| eval: false
-
     conda_list()
     ```
 
@@ -468,16 +428,12 @@ Then suggest your instance to reticulate.
 -   `virtual_env(envname = NULL, ...)`: Create a new virtual environment.
 
     ```{r}
-    #| eval: false
-
     virtualenv_create("r-pandas")
     ```
 
 -   `conda_create(envname = NULL, ...)`: Create a new conda environment.
 
     ```{r}
-    #| eval: false
-
     conda_create("r-pandas", packages = "pandas")
     ```
 
@@ -489,29 +445,23 @@ Install Python packages with R (below) or the shell:
 
 `conda install SciPy`
 
--   `py_install(packages, envname, ...)`: Installs Python packages into a Python env.
+-   `py_install(packages, envname, ...)`: Install Python packages into a Python env.
 
     ```{r}
-    #| eval: false
-
     py_install("pandas")
     ```
 
--   `virtualenv_install(envname, packages, ...)`: Install a package within a virtualenv.
+-   `virtualenv_install(envname, packages, ...)`: Install a package within a virtual environment.
     Also `virtualenv_remove()`.
 
     ```{r}
-    #| eval: false
-
     virtualenv_install("r-pandas", packages = "pandas")
     ```
 
--   `conda_installs(envname, packages, ...)`: Install a package within a conda env.
+-   `conda_installs(envname, packages, ...)`: Install a package within a conda environment.
     Also `conda_remove()`.
 
     ```{r}
-    #| eval: false
-
     conda_install("r-pandas", packages = "plotly")
     ```
 
@@ -580,6 +530,7 @@ Updated: `r format(Sys.Date(), "%Y-%m")`.
 
 ```{r}
 #| output: true
+#| eval: true
 
 packageVersion("reticulate")
 ```
