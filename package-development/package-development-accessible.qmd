@@ -5,34 +5,53 @@ format:
     toc: true
     highlight-style: a11y-dark
 editor: visual
+execute:
+  eval: true
+  output: false
+  warning: true
 ---
 
-Visit [r-pkgs.org](r-pkgs.org) to learn more about writing and publishing packages for R.
+```{r}
+#| include: false
+library(devtools)
+library(testthat)
+library(roxygen2)
+```
+
+```{=html}
+<!--
+Keyboard shortcuts can be expressed better with the `kbd` element: eg. 
+{{< kbd mac=Cmd+Shift+E win=Ctrl+Shift+E linux=Ctrl+Shift+E >}} 
+however the accessibility of them is being worked on, so for now better to just
+use text.
+-->
+```
+Visit [r-pkgs.org](https://r-pkgs.org) to learn more about writing and publishing packages for R.
 
 ## Package Structure
 
-A package is a convention for organizing files into directories. This cheat sheet shows how to work with the 7 most common parts of an R package:
+A package is a convention for organizing files into directories, and creates a shareable, installable collection of functions, sample data, and documentation.
+This cheat sheet shows you how to work with the 7 most common parts of an R package:
 
+-   R/: Write R code for your package
 -   DESCRIPTION: Set up metadata and organize package functions
 -   NAMESPACE
--   R/: Write R code for your package
 -   tests/: Verify your code is correct
 -   man/
 -   vignettes/: Document your code and write tutorials and how-tos
 -   data/: Include data sets in your package
 
-There are multiple packages useful to package development, including `usethis` which handily automates many of the more repetitive tasks, Load and install `devtools` which wraps together several of these packages to access everything in one step.
+There are multiple packages useful to package development, including `usethis` which handily automates many of the more repetitive tasks.
+Load and install `devtools` which wraps together several of these packages to access everything in one step.
 
 ## Getting Started
 
 Once per machine:
 
--   Get set up with `use_r_profile()`
+-   Get set up with `use_r_profile()` so devtools is always loaded in interactive R sessions.
 
     ```{r}
-    #| eval: false
-
-    if (iteractive()) {
+    if (interactive()) {
       require("devtools", quietly = TRUE)
       # automatically attaches usethis
     }
@@ -44,29 +63,72 @@ Once per machine:
 
 Once per package:
 
+-   `create_package()`: Create a project with package scaffolding.
+
 -   `use_git()`: Activate git.
 
 -   `use_github()`: Connect to GitHub.
 
--   `use_github_actions()`: Set up automated checks.
+-   `use_github_action()`: Set up automated package checks.
 
-Having problems with git? Get a situation report with `git_sitrep()`.
+Having problems with git?
+Get a situation report with `git_sitrep()`.
 
 ## Workflow
 
-TODO diagram
+```{r}
+#| output: true
+#| echo: false
+#| fig-alt: >
+#|  A typical workflow:
+#|  1. Edit code.
+#|  2. Load code with load_all().
+#|  3. Run code (or skip to 3).
+#|  4. Write/edit tests.
+#|  5. Run tests with test().
+#|  6. Go back to 1 (edit code) and repeat.
+#|  7. Write/edit Roxygen documentation.
+#|  8. Rebuild docs and NAMESPACE with document().
+#|  9. Check complete package with check().
+#|  10. git commit.
+#|  11. git push.
 
--   `load_all()` or `Ctrl/Cmd + Shift + L`: Load code.
+knitr::include_graphics("diagrams/workflow.png")
+```
 
--   `document()` or `Ctrl/Cmd + Shift + D`: Rebuild docs and NAMESPACE.
+<!----
+A potential alternative way to describe the image instead
+of alt-text, but need to have it collapsed visually, but
+expanded for a screen reader. Can probably use css from 
+the IDE cheatsheet...
 
--   `test()` or `Ctrl/Cmd + Shift + T`: Run tests.
+::: {.callout-note collapse="true" appearance="simple"}
+## Expand to view a typical workflow {aria-hidden="true"}
 
--   `check()` or `Ctrl/Cmd + Shift + E`: Check complete package.
+1.  Edit code.
+2.  Load code with `load_all()`.
+3.  Run code (or skip to #3).
+4.  Write/edit tests.
+5.  Run tests with `test()`.
+6.  Go back to #1 (edit code) and repeat.
+7.  Write/edit Roxygen documentation.
+8.  Rebuild docs and NAMESPACE with `document()`.
+9.  Check complete package with `check()`.
+10. git commit.
+11. git push.
+:::
+---->
+
+-   **`load_all()`** (Ctrl/Cmd + Shift + L): Load code
+-   **`document()`** (Ctrl/Cmd + Shift + D): Rebuild docs and NAMESPACE
+-   **`test()`** (Ctrl/Cmd + Shift + T): Run tests
+-   **`check()`** (Ctrl/Cmd + Shift + E): Check complete package
+
 
 ## R/
 
-All of the R code in your package goes in `R/`. A package with just an `R/` directory is still a very useful package.
+All of the R code in your package goes in `R/`.
+A package with just an `R/` directory is still a very useful package.
 
 -   Create a new package project with `create_package("path/to/name")`.
 
@@ -74,21 +136,25 @@ All of the R code in your package goes in `R/`. A package with just an `R/` dire
 
 -   Follow the tidyverse style guide at [style.tidyverse.org](style.tidyverse.org "Tidyverse style guide")
 
--   Click on a function and press `F2` to open its definition
+-   Put your cursor on a function and press `F2` to go to its definition
 
--   Find a function or file with `Ctrl + .`
+-   Find a function or file with the keyboard shortcut `Ctrl+.`
 
 ## DESCRIPTION
 
-The DESCRIPTION file describes your work, sets up how your package will work with other packages, and applies a license.
+The DESCRIPTION file describes your package, sets up how your package will work with other packages, and applies a license.
 
 -   Pick a license with `use_mit_license()`, `use_gpl3_license()`, `use_proprietary_license()`.
 
 -   Add packages that you need with `use_package()`.
 
-**Import** packages users of your packages need. R will install them when it installs your package.
+**Import** packages that your package requires to function.
+R will install them when it installs your package.
+Add with `use_package(pkgname, type = "imports")`
 
-**Suggest** packages that developers of your package need. Users can install or not, as they like.
+**Suggest** packages that developers of your package need.
+Users can install or not, as they like.
+Add with `use_package(pkgname, type = "suggests")`
 
 ## NAMESPACE
 
@@ -96,7 +162,7 @@ The `NAMESPACE` file helps you make your packages self-contained: it won't inter
 
 -   Export functions for users by placing `@export` in their roxygen comments.
 
--   Access objects from other packages with `package::object` or `@importFrom package object` (recommended) or `@import package` (use with caution).
+-   Use objects from other packages with `package::object` or `@importFrom package object` (recommended) or `@import package` (use with caution).
 
 -   Call `document()` to generate `NAMESPACE` and `load_all()` to reload.
 
@@ -114,7 +180,8 @@ The `NAMESPACE` file helps you make your packages self-contained: it won't inter
 
 The documentation will become the help pages in your package.
 
--   Document each function with a roxygen block above its definition. In RStudio, **Code \> Insert Roxygen Skeleton** helps.
+-   Document each function with a roxygen block above its definition in R/.
+    In RStudio, **Code \> Insert Roxygen Skeleton** (Keyboard shortcut: Mac `Shift+Option+Cmd+R`, Windows/Linux `Shift+Alt+Ctrl+R`) helps.
 
 -   Document each data set with an roxygen block above the name of the data set in quotes.
 
@@ -131,8 +198,6 @@ The **roxygen2** package lets you write documentation inline in your .R files wi
 -   Untagged paragraphs will be used to generate a title, description, and details section (in that order).
 
 ```{r}
-#| eval: false
-
 #' Add together two numbers
 #' 
 #' @param x A number.
@@ -156,15 +221,10 @@ add <- function(x, y) {
 Also:
 
 -   `@description`
-
--   `@exampleslf`
-
+-   `@examplesif`
 -   `@family`
-
 -   `@inheritParams`
-
 -   `@rdname`
-
 -   `@seealso`
 
 ## vignettes/
@@ -198,8 +258,6 @@ Also:
 : Table of expect functions and what each one tests
 
 ```{r}
-#| eval: false
-
 test_that("Math works", {
   expect_equal(1 + 1, 2)
   expect_equal(1 + 2, 3)
@@ -214,7 +272,7 @@ test_that("Math works", {
 
 ## Package States
 
-The contents of a package can be stored on disk as a: 
+The contents of a package can be stored on disk as a:
 
 -   **source** - a directory with sub-directories (as shown in Package Structure)
 -   **bundle** - a single compressed file (.tar.gz)
@@ -222,16 +280,34 @@ The contents of a package can be stored on disk as a:
 
 Packages exist in those states locally or remotely, e.g. on CRAN or on GitHub.
 
-From those states, a package can be installed into an R library an then loaded into memory during an R session.
+From those states, a package can be installed into an R **library** and then loaded into **memory** for use during an R session.
 
+```{r}
+#| echo: false
+#| fig-alt: ""
+#| output: true
+
+knitr::include_graphics("diagrams/install-load.png")
+```
+
+<!-- this description does the job of the diagram for screen readers --> 
 Use the functions below to move between these states:
 
--   `install.packages()`: CRAN repository to Binary.
--   `install.packages(type = "source")`: CRAN repository to Bundle.
--   `R CMD install`: Source, Binary, or Bundle to Installed.
--   `install()`: Reinstall/Reload a Source package.
--   `build()`: Source to Bundle
--   `install_github()`: GitHub repository to Source
--   `load_all()`: Source to Memory.
--   `Install & Restart (RStudio)`: Source to Installed to Memory.
--   `library()`: Installed to Memory.
+-   `library()`: Installed in Library to loaded in Memory.
+-   `install.packages()`: Binary from CRAN repository to installed in Library.
+-   `install.packages(type = "source")`: Source code from CRAN repository to Bundle, to installed in Library.
+-   `install_github()`: Source code from GitHub repository to Bundle to installed in Library.
+-   `install()`: Local source code to bundle to installed in Library.
+-   `build()`: Local source to Bundle.
+-   `build(binary = TRUE)`: Local source to Binary.
+-   `load_all()`: Local source to loaded in Memory.
+
+------------------------------------------------------------------------
+
+CC BY SA Posit Software, PBC • [info\@posit.co](mailto:info@posit.co) • [posit.co](https://posit.co)
+
+Learn more at [r-pkgs.org](https://r-pkgs.org).
+
+Updated: `r format(Sys.Date(), "%Y-%m")`.
+
+------------------------------------------------------------------------
