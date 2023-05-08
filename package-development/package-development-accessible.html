@@ -83,7 +83,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#package-structure" id="toc-package-structure" class="nav-link active" data-scroll-target="#package-structure">Package Structure</a></li>
   <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting Started</a></li>
-  <li><a href="#workflow" id="toc-workflow" class="nav-link" data-scroll-target="#workflow">Workflow</a></li>
+  <li><a href="#workflow" id="toc-workflow" class="nav-link" data-scroll-target="#workflow">Workflow</a>
+  <ul class="collapse">
+  <li><a href="#key-steps-in-the-workflow-with-keyboard-shortcuts" id="toc-key-steps-in-the-workflow-with-keyboard-shortcuts" class="nav-link" data-scroll-target="#key-steps-in-the-workflow-with-keyboard-shortcuts">Key steps in the workflow (with keyboard shortcuts)</a></li>
+  </ul></li>
   <li><a href="#r" id="toc-r" class="nav-link" data-scroll-target="#r">R/</a></li>
   <li><a href="#description" id="toc-description" class="nav-link" data-scroll-target="#description">DESCRIPTION</a></li>
   <li><a href="#namespace" id="toc-namespace" class="nav-link" data-scroll-target="#namespace">NAMESPACE</a></li>
@@ -170,39 +173,44 @@ use text.
 </section>
 <section id="workflow" class="level2">
 <h2 class="anchored" data-anchor-id="workflow">Workflow</h2>
+<!--
+Note that longdesc is deprecated, but at present does not seem in danger of 
+actually going away.
+
+Including this in straight html because attr-output knitr option not working:
+https://github.com/quarto-dev/quarto-cli/issues/5456
+would rather use an R chunk:
+
+#| output: true
+#| echo: false
+#| fig-alt: >
+#|   A flow chart describing a typical workflow of editing code, testing code,
+#|   writing documentation, and checking your package.
+#| attr-output: "longdesc='workflow-longdesc.html'"
+
+knitr::include_graphics("diagrams/workflow.png")
+
+Also see the RStudio IDE cheatsheet for some clever accessible image navigation.
+-->
+
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="images/workflow.png" class="img-fluid" alt="A typical workflow: 1. Edit code. 2. Load code with load_all(). 3. Run code (or skip to 3). 4. Write/edit tests. 5. Run tests with test(). 6. Go back to 1 (edit code) and repeat. 7. Write/edit Roxygen documentation. 8. Rebuild docs and NAMESPACE with document(). 9. Check complete package with check(). 10. git commit. 11. git push." width="1059"></p>
+<p>
+<img src="images/workflow.png" class="img-fluid" longdesc="workflow-longdesc.html" alt="A flow chart describing a typical workflow of editing code, testing code, 
+writing documentation, and checking your package." width="1059">
+</p>
+<a href="workflow-longdesc.html" target="_">Long description of flowchart.</a>
 </div>
 </div>
-<!----
-A potential alternative way to describe the image instead
-of alt-text, but need to have it collapsed visually, but
-expanded for a screen reader. Can probably use css from 
-the IDE cheatsheet...
-
-::: {.callout-note collapse="true" appearance="simple"}
-## Expand to view a typical workflow {aria-hidden="true"}
-
-1.  Edit code.
-2.  Load code with `load_all()`.
-3.  Run code (or skip to #3).
-4.  Write/edit tests.
-5.  Run tests with `test()`.
-6.  Go back to #1 (edit code) and repeat.
-7.  Write/edit Roxygen documentation.
-8.  Rebuild docs and NAMESPACE with `document()`.
-9.  Check complete package with `check()`.
-10. git commit.
-11. git push.
-:::
----->
+<section id="key-steps-in-the-workflow-with-keyboard-shortcuts" class="level3">
+<h3 class="anchored" data-anchor-id="key-steps-in-the-workflow-with-keyboard-shortcuts">Key steps in the workflow (with keyboard shortcuts)</h3>
 <ul>
 <li><strong><code>load_all()</code></strong> (Ctrl/Cmd + Shift + L): Load code</li>
-<li><strong><code>document()</code></strong> (Ctrl/Cmd + Shift + D): Rebuild docs and NAMESPACE</li>
 <li><strong><code>test()</code></strong> (Ctrl/Cmd + Shift + T): Run tests</li>
+<li><strong><code>document()</code></strong> (Ctrl/Cmd + Shift + D): Rebuild docs and NAMESPACE</li>
 <li><strong><code>check()</code></strong> (Ctrl/Cmd + Shift + E): Check complete package</li>
 </ul>
+</section>
 </section>
 <section id="r" class="level2">
 <h2 class="anchored" data-anchor-id="r">R/</h2>
@@ -386,7 +394,7 @@ the IDE cheatsheet...
 <p>From those states, a package can be installed into an R <strong>library</strong> and then loaded into <strong>memory</strong> for use during an R session.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="images/install-load.png" class="img-fluid" width="1013"></p>
+<p><img src="images/install-load.png" class="img-fluid" alt="A diagram describing the functions that move a package between different states. The description below describes this in detail. " width="1013"></p>
 </div>
 </div>
 <!-- this description does the job of the diagram for screen readers -->
@@ -416,7 +424,7 @@ the IDE cheatsheet...
 </div>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">packageVersion</span>(<span class="st">"testthat"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] '3.1.7'</code></pre>
+<pre><code>[1] '3.1.7.9000'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">packageVersion</span>(<span class="st">"roxygen2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
