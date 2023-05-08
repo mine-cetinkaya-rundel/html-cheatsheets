@@ -205,7 +205,7 @@ data <- faithful[1:4,]
 knitr::kable(data, caption = "Tables with kable")
 ```
 
-Other table packages include **flexible**, **gt**, and **kableExtra**.
+Other table packages include **flextable**, **gt**, and **kableExtra**.
 
 ## Write With Markdown
 
@@ -349,12 +349,13 @@ The syntax on the left renders as the output on the right.
 | HTML Tabsets                                | ::: panel-tabset                                                          |
 |                                             | ## Plots                                                                  |
 | ```                                         |                                                                           |
-| # Results                                   | text                                                                      |
+| ::: panel-tabset                            | text                                                                      |
 | ## Plots text                               |                                                                           |
 | text                                        | ## Tables                                                                 |
 |                                             |                                                                           |
 | ## Tables                                   | more text                                                                 |
 | more text                                   | :::                                                                       |
+| :::                                         |                                                                           |
 | ```                                         |                                                                           |
 +---------------------------------------------+---------------------------------------------------------------------------+
 
@@ -591,7 +592,7 @@ Turn your report into an interactive Shiny document in 4 steps:
 4.  Render with `rmarkdown::run()` or click **Run Document** in RStudio IDE.
 
 Also see Shiny Prerendered for better performance.
-<https://rmarkdown.rstudio.com/authoring_shiny_prerendered.HTML>.
+<https://rmarkdown.rstudio.com/authoring_shiny_prerendered>.
 
 Embed a complete Shiny app into your document with `shiny::shinyAppDir()`.
 More at <https://bookdown.org/yihui/rmarkdown/shiny-embedded.html>.
@@ -612,7 +613,7 @@ See `?render` for available options.
 
 ## Share
 
-**Publish on Posit Connect** to share R Markdown documents securely, schedule automatic updates, and interact with parameters in real time.
+**Publish on Posit Connect** to share R Markdown documents securely, schedule automatic updates, and interact with parameters in real-time.
 <https://posit.co/products/enterprise/connect/>.
 
 ------------------------------------------------------------------------

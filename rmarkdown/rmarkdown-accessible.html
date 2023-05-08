@@ -422,7 +422,7 @@ Expand to read about the features in the Rendered Output Window
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> faithful[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,]</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(data, <span class="at">caption =</span> <span class="st">"Tables with kable"</span>)</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Other table packages include <strong>flexible</strong>, <strong>gt</strong>, and <strong>kableExtra</strong>.</p>
+<p>Other table packages include <strong>flextable</strong>, <strong>gt</strong>, and <strong>kableExtra</strong>.</p>
 </section>
 <section id="write-with-markdown" class="level2">
 <h2 class="anchored" data-anchor-id="write-with-markdown">Write With Markdown</h2>
@@ -646,12 +646,13 @@ Table: Caption text, example rendered table</code></pre></td>
 </tr>
 <tr class="odd">
 <td><p>HTML Tabsets</p>
-<pre><code># Results
+<pre><code>::: panel-tabset
 ## Plots text
 text
 
 ## Tables
-more text</code></pre></td>
+more text
+:::</code></pre></td>
 <td><div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Plots</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Tables</a></li></ul>
 <div class="tab-content">
@@ -1016,7 +1017,7 @@ are green
 <span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 <li><p>Render with <code>rmarkdown::run()</code> or click <strong>Run Document</strong> in RStudio IDE.</p></li>
 </ol>
-<p>Also see Shiny Prerendered for better performance. <a href="https://rmarkdown.rstudio.com/authoring_shiny_prerendered.HTML" class="uri">https://rmarkdown.rstudio.com/authoring_shiny_prerendered.HTML</a>.</p>
+<p>Also see Shiny Prerendered for better performance. <a href="https://rmarkdown.rstudio.com/authoring_shiny_prerendered" class="uri">https://rmarkdown.rstudio.com/authoring_shiny_prerendered</a>.</p>
 <p>Embed a complete Shiny app into your document with <code>shiny::shinyAppDir()</code>. More at <a href="https://bookdown.org/yihui/rmarkdown/shiny-embedded.html" class="uri">https://bookdown.org/yihui/rmarkdown/shiny-embedded.html</a>.</p>
 </section>
 </section>
@@ -1032,7 +1033,7 @@ are green
 </section>
 <section id="share" class="level2">
 <h2 class="anchored" data-anchor-id="share">Share</h2>
-<p><strong>Publish on Posit Connect</strong> to share R Markdown documents securely, schedule automatic updates, and interact with parameters in real time. <a href="https://posit.co/products/enterprise/connect/" class="uri">https://posit.co/products/enterprise/connect/</a>.</p>
+<p><strong>Publish on Posit Connect</strong> to share R Markdown documents securely, schedule automatic updates, and interact with parameters in real-time. <a href="https://posit.co/products/enterprise/connect/" class="uri">https://posit.co/products/enterprise/connect/</a>.</p>
 <hr>
 <p>CC BY SA Posit Software, PBC • <a href="mailto:info@posit.co">info@posit.co</a> • <a href="https://posit.co">posit.co</a></p>
 <p>Learn more at <a href="https://rmarkdown.rstudio.com/">rmarkdown.rstudio.com</a>.</p>
