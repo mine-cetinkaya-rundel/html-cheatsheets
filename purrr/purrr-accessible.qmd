@@ -5,12 +5,18 @@ format:
     toc: true
     highlight-style: a11y-dark
 editor: visual
+execute:
+  eval: true
+  output: false
+  message: true
 ---
 
+purrr enhances R\'s functional programming (FP) toolkit by providing a complete and consistent set of tools for working with functions and vectors.
+If you\'ve never heard of FP before, the best place to start is the family of [`map()`](https://purrr.tidyverse.org/reference/map.html) functions which allow you to replace many for loops with code that is both more succinct and easier to read.
+The best place to learn about the [`map()`](https://purrr.tidyverse.org/reference/map.html) functions is the [iteration chapter](https://r4ds.had.co.nz/iteration.html) in R for Data Science.
+
 ```{r}
-#| include: false
 library(purrr)
-library(dplyr)
 ```
 
 <!-- Page 1 -->
@@ -19,12 +25,10 @@ library(dplyr)
 
 ### One List
 
--   `map(.x, .f, ...)`: Apply a function to each element of a list of vector, return a list.
+-   `map(.x, .f, ...)`: Apply a function to each element of a list of vector, and return a list.
 
     ```{r}
-    #| eval: false
-
-    x <- list(1:10, 11:20, 21:30)
+    x <- list(a = 1:10, b = 11:20, c = 21:30)
     l1 <- list(x = c("a", "b"), y = c("c", "d"))
     map(l1, sort, decreasing = TRUE)
     ```
@@ -32,56 +36,42 @@ library(dplyr)
 -   `map_dbl(.x, .f, ...)`: Return a double vector.
 
     ```{r}
-    #| eval: false
-
     map_dbl(x, mean)
     ```
 
 -   `map_int(.x, .f, ...)`: Return an integral vector.
 
     ```{r}
-    #| eval: false
-
     map_int(x, length)
     ```
 
 -   `map_chr(.x, .f, ...)`: Return a character vector.
 
     ```{r}
-    #| eval: false
-
     map_chr(l1, paste, collapse = "")
     ```
 
 -   `map_lgl(.x, .f, ...)`: Return a logical vector.
 
     ```{r}
-    #| eval: false
-
     map_lgl(x, is.integer)
     ```
 
 -   `map_dfc(.x, .f, ...)`: Return a data frame created by column-binding.
 
     ```{r}
-    #| eval: false
-
     map_dfc(l1, rep, 3)
     ```
 
 -   `map_dfr(.x, .f, ...)`: Return a data frame created by row-binding.
 
     ```{r}
-    #| eval: false
-
     map_dfr(x, summary)
     ```
 
 -   `walk(.x, .f, ...)`: Trigger side effects, return invisibly.
 
     ```{r}
-    #| eval: false
-
     walk(x, print)
     ```
 
@@ -90,8 +80,6 @@ library(dplyr)
 -   `map2(.x, .y, .f, ...)`: Apply a function pairs of elements from two lists or vectors, return a list.
 
     ```{r}
-    #| eval: false
-
     y <- list(1, 2, 3)
     z <- list(4, 5, 6)
     l2 <- list(x = "a", y = "z")
@@ -101,48 +89,36 @@ library(dplyr)
 -   `map2_dbl(.x, .y, .f, ...)`: Return a double vector.
 
     ```{r}
-    #| eval: false
-
     map2_dbl(y, z, ~ .x / .y)
     ```
 
 -   `map2_int(.x, .y, .f, ...)`: Return an integral vector.
 
     ```{r}
-    #| eval: false
-
     map2_int(y, z, `+`)
     ```
 
 -   `map2_chr(.x, .y, .f, ...)`: Return a character vector.
 
     ```{r}
-    #| eval: false
-
     map2_chr(l1, l2, paste, collapse = ",", sep = ":")
     ```
 
 -   `map2_lgl(.x, .y, .f, ...)`: Return a logical vector.
 
     ```{r}
-    #| eval: false
-
     map2_lgl(l2, l1, `%in%`)
     ```
 
 -   `map2_dfc(.x, .y, .f, ...)`: Return a data frame created by column-binding.
 
     ```{r}
-    #| eval: false
-
     map2_dfc(l1, l2, ~ as.data.frame(c(.x, .y)))
     ```
 
 -   `map2_dfr(.x, .y, .f, ...)`: Return a data frame created by row-binding.
 
     ```{r}
-    #| eval: false
-
     map2_dfr(l1, l2, ~ as.data.frame(c(.x, .y)))
     ```
 
@@ -159,56 +135,42 @@ library(dplyr)
 -   `pmap(.l, .f, ...)`: Apply a function to groups of elements from a list of lists or vectors, return a list.
 
     ```{r}
-    #| eval: false
-
     pmap(list(x, y, z), ~ ..1 * (..2 + ..3))
     ```
 
 -   `pmap_dbl(.l, .f, ...)`: Return a double vector.
 
     ```{r}
-    #| eval: false
-
     pmap_dbl(list(y, z), ~ .x / .y)
     ```
 
 -   `pmap_int(.l, .f, ...)`: Return an integral vector.
 
     ```{r}
-    #| eval: false
-
     pmap_int(list(y, z), `+`)
     ```
 
 -   `pmap_chr(.l, .f, ...)`: Return a character vector.
 
     ```{r}
-    #| eval: false
-
     pmap_chr(list(l1, l2), paste, collapse = ",", sep = ":")
     ```
 
 -   `pmap_lgl(.l, .f, ...)`: Return a logical vector.
 
     ```{r}
-    #| eval: false
-
     pmap_lgl(list(l2, l1), `%in%`)
     ```
 
 -   `pmap_dfc(.l, .f, ...)`: Return a data frame created by column-binding.
 
     ```{r}
-    #| eval: false
-
     pmap_dfc(list(l1, l2), ~ as.data.frame(c(.x, .y)))
     ```
 
 -   `pmap_dfr(.l, .f, ...)`: Return a data frame created by row-binding.
 
     ```{r}
-    #| eval: false
-
     pmap_dfr(list(l1, l2), ~ as.data.frame(c(.x, .y)))
     ```
 
@@ -225,78 +187,68 @@ library(dplyr)
 -   `imap(.x, .f, ...)`: Apply `.f` to each element and its index, return a list.
 
     ```{r}
-    #| eval: false
-
     imap(y, ~ paste0(.y, ": ", .x))
     ```
 
 -   `imap_dbl(.x, .f, ...)`: Return a double vector.
 
     ```{r}
-    #| eval: false
-
     imap_dbl(y, ~ .y)
     ```
 
 -   `imap_int(.x, .f, ...)`: Return an integral vector.
 
     ```{r}
-    #| eval: false
-
     imap_int(y, ~ .y)
     ```
 
 -   `imap_chr(.x, .f, ...)`: Return a character vector.
 
     ```{r}
-    #| eval: false
-
     imap_chr(y, ~ paste0(.y, ": ", .x))
     ```
 
 -   `imap_lgl(.x, .f, ...)`: Return a logical vector.
 
     ```{r}
-    #| eval: false
-
     imap_lgl(l1, ~ is.character(.y))
     ```
 
 -   `imap_dfc(.x, .f, ...)`: Return a data frame created by column-binding.
 
     ```{r}
-    #| eval: false
-
     imap_dfc(l2, ~ as.data.frame(c(.x, .y)))
     ```
 
 -   `imap_dfr(.x, .f, ...)`: Return a data frame created by row-binding.
 
     ```{r}
-    #| eval: false
-
     imap_dfr(l2, ~ as.data.frame(c(.x, .y)))
     ```
 
 -   `iwalk(.x, .f, ...)`: Trigger side effects, return invisibly.
 
     ```{r}
-    #| eval: false
-
     iwalk(z, ~ print(paste0(.y, ": ", .x)))
     ```
 
 ## Function Shortcuts
 
--   Use `~ .` with functions like `map()` that have single arguments. `map(l, ~ . + 2)` becomes `map(l, function(x) x + 2)`
+-   Use `~ .` with functions like `map()` that have single arguments.
+    `map(l, ~ . + 2)` becomes `map(l, function(x) x + 2)`.
 
--   Use `~ .x .y` with functions like `map2()` that have two arguments. `map2(l, p, ~ .x + .y)` becomes `map2(l, p, function(l, p) l + p)`
+-   Use `~ .x .y` with functions like `map2()` that have two arguments.
+    `map2(l, p, ~ .x + .y)` becomes `map2(l, p, function(l, p) l + p)`.
 
--   Use `~ ..1 ..2 ..3` etc with functions like `pmap()` that have many arguments. `pmap(list(a, b, c), ~ ..3 + ..1 - ..2)` becomes `pmap(list(a,b,c), function(a, b, c) c + a - b)`
+-   Use `~ ..1 ..2 ..3` etc with functions like `pmap()` that have many arguments.
+    `pmap(list(a, b, c), ~ ..3 + ..1 - ..2)` becomes `pmap(list(a,b,c), function(a, b, c) c + a - b)`.
 
--   Use `~ .x .y` with functions like `imap()`. `.x` will get the list value and `.y` with get the index, or name if available. `imap(list(a, b, c), ~ paste0(.y, ": ", .x))` outputs `index: value` for each item
+-   Use `~ .x .y` with functions like `imap()`.
+    `.x` will get the list value and `.y` with get the index, or name if available.
+    `imap(list(a, b, c), ~ paste0(.y, ": ", .x))` outputs `index: value` for each item.
 
--   Use a `string` or `integer` with any map function to index list elements by name or position. `map(l, "name")` becomes `map(l, function(x) x[["name"]])`
+-   Use a `string` or `integer` with any map function to index list elements by name or position.
+    `map(l, "name")` becomes `map(l, function(x) x[["name"]])`.
 
 <!-- Page 2 -->
 
@@ -304,259 +256,208 @@ library(dplyr)
 
 ### Filter
 
--   `keep(.x, .p, ...)`: Select elements that pass a logical test. Conversely `discard()`.
+-   `keep(.x, .p, ...)`: Select elements that pass a logical test.
+    Conversely `discard()`.
 
     ```{r}
-    #| eval: false
-
-    keep(x, is.na)
+    keep(x, is.numeric)
     ```
 
 -   `compact(.x, .p = identity)`: Drop empty elements.
 
     ```{r}
-    #| eval: false
-
-    compacts(x)
+    compact(x)
     ```
 
--   `head_while(.x, .p, ...)`: Return head elements until one does not pass. Also `tail_while()`.
+-   `head_while(.x, .p, ...)`: Return head elements until one does not pass.
+    Also `tail_while()`.
 
     ```{r}
-    #| eval: false
-
     head_while(x, is.character)
     ```
 
 -   `detect(.x, .f, ..., dir = c("forward", "backward"), .right = NULL)`: Find first element to pass.
 
     ```{r}
-    #| eval: false
-
     detect(x, is.character)
     ```
 
 -   `detect_index(.x, .f, ..., dir = c("forward", "backward"), .right = NULL)`: Find index of first element to pass.
 
     ```{r}
-    #| eval: false
-
     detect_index(x, is.character)
     ```
 
 -   `every(.x, .p, ...)`: Do all elements pass a test?
 
     ```{r}
-    #| eval: false
-
     every(x, is.character)
     ```
 
 -   `some(.x, .p, ...)`: Do some elements pass a test?
 
     ```{r}
-    #| eval: false
-
     some(x, is.character)
     ```
 
 -   `none(.x, .p, ...)`: Do no elements pass a test?
 
     ```{r}
-    #| eval: false
-
     none(x, is.character)
     ```
 
 -   `has_element(.x, .y)`: Does a list contain an element?
 
     ```{r}
-    #| eval: false
-
     has_element(x, "foo")
     ```
 
--   `vec_depth(x)`: Return depth (number of levels of indexes).
+-   `pluck_depth(x)`: Return depth (number of levels of indexes).
 
     ```{r}
-    #| eval: false
-
-    vec_depth(x)
+    pluck_depth(x)
     ```
 
 ### Index
 
--   `pluck(.x, ..., .deault = NULL)`: Select an element by name or index. Also `attr_getter()` and `chuck()`.
+-   `pluck(.x, ..., .deault = NULL)`: Select an element by name or index.
+    Also `attr_getter()` and `chuck()`.
 
     ```{r}
-    #| eval: false
-
     pluck(x, "b")
-    x %>% pluck("b")
+    x |> pluck("b")
     ```
 
 -   `assign_in(x, where, value)`: Assign a value to a location using pluck selection.
 
     ```{r}
-    #| eval: false
-
     assign_in(x, "b", 5)
-    x %>% assign_in("b", 5)
+    x |> assign_in("b", 5)
     ```
 
 -   `modify_in(.x, .where,, .f)`: Apply a function to a value at a selected location.
 
     ```{r}
-    #| eval: false
-
     modify_in(x, "b", abs)
     ```
 
 ### Reshape
 
--   `flatten(.x)`: Remove a level of indexes from a list. Also `flatten_chr()` etc.
+-   `flatten(.x)`: Remove a level of indexes from a list.
+    Also `flatten_chr()` etc.
 
     ```{r}
-    #| eval: false
-
     flatten(x)
     ```
 
--   `array_tree(array, margin = NULL)`: Turn array into list. Also `array_branch()`.
+-   `array_tree(array, margin = NULL)`: Turn array into list.
+    Also `array_branch()`.
 
     ```{r}
-    #| eval: false
-
-    array_tree(x, margin = 3)
-    ```
-
--   `cross2(.x, .y, filter = NULL)`: All combinations of .x and .y. Also `cross()`, `cross3()`, and `cross_df()`.
-
-    ```{r}
-    #| eval: false
-
-    cross2(1:3, 4:6)
+    z <- array(1:12, c(2, 2, 2))
+    array_tree(z, margin = 3)
     ```
 
 -   `transpose(.l, .names = NULL)`: Transposes the index order in a multi-level list.
 
     ```{r}
-    #| eval: false
-
     transpose(x)
     ```
 
 -   `set_names(x, nm = x)`: Set the names of a vector/list directly or with a function.
 
     ```{r}
-    #| eval: false
-
     set_names(x, c("p", "q", "r"))
     set_names(x, tolower)
     ```
 
 ### Modify
 
--   `modify(.x, .f, ...)`: Apply a function to each element. Also `modify2()` and `imodify()`.
+-   `modify(.x, .f, ...)`: Apply a function to each element.
+    Also `modify2()` and `imodify()`.
 
     ```{r}
-    #| eval: false
-
     modify(x, ~ . + 2)
     ```
 
--   `modify_at(.x, .at, .f, ...)`: Apply a function to selected elements. Also `map_at()`.
+-   `modify_at(.x, .at, .f, ...)`: Apply a function to selected elements.
+    Also `map_at()`.
 
     ```{r}
-    #| eval: false
-
     modify_at(x, "b", ~ . + 2)
     ```
 
--   `modify_if(.x, .p, .f, ...)`: Apply a function to elements that pass a test. Also `map_if()`.
+-   `modify_if(.x, .p, .f, ...)`: Apply a function to elements that pass a test.
+    Also `map_if()`.
 
     ```{r}
-    #| eval: false
-
     modify_if(x, is.numeric, ~ . + 2)
     ```
 
--   `modify_depth(.x, .depth, .f, ...)`: Apply function to each element at a given level of a list. Also `map_depth()`.
+-   `modify_depth(.x, .depth, .f, ...)`: Apply function to each element at a given level of a list.
+    Also `map_depth()`.
 
     ```{r}
-    #| eval: false
-
-    modify_depth(x, 2, ~ . + 2)
-    ```
-
-### Combine
-
--   `append(x, values, after = length(x))`: Add values to end of list.
-
-    ```{r}
-    #| eval: false
-
-    append(x, list(d = 1))
-    ```
-
--   `prepend(x, values, before = 1)`: Add values to start of list.
-
-    ```{r}
-    #| eval: false
-
-    prepend(x, list(d = 1))
-    ```
-
--   `splice(...)`: Combine objects into a list, storing S3 objects as sub-lists.
-
-    ```{r}
-    #| eval: false
-
-    splice(x, y, "foo")
+    modify_depth(x, 1, ~ . + 2)
     ```
 
 ### Reduce
 
--   `reduce(.x, .f, ..., .init, .dir = c("forward", "backward"))`: Apply function recursively to each element of a list of vector. Also `reduce2()`.
+-   `reduce(.x, .f, ..., .init, .dir = c("forward", "backward"))`: Apply function recursively to each element of a list of vector.
+    Also `reduce2()`.
 
     ```{r}
-    #| eval: false
-
     a <- list(1, 2, 3, 4)
     reduce(a, sum)
     ```
 
--   `accumulate(.x, .f, ..., .init)`: Reduce a list, but also return intermediate results in a list. Also `accumulate2()`.
+-   `accumulate(.x, .f, ..., .init)`: Reduce a list, but also return intermediate results in a list.
+    Also `accumulate2()`.
 
     ```{r}
-    #| eval: false
-
     a <- list(1, 2, 3, 4)
     accumulate(a, sum)
     ```
 
 ### List-Columns
 
-**List-columns** are columns of a data frame where each element is a list or vector instead of an atomic value. Columns can also be lists of data frames. See **tidyr** for more about nested data and list columns.
+**List-columns** are columns of a data frame where each element is a list or vector instead of an atomic value.
+Columns can also be lists of data frames.
+See **tidyr** for more about nested data and list columns.
 
 #### Work With List-Columns
 
-Manipulate list-columns like any other kind of column, using **dplyr** functions like `mutate()` and `transmute()`. Because each element is a list, use **map functions** within a column function to manipulate each element.
+Manipulate list-columns like any other kind of column, using **dplyr** functions like `mutate()` and `transmute()`.
+Because each element is a list, use **map functions** within a column function to manipulate each element.
 
--   `map()`, `map2()`, or `pmap()` return lists and will **create new list-columns**. In this example, `transmute()` is a column function, `map2()` is a list function which returns a list, and `vehicles` and `starships` are list-columns.
-
-    ```{r}
-    #| eval: false
-    starwars %>% # map2() is a list function, returns a list
-      transmute(ships = map2(vehicles, starships, append)) # map2() takes list-column arguments
-      # transmute() is a column function
-    ```
-
--   Suffixed map functions like `map_int()` return an atomic data type and will **simplify list-columns into regular columns**. In this example, `mutate()` is a column function, `map_int()` is a list function which returns a column vector, and `films` is a list column.
+-   `map()`, `map2()`, or `pmap()` return lists and will **create new list-columns**.
+    In this example, `transmute()` is a column function, `map2()` is a list function which returns a list, and `vehicles` and `starships` are list-columns.
 
     ```{r}
-    #| eval: false
-    starwars %>% # map_int is a list function, returns an integer vector
-      mutate(n_films = map_int(films, length)) # map_int() takes list-column arguments
-      # mutate() is a column vector
+    dplyr::starwars |>
+      dplyr::mutate(ships = map2(vehicles, starships, append))
     ```
+
+-   Suffixed map functions like `map_int()` return an atomic data type and will **simplify list-columns into regular columns**.
+    In this example, `mutate()` is a column function, `map_int()` is a list function which returns a column vector, and `films` is a list column.
+
+    ```{r}
+    dplyr::starwars |>
+      dplyr::mutate(n_films = map_int(films, length))
+    ```
+
+------------------------------------------------------------------------
+
+CC BY SA Posit Software, PBC • [info\@posit.co](mailto:info@posit.co) • [posit.co](https://posit.co)
+
+Learn more at [purrr.tidyverse.org](https://purrr.tidyverse.org).
+
+Updated: `r format(Sys.Date(), "%Y-%m")`.
+
+```{r}
+#| output: true
+
+packageVersion("purrr")
+```
+
+------------------------------------------------------------------------
