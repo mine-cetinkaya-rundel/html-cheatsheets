@@ -152,6 +152,16 @@ Reactive values work together with reactive functions.
 Call a reactive value from within the arguments of one of these functions to avoid the error.
 **Operation not allowed without an active reactive context.**
 
+![](shiny-images/reactivity-diagram.png){fig-align="center"}
+
+::: {.callout-note appearance="minimal" icon="false" collapse="true"}
+## Expand to read about the reactivity diagram {aria-hidden="true"}
+
+-   Create your own reactive values
+    -   `reactiveValues()`
+    -   `reactiveFileReader()`
+    -   `reactivePoll()`
+    -   `*Input()`
 -   Perform side effects
     -   `observeEvent()`
 
@@ -162,18 +172,11 @@ Call a reactive value from within the arguments of one of these functions to avo
     -   `reactive()`
 -   Remove reactivity
     -   `isolate()`
--   Create your own reactive values
-    -   `reactiveValues()`
-
-    -   `reactiveFileReader()`
-
-    -   `reactivePoll()`
-
-    -   `*Input()`
 -   React based on event
     -   `eventReactive()`
 -   Render reactive output
     -   `render*()`
+:::
 
 ### Create Your own Reactive Values
 
