@@ -7,32 +7,41 @@ format:
 editor: visual
 ---
 
-```{r}
-#| include: false
-#library(reticulate)
-```
-
 The **reticulate** package lets you use Python and R together seamlessly in R code, in R Markdown documents, and in the RStudio IDE.
+
+```{r}
+library(reticulate)
+```
 
 ## Python in R Markdown
 
 (Optional) Build Python env to use.
 
-Add `knitr::knit_engires$set(python = reticulate::eng_python)` to the setup chunk to set up the reiculate Python engine (not required for knitr \>= 1.18).
+Add `knitr::knit_engires$set(python = reticulate::eng_python)` to the setup chunk to set up the reticulate Python engine (not required for knitr \>= 1.18).
 
-    ```{{r setup, include = FALSE}} 
-    library(reticulate) 
-    virtualenv_create("fmri-proj") 
-    py_install("seaborn", envname = "fmri-proj") 
-    use_virtualenv("fmri-proj")`
-    ```
+````         
+```{{r}}
+#| label: setup
+#| include: false
 
-Begin Python chunks with ```` ```{python} ````. Chunk options like `echo`, `include`, etc. all work as expected.
+library(reticulate) 
+virtualenv_create("fmri-proj") 
+py_install("seaborn", envname = "fmri-proj") 
+use_virtualenv("fmri-proj")`
+```
+````
 
-    ```{{python, echo = FALSE}} 
-    import seaborn as sns 
-    fmri = sns.load_dataset("fmri")`
-    ```
+Begin Python chunks with ```` ```{python} ````.
+Chunk options like `echo`, `include`, etc. all work as expected.
+
+````         
+```{{python}} 
+#| echo: false
+
+import seaborn as sns 
+fmri = sns.load_dataset("fmri")`
+```
+````
 
 Use the `py` object the access objects created in Python chunks from R chunks.
 
@@ -52,7 +61,7 @@ mpl.pyplot.show()
 
 ## Python in R
 
-python.r Example:
+`python.r` Example:
 
 ```{r}
 #| eval: false
@@ -81,7 +90,8 @@ Call Python from R code in three ways:
 
 ### Import Python Modules
 
-Use `import()` to import any Python module. Access the attributes of a module with `$`.
+Use `import()` to import any Python module.
+Access the attributes of a module with `$`.
 
 ```{r}
 #| eval: false
@@ -96,7 +106,9 @@ fmri <- sns$load_dataset("fmri")
 dim(fmri)
 ```
 
--   `import(module, as = NULL, convert = TRUE, delay_load = FALSE)`: Import a Python module. If `convert = TRUE`, Python objects are converted to their equivalent R types. Also `import_from_path()`.
+-   `import(module, as = NULL, convert = TRUE, delay_load = FALSE)`: Import a Python module.
+    If `convert = TRUE`, Python objects are converted to their equivalent R types.
+    Also `import_from_path()`.
 
     ```{r}
     #| eval: false
@@ -169,7 +181,8 @@ py_run_string("print(tips.shape)")
     py_run_file("script.py")
     ```
 
--   `py_eval(code, convert = TRUE)`: Run a Python expression, return the result. Also `py_call()`.
+-   `py_eval(code, convert = TRUE)`: Run a Python expression, return the result.
+    Also `py_call()`.
 
     ```{r}
     #| eval: false
@@ -208,7 +221,8 @@ Reticulate provides **automatic** built-in conversion between Python and R for m
 
 Or, if you like, you can convert manually with
 
--   `py_to_r(x)`: Convert a Python object to an R object. Also `r_to_py()`.
+-   `py_to_r(x)`: Convert a Python object to an R object.
+    Also `r_to_py()`.
 
     ```{r}
     #| eval: false
@@ -224,7 +238,8 @@ Or, if you like, you can convert manually with
     tuple("a", "b", "c")
     ```
 
--   `dict(..., convert = FALSE)`: Create a Python dictionary object. Also `py_dict()` to make a dictionary that uses Python objects as keys.
+-   `dict(..., convert = FALSE)`: Create a Python dictionary object.
+    Also `py_dict()` to make a dictionary that uses Python objects as keys.
 
     ```{r}
     #| eval: false
@@ -259,7 +274,8 @@ Or, if you like, you can convert manually with
 
 -   `py_main_thread_func(f)`: Create a function that will always be called on the main thread.
 
--   `iterate(it, f = base::identity, simplify = TRUE)`: Apply an R function to each value of a Python iterator or return the values as an R vector, draining the iterator as you go. Also `iter_next()` and `as_iterator()`.
+-   `iterate(it, f = base::identity, simplify = TRUE)`: Apply an R function to each value of a Python iterator or return the values as an R vector, draining the iterator as you go.
+    Also `iter_next()` and `as_iterator()`.
 
     ```{r}
     #| eval: false
@@ -284,7 +300,8 @@ Or, if you like, you can convert manually with
 
 ## Helpers
 
--   `py_capture_output(expr, type = c("stdout", "stderr"))`: Capture and return Python output. Also `py_supress_warnings()`.
+-   `py_capture_output(expr, type = c("stdout", "stderr"))`: Capture and return Python output.
+    Also `py_supress_warnings()`.
 
     ```{r}
     #| eval: false
@@ -292,7 +309,8 @@ Or, if you like, you can convert manually with
     py_capture_output("x")
     ```
 
--   `py_get_attr(x, name, silent = FALSE)`: Get an attribute of a Python object. Also `py_set_attr()`, `py_has_attr()`, and `py_list_attributes()`.
+-   `py_get_attr(x, name, silent = FALSE)`: Get an attribute of a Python object.
+    Also `py_set_attr()`, `py_has_attr()`, and `py_list_attributes()`.
 
     ```{r}
     #| eval: false
@@ -308,7 +326,8 @@ Or, if you like, you can convert manually with
     py_help(sns)
     ```
 
--   `py_last_error()`: Get the last Python error encountered. Also `py_clear_last_error()` to clear the last error.
+-   `py_last_error()`: Get the last Python error encountered.
+    Also `py_clear_last_error()` to clear the last error.
 
     ```{r}
     #| eval: false
@@ -316,7 +335,8 @@ Or, if you like, you can convert manually with
     py_last_error()
     ```
 
--   `py_save_object(object, filename, pickle = "pickle", ...)`: Save and load Python objects with pickle. Also `py_load_object()`.
+-   `py_save_object(object, filename, pickle = "pickle", ...)`: Save and load Python objects with pickle.
+    Also `py_load_object()`.
 
     ```{r}
     #| eval: false
@@ -338,7 +358,9 @@ Or, if you like, you can convert manually with
 
 ## Python in the IDE
 
-Requires reticulate plus RStudio v1.2+. Some features require v1.4+. Screenshot Here
+Requires reticulate plus RStudio v1.2+.
+Some features require v1.4+.
+Screenshot Here
 
 Expand to read about the reticulate features in the RStudio IDE.
 
@@ -376,7 +398,7 @@ A REPL (Read, Eval, Print Loop) is a command line where you can run Python code 
 
 4.  Type `exit` to close and return to R console.
 
-    ```
+    ```         
     > reticulate::repl_python()
     Python 3.6.13 (/Users/rstudiointern/Library/r-miniconda/envs/r-reticulate/bin/python)
     Reticulate 1.20 REPL -- A Python interpreter in R.
@@ -387,10 +409,13 @@ A REPL (Read, Eval, Print Loop) is a command line where you can run Python code 
     >>> exit
     >
     ```
-    
+
 ## Configure Python
 
-Reticulate binds to a local instance of Python when you first call `import()` directly or implicitly from an R session. To control the process, find or build your desired Python instance. Then suggest your instance to reticulate. **Restart R to unbind.**
+Reticulate binds to a local instance of Python when you first call `import()` directly or implicitly from an R session.
+To control the process, find or build your desired Python instance.
+Then suggest your instance to reticulate.
+**Restart R to unbind.**
 
 ### Find Python
 
@@ -402,7 +427,8 @@ Reticulate binds to a local instance of Python when you first call `import()` di
     install_python("3.6.13")
     ```
 
--   `py_available(initialize = FALSE)`: Check if Python is available on your system. Also `py_module_available()` and `py_numpy_module()`.
+-   `py_available(initialize = FALSE)`: Check if Python is available on your system.
+    Also `py_module_available()` and `py_numpy_module()`.
 
     ```{r}
     #| eval: false
@@ -410,7 +436,8 @@ Reticulate binds to a local instance of Python when you first call `import()` di
     py_available()
     ```
 
--   `py_discover_config()`: Return all detected version of Python. Use `py_config()` to check which version has been loaded.
+-   `py_discover_config()`: Return all detected version of Python.
+    Use `py_config()` to check which version has been loaded.
 
     ```{r}
     #| eval: false
@@ -418,7 +445,8 @@ Reticulate binds to a local instance of Python when you first call `import()` di
     py_config()
     ```
 
--   `virtualenv_list()`: List all available virtualenvs. Also `virtualenv_root()`.
+-   `virtualenv_list()`: List all available virtualenvs.
+    Also `virtualenv_root()`.
 
     ```{r}
     #| eval: false
@@ -426,7 +454,8 @@ Reticulate binds to a local instance of Python when you first call `import()` di
     virtualenv_list()
     ```
 
--   `conda_list(conda = "auto")`: List all available conda envs. Also `conda_binary()` and `conda_version()`.
+-   `conda_list(conda = "auto")`: List all available conda envs.
+    Also `conda_binary()` and `conda_version()`.
 
     ```{r}
     #| eval: false
@@ -468,7 +497,8 @@ Install Python packages with R (below) or the shell:
     py_install("pandas")
     ```
 
--   `virtualenv_install(envname, packages, ...)`: Install a package within a virtualenv. Also `virtualenv_remove()`.
+-   `virtualenv_install(envname, packages, ...)`: Install a package within a virtualenv.
+    Also `virtualenv_remove()`.
 
     ```{r}
     #| eval: false
@@ -476,7 +506,8 @@ Install Python packages with R (below) or the shell:
     virtualenv_install("r-pandas", packages = "pandas")
     ```
 
--   `conda_installs(envname, packages, ...)`: Install a package within a conda env. Also `conda_remove()`.
+-   `conda_installs(envname, packages, ...)`: Install a package within a conda env.
+    Also `conda_remove()`.
 
     ```{r}
     #| eval: false
@@ -486,13 +517,18 @@ Install Python packages with R (below) or the shell:
 
 ### Suggest an env to use
 
-Set a default Python interpreter in the RStudio IDE Global or Project Options. Go to **Tools \> Global Options ... \> Python** for Global Options. Within a project, go to **Tools \> Project Options... \> Python**.
+Set a default Python interpreter in the RStudio IDE Global or Project Options.
+Go to **Tools \> Global Options ... \> Python** for Global Options.
+Within a project, go to **Tools \> Project Options... \> Python**.
 
 Otherwise, to choose an instance of Python to bind to, reticulate scans the instances on your computer in the following order, **stopping at the first instance that contains the module called by `import()`**.
 
-1.  The instance referenced by the environment variable `RETICULATE_PYTHON` (if specified). **Tip: set in .Renviron file.**
+1.  The instance referenced by the environment variable `RETICULATE_PYTHON` (if specified).
+    **Tip: set in .Renviron file.**
 
-    -   `Sys.setenv(RETICULATE_PYTHON = PATH)`: Set default Python binary. Persists across sessions! Undo with `Sys.unsetenv()`.
+    -   `Sys.setenv(RETICULATE_PYTHON = PATH)`: Set default Python binary.
+        Persists across sessions!
+        Undo with `Sys.unsetenv()`.
 
         ```{r}
         #| eval: false
@@ -500,7 +536,8 @@ Otherwise, to choose an instance of Python to bind to, reticulate scans the inst
         Sys.setenv(RETICULATE_PYTHON = "/usr/local/bin/python")
         ```
 
-2.  The instances referenced by `use_` functions if called before `import()`. Will fail silently if called after impoty unless `required = TRUE`.
+2.  The instances referenced by `use_` functions if called before `import()`.
+    Will fail silently if called after impoty unless `required = TRUE`.
 
     -   `use_python(python, required = FALSE)`: Suggest a Python binary to use by path.
 
@@ -526,8 +563,25 @@ Otherwise, to choose an instance of Python to bind to, reticulate scans the inst
         use_condaenv(condaenv = "r-nlp", conda = "/opt/anaconda3/bin/conda")
         ```
 
-3.  Within virtualenvs and conda envs that carry the same name as the imported module. e.g. `~/anaconda/envs/nltk` for `import("nltk")`
+3.  Within virtualenvs and conda envs that carry the same name as the imported module.
+    e.g. `~/anaconda/envs/nltk` for `import("nltk")`
 
 4.  At the location of the Python binary discovered on the system PATH (i.e. `Sys.which("python")`)
 
 5.  At customary locations for Python, e.g. `/usr/local/bin/python`, `/opt/local/bin/python…`
+
+------------------------------------------------------------------------
+
+CC BY SA Posit Software, PBC • [info\@posit.co](mailto:info@posit.co) • [posit.co](https://posit.co)
+
+Learn more at [rstudio.github.io/reticulate](https://rstudio.github.io/reticulate/).
+
+Updated: `r format(Sys.Date(), "%Y-%m")`.
+
+```{r}
+#| output: true
+
+packageVersion("reticulate")
+```
+
+------------------------------------------------------------------------
