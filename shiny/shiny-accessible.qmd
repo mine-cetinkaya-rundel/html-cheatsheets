@@ -152,7 +152,7 @@ Reactive values work together with reactive functions.
 Call a reactive value from within the arguments of one of these functions to avoid the error.
 **Operation not allowed without an active reactive context.**
 
-![](shiny-images/reactivity-diagram.png){fig-align="center"}
+![](images/reactivity-diagram.png){fig-align="center"}
 
 ::: {.callout-note appearance="minimal" icon="false" collapse="true"}
 ## Expand to read about the reactivity diagram {aria-hidden="true"}
