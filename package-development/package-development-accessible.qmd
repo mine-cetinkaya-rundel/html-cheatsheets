@@ -315,6 +315,7 @@ Updated: `r format(Sys.Date(), "%Y-%m")`.
 #| output: true
 
 packageVersion("devtools")
+packageVersion("usethis")
 packageVersion("testthat")
 packageVersion("roxygen2")
 ```
