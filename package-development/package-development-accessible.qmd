@@ -11,13 +11,6 @@ execute:
   warning: true
 ---
 
-```{r}
-#| include: false
-library(devtools)
-library(testthat)
-library(roxygen2)
-```
-
 ```{=html}
 <!--
 Keyboard shortcuts can be expressed better with the `kbd` element: eg. 
@@ -26,7 +19,14 @@ however the accessibility of them is being worked on, so for now better to just
 use text.
 -->
 ```
+
 Visit [r-pkgs.org](https://r-pkgs.org) to learn more about writing and publishing packages for R.
+
+```{r}
+library(devtools)
+library(testthat)
+library(roxygen2)
+```
 
 ## Package Structure
 
@@ -93,7 +93,7 @@ Get a situation report with `git_sitrep()`.
 #|  10. git commit.
 #|  11. git push.
 
-knitr::include_graphics("diagrams/workflow.png")
+knitr::include_graphics("images/workflow.png")
 ```
 
 ```{=html}
@@ -287,7 +287,7 @@ From those states, a package can be installed into an R **library** and then loa
 #| fig-alt: ""
 #| output: true
 
-knitr::include_graphics("diagrams/install-load.png")
+knitr::include_graphics("images/install-load.png")
 ```
 
 <!-- this description does the job of the diagram for screen readers -->
@@ -310,5 +310,13 @@ CC BY SA Posit Software, PBC • [info\@posit.co](mailto:info@posit.co) • [pos
 Learn more at [r-pkgs.org](https://r-pkgs.org).
 
 Updated: `r format(Sys.Date(), "%Y-%m")`.
+
+```{r}
+#| output: true
+
+packageVersion("devtools")
+packageVersion("testthat")
+packageVersion("roxygen2")
+```
 
 ------------------------------------------------------------------------
