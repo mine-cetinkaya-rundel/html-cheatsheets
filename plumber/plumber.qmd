@@ -5,6 +5,10 @@ format:
     toc: true
     highlight-style: a11y-dark
 editor: visual
+execute:
+  eval: true
+  output: false
+  warning: false
 ---
 
 ## Introduction to REST APIs
@@ -13,7 +17,9 @@ Web APIs use **HTTP** to communcation between **client** and **server**.
 
 ### HTTP
 
-HTTP is built around a **request** and a **response**. A **client** makes a request to a **server**, which handles the request and provides a response. Requests and responses are specially formatted text containing details and data about the exchange between client and server.
+HTTP is built around a **request** and a **response**.
+A **client** makes a request to a **server**, which handles the request and provides a response.
+Requests and responses are specially formatted text containing details and data about the exchange between client and server.
 
 ### Request
 
@@ -56,9 +62,11 @@ curl -v "http://httpbin.org/get"
 
 ## Plumber: Build APIs with R
 
-Plumber uses special comments to turn any arbitrary R code into API endpoints. The example below defines a function that takes the `msg` argument and returns it embedded in additional text.
+Plumber uses special comments to turn any arbitrary R code into API endpoints.
+The example below defines a function that takes the `msg` argument and returns it embedded in additional text.
 
-Plumber comments begin with `#*` and `@` decoators define API characteristics. In HTTP methods such as `@get` the `/<path>` defines the location of the endpoint.
+Plumber comments begin with `#*` and `@` decoators define API characteristics.
+In HTTP methods such as `@get` the `/<path>` defines the location of the endpoint.
 
 ```{r}
 #| eval: false
@@ -79,13 +87,21 @@ function(msg = "") {
 
 ## Plumber piperline
 
-Plumber endpoints contain R code that is executed in response to an HTTP request. Incoming requests pass through a set of mechanisms before a response is returned to the client.
+Plumber endpoints contain R code that is executed in response to an HTTP request.
+Incoming requests pass through a set of mechanisms before a response is returned to the client.
 
--   Filters: Filters can forward requests (after potentially mutating them), throw errors, or return a response without forwarding the request. Filters are defined similarly to endpoints using the `@filter [name]` tag. By default, filters apply to all endpoints. Endpoints can opt out of filters using the `@preempt` tag.
+-   Filters: Filters can forward requests (after potentially mutating them), throw errors, or return a response without forwarding the request.
+    Filters are defined similarly to endpoints using the `@filter [name]` tag.
+    By default, filters apply to all endpoints.
+    Endpoints can opt out of filters using the `@preempt` tag.
 
--   Parsers: Parsers determine how Plumber parses the incoming request body. By default Plumber parses the request body as JavaScript Object Notation (JSON). Other parsers, including custom parsers, are identified using the `@parser [parser name]` tag. All registered parsers can be viewed with `registered_parsers()`.
+-   Parsers: Parsers determine how Plumber parses the incoming request body.
+    By default Plumber parses the request body as JavaScript Object Notation (JSON).
+    Other parsers, including custom parsers, are identified using the `@parser [parser name]` tag.
+    All registered parsers can be viewed with `registered_parsers()`.
 
--   Endpoint: Endpoints define the R code that is executed in response to incoming requests. These endpoints correspond to HTTP methods and respond to incoming requests that match the defined method.
+-   Endpoint: Endpoints define the R code that is executed in response to incoming requests.
+    These endpoints correspond to HTTP methods and respond to incoming requests that match the defined method.
 
     -   Methods
 
@@ -98,7 +114,10 @@ Plumber endpoints contain R code that is executed in response to an HTTP request
         -   `@patch` - partial changes
         -   `@use` - use all methods
 
--   Serializer: Serializers determine how Plumber returns results to the client. By default Plumber serializes the R object returned into JavaScript Object Notation (JSON). Other serializers, including custom serializers, are identified using the `@serializer [serializer name]` tag. All registered serializers can be viewed with `registered_serializers()`.
+-   Serializer: Serializers determine how Plumber returns results to the client.
+    By default Plumber serializes the R object returned into JavaScript Object Notation (JSON).
+    Other serializers, including custom serializers, are identified using the `@serializer [serializer name]` tag.
+    All registered serializers can be viewed with `registered_serializers()`.
 
 Identify as filter with `@filter`, filter name is `log`, and forward request with `forward()`:
 
@@ -140,7 +159,7 @@ Plumber APIs can be run programmatically from within an R session.
 library(plumber)
 
 # Path to API definition
-plumb("plumber.R") %>%
+plumb("plumber.R") |>
   pr_run(port = 5762) # Specify API port
 ```
 
@@ -148,35 +167,38 @@ This runs the API on the host machine supported by the current R session.
 
 ### IDE Integration
 
-TODO Screenshots
+![](images/plumber-ide.png){fig-align="center"}
 
-Expand to read about the plumber features in the RStudio IDE.
-
-#### Plumber features in the RStudio IDE
+::: {.callout-note appearance="minimal" icon="false" collapse="true"}
+## Expand to read about plumber features in the RStudio IDE {aria-hidden="true"}
 
 -   Create new Plumber API
 -   Publish API to RStudio Connect
 -   Run API in current R session
+:::
 
 ## Documentation
 
-Plumber APIs automatically generate an OpenAPI specification file. This specification file can be interpreted to generate a dynamic user-interface for the API. The default interface is generated via Swagger
+Plumber APIs automatically generate an OpenAPI specification file.
+This specification file can be interpreted to generate a dynamic user-interface for the API.
+The default interface is generated via Swagger
 
-TODO Screenshots
+![](images/plumber-documentation.png){fig-align="center"}
 
-Expand to read about the Swagger user-interface.
-
-#### Swagger user-interface features
+::: {.callout-note appearance="minimal" icon="false" collapse="true"}
+## Expand to read about the Swagger user-interface
 
 -   Endpoint details
 -   Parameter details
 -   Edit parameters
 -   Send request
 -   curl command used to send request
+:::
 
 ## Interact with the API
 
-Once the API is running, it can be interacted with using any HTTP client. Note that using `httr` requires using a separate R session from the one serving the API.
+Once the API is running, it can be interacted with using any HTTP client.
+Note that using `httr` requires using a separate R session from the one serving the API.
 
 ```{r}
 #| eval: false
@@ -197,7 +219,11 @@ httr::content(resp, as = "text")
 
 ### Tidy Plumber
 
-Plumber is exceptionally customizable. In addition to using special comments to create APIs, APIs can be created entirely programatically. This exposes additional features and functionality. Plumber has a convenient "tidy" interface that allows API routers to be built piece by piece. The following example is part of a standard `plumber.R` file.
+Plumber is exceptionally customizable.
+In addition to using special comments to create APIs, APIs can be created entirely programatically.
+This exposes additional features and functionality.
+Plumber has a convenient "tidy" interface that allows API routers to be built piece by piece.
+The following example is part of a standard `plumber.R` file.
 
 Use the `@plumber` tag, create a function that accepts and modifies a plumber router (`pr`), and use "tidy functions" like `pr_get()` and `pr_post()` for buildings out Plumber API.
 
@@ -208,7 +234,7 @@ library(plumber)
 
 #* @plumber
 function(pr) {
-  pr %>%
+  pr |>
     pr_get(path = "/echo",
            handler = function(msg = "") {
              list(msg = paste0(
@@ -216,13 +242,13 @@ function(pr) {
                msg,
                "'")
              )
-           }) %>%
+           }) |>
     pr_get(path = "/plot",
            handler = function() {
              rand <- rnorm(100)
              hist(rand)
            },
-           serializer = serializer_png()) %>%
+           serializer = serializer_png()) |>
     pr_post(path = "/sum",
             handler = function(a, b) {
               as.numeric(a) + as.numeric(b)
@@ -232,7 +258,8 @@ function(pr) {
 
 ### OpenAPI
 
-Plumber automatically creates an OpenAPI specification file based on Plumber componenets. This file can be further modified using `pr_set_api_spec()` with either a function that modifies the existing specification or a path to a `.yaml` or `.json` specification file.
+Plumber automatically creates an OpenAPI specification file based on Plumber componenets.
+This file can be further modified using `pr_set_api_spec()` with either a function that modifies the existing specification or a path to a `.yaml` or `.json` specification file.
 
 ```{r}
 #| eval: false
@@ -249,7 +276,7 @@ function(msg = "") {
 
 #* @plumber
 function(pr) {
-  pr %>%
+  pr |>
     pr_set_api_spec(function(spec)) {
       spec$paths[["echo"]]$get$summary <- "Echo back the input"
       spec # Return the updated specification
@@ -257,13 +284,16 @@ function(pr) {
 }
 ```
 
-By default, Swagger is used to interpret the OpenAPI specification file and generate the user interface for the API. Other interpreters can be used to adjust the look and feel of the user interface via `pr_set_docs()`.
+By default, Swagger is used to interpret the OpenAPI specification file and generate the user interface for the API.
+Other interpreters can be used to adjust the look and feel of the user interface via `pr_set_docs()`.
 
 ## Advanced Plumber
 
 ### Request and Response
 
-Plumber provides access to special `req` and `res` objects that can be passed to Plumber functions. These objects provide access to the request submitted by the client and the response that will be sent to the client. Each object has several components, the most helpful of which are outlined below:
+Plumber provides access to special `req` and `res` objects that can be passed to Plumber functions.
+These objects provide access to the request submitted by the client and the response that will be sent to the client.
+Each object has several components, the most helpful of which are outlined below:
 
 **Request Objects**
 
@@ -298,7 +328,8 @@ Plumber provides access to special `req` and `res` objects that can be passed to
 
 ### Async Plumber
 
-Plumber supports asynchronous execution via the **future** R package. This pattern allows Plumber to concurrently process multiple requests.
+Plumber supports asynchronous execution via the **future** R package.
+This pattern allows Plumber to concurrently process multiple requests.
 
 ```{r}
 #| eval: false
@@ -318,7 +349,9 @@ function() {
 
 ### Mounting Routers
 
-Plumber routers can be combined by mounting routers into other routers. This can be beneficial when building routers that involve several different endpoints and you want to break each component out into a separate router. These separate routers can even be separate files loaded using `plumb()`.
+Plumber routers can be combined by mounting routers into other routers.
+This can be beneficial when building routers that involve several different endpoints and you want to break each component out into a separate router.
+These separate routers can even be separate files loaded using `plumb()`.
 
 ```{r}
 #| eval: false
@@ -326,12 +359,12 @@ Plumber routers can be combined by mounting routers into other routers. This can
 library(plumber)
 
 # Create an initial router
-route <- pr() %>%
+route <- pr() |>
   pr_get("/foo", function() "foo")
 
 #* @plumber
 function(pr) {
-  pr %>%
+  pr |>
     pr_mount("/bar", route)
 }
 ```
@@ -340,7 +373,9 @@ In the above example, the final route is `/bar/foo`.
 
 ### Running Examples
 
-Some packages, like the Plumber package itself, may include example Plumber APIs. Available APIs can be viewed using `available_apis()`. These example APIs can be run with `plumb_api()` combined with `pr_run()`.
+Some packages, like the Plumber package itself, may include example Plumber APIs.
+Available APIs can be viewed using `available_apis()`.
+These example APIs can be run with `plumb_api()` combined with `pr_run()`.
 
 ```{r}
 #| eval: false
@@ -349,10 +384,28 @@ library(plumber)
 
 plumb_api(package = "plumber", # package name
           name = "01-append", # API name
-          edit = TRUE) %>% # optionally open the file for editing
+          edit = TRUE) |> # optionally open the file for editing
   pr_run() # run the example API
 ```
 
 ## Deploying Plumber APIs
 
-Once Plumber APIs have been developed, they often need to be deployed somewhere to be useful. Plumber APIs can be deployed in a variety of different ways. One of the easiest way to deploy Plumber APIs is using RStudio Connect, which supports push button publishing from the RStudio IDE.
+Once Plumber APIs have been developed, they often need to be deployed somewhere to be useful.
+Plumber APIs can be deployed in a variety of different ways.
+One of the easiest way to deploy Plumber APIs is using RStudio Connect, which supports push button publishing from the RStudio IDE.
+
+------------------------------------------------------------------------
+
+CC BY SA Posit Software, PBC • [info\@posit.co](mailto:info@posit.co) • [posit.co](https://posit.co)
+
+Learn more at [rplumber.io](https://www.rplumber.io/).
+
+Updated: `r format(Sys.Date(), "%Y-%m")`.
+
+```{r}
+#| output: true
+
+packageVersion("plumber")
+```
+
+------------------------------------------------------------------------
