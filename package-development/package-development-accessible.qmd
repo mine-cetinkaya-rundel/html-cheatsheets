@@ -76,53 +76,47 @@ Get a situation report with `git_sitrep()`.
 
 ## Workflow
 
-```{r}
+```{=html}
+<!--
+Note that longdesc is deprecated, but at present does not seem in danger of 
+actually going away.
+
+Including this in straight html because attr-output knitr option not working:
+https://github.com/quarto-dev/quarto-cli/issues/5456
+would rather use an R chunk:
+
 #| output: true
 #| echo: false
 #| fig-alt: >
-#|  A typical workflow:
-#|  1. Edit code.
-#|  2. Load code with load_all().
-#|  3. Run code (or skip to 3).
-#|  4. Write/edit tests.
-#|  5. Run tests with test().
-#|  6. Go back to 1 (edit code) and repeat.
-#|  7. Write/edit Roxygen documentation.
-#|  8. Rebuild docs and NAMESPACE with document().
-#|  9. Check complete package with check().
-#|  10. git commit.
-#|  11. git push.
+#|   A flow chart describing a typical workflow of editing code, testing code,
+#|   writing documentation, and checking your package.
+#| attr-output: "longdesc='workflow-longdesc.html'"
 
-knitr::include_graphics("images/workflow.png")
+knitr::include_graphics("diagrams/workflow.png")
+
+Also see the RStudio IDE cheatsheet for some clever accessible image navigation.
+-->
+
+<div class="cell">
+<div class="cell-output-display">
+<p>
+<img src="images/workflow.png" class="img-fluid" longdesc="workflow-longdesc.html" 
+alt="A flow chart describing a typical workflow of editing code, testing code, 
+writing documentation, and checking your package." width="1059">
+</p>
+<a 
+href="workflow-longdesc.html"
+target="_"
+>Long description of flowchart.</a>
+</div>
+</div>
 ```
 
-```{=html}
-<!----
-A potential alternative way to describe the image instead
-of alt-text, but need to have it collapsed visually, but
-expanded for a screen reader. Can probably use css from 
-the IDE cheatsheet...
+### Key steps in the workflow (with keyboard shortcuts)
 
-::: {.callout-note collapse="true" appearance="simple"}
-## Expand to view a typical workflow {aria-hidden="true"}
-
-1.  Edit code.
-2.  Load code with `load_all()`.
-3.  Run code (or skip to #3).
-4.  Write/edit tests.
-5.  Run tests with `test()`.
-6.  Go back to #1 (edit code) and repeat.
-7.  Write/edit Roxygen documentation.
-8.  Rebuild docs and NAMESPACE with `document()`.
-9.  Check complete package with `check()`.
-10. git commit.
-11. git push.
-:::
----->
-```
 -   **`load_all()`** (Ctrl/Cmd + Shift + L): Load code
--   **`document()`** (Ctrl/Cmd + Shift + D): Rebuild docs and NAMESPACE
 -   **`test()`** (Ctrl/Cmd + Shift + T): Run tests
+-   **`document()`** (Ctrl/Cmd + Shift + D): Rebuild docs and NAMESPACE
 -   **`check()`** (Ctrl/Cmd + Shift + E): Check complete package
 
 ## R/
@@ -284,7 +278,9 @@ From those states, a package can be installed into an R **library** and then loa
 
 ```{r}
 #| echo: false
-#| fig-alt: ""
+#| fig-alt: >
+#|   A diagram describing the functions that move a package between different
+#|   states. The description below describes this in detail.
 #| output: true
 
 knitr::include_graphics("images/install-load.png")
