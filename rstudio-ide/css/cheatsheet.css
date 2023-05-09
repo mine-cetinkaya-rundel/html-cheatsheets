@@ -31,64 +31,6 @@ figure {
   padding: 0.5em;
 }
 
-/*** Pure CSS expand/collapse feature ***/
-input[type="checkbox"] {
-  clip: rect(1px, 1px, 1px, 1px);
-  clip-path: inset(50%);
-  height: 1px;
-  width: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-}
-
-input[type="checkbox"]:focus + label {
-  outline: 2px dotted #4D7AA4;
-}
-
-.lbl-toggle {
-  display: block;
-  padding: 0.2rem;
-  transition: all 0.25s ease-out;
-}
-
-.lbl-toggle:hover {
-  font-weight: bolder;
-  cursor: pointer;
-}
-
-.lbl-toggle::before {
-  content: " ";
-  display: inline-block;
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
-  border-left: 5px solid currentColor;
-  vertical-align: middle;
-  margin-right: 0.7rem;
-  transform: translateY(-2px);
-  transition: transform 0.2s ease-out;
-}
-.toggle:checked + .lbl-toggle::before {
-  transform: rotate(90deg) translateX(-3px);
-}
-.collapsible-content {
-  max-height: 0px;
-  overflow: hidden;
-  transition: max-height 0.25s ease-in-out;
-}
-.toggle:checked + .lbl-toggle + .collapsible-content {
-  max-height: 1000px;
-}
-.toggle:checked + .lbl-toggle {
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-.collapsible-content p {
-  margin-bottom: 0;
-}
-
 /*** Font styles ***/
 .uppercase {
   text-transform: uppercase;
@@ -188,30 +130,8 @@ kbd {
   margin-left: 1rem;
 }
 
-/*** Header ***/
-header.sticky {
-  position: sticky;
-  top: 0;
-  color: #fff;
-  z-index: 999;
-}
+/*** Callouts ***/
 
-header a {
-  color: #fff;
-}
-
-header a:hover {
-  color: #fff;
-}
-
-/*** Footer ***/
-
-.bd-footer a {
-  color: #0468FD;
-  text-decoration: underline;
-}
-
-.bd-footer a:hover {
-  color: #0468FD;
-  text-decoration: none;
+div.callout-note.callout {
+  border-left-color: #4D7AA4;
 }
