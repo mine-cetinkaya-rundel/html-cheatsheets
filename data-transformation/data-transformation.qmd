@@ -4,6 +4,7 @@ format:
   html:
     toc: true
     highlight-style: a11y-dark
+    css: css/cheatsheet.css
 editor: visual
 execute:
   eval: true
@@ -449,3 +450,4 @@ packageVersion("dplyr")
 ```
 
 ------------------------------------------------------------------------
+

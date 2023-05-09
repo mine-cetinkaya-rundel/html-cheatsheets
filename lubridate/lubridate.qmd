@@ -4,6 +4,7 @@ format:
   html:
     toc: true
     highlight-style: a11y-dark
+    css: css/cheatsheet.css
 editor: visual
 execute:
   eval: true
@@ -357,13 +358,13 @@ Lubridate provides three classes of timespans to facilitate math with dates and 
 Math with date-times relies on the **timeline**, which behaves inconsistently.
 Consider how the timeline behaves during:
 
--   A normal day: 
+-   A normal day:
 
 ```{r}
 nor <- ymd_hms("2018-01-01 01:30:00", tz = "US/Eastern")
 ```
 
--   The start of daylight savings (spring forward): 
+-   The start of daylight savings (spring forward):
 
 ```{r}
 gap <- ymd_hms("2018-03-11 01:30:00", tz = "US/Eastern")
@@ -410,7 +411,8 @@ interval(leap, leap + years(1))
 
 Not all years are 365 days due to **leap days**.
 Not all minutes are 60 seconds due to **leap seconds**.
-It is possible to create an imaginary date by adding **months**, e.g. February 31st.
+It is possible to create an imaginary date by adding **months**, e.g.
+February 31st.
 
 ```{r}
 #| output: true
@@ -636,3 +638,4 @@ packageVersion("lubridate")
 ```
 
 ------------------------------------------------------------------------
+

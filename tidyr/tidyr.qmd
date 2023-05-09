@@ -4,6 +4,7 @@ format:
   html:
     toc: true
     highlight-style: a11y-dark
+    css: css/cheatsheet.css
 editor: visual
 execute:
   eval: true
@@ -86,15 +87,15 @@ Pivot data to reorganize values into a new layout.
 
 -   `pivot_longer(data, cols, name_to = "name", values_to = "value", values_drop_na = FALSE)`: "Lengthen" data by collapsing several columns into two.
 
-    - The initial `table4a` looks like the following:
-    
+    -   The initial `table4a` looks like the following:
+
     ```{r}
     #| output: true
 
     table4a
     ```
 
-    - Column names move to a new `names_to` column and values to a new `values_to` column. The output of `pivot_longer()` will look like the following:
+    -   Column names move to a new `names_to` column and values to a new `values_to` column. The output of `pivot_longer()` will look like the following:
 
     ```{r}
     #| output: true
@@ -104,17 +105,16 @@ Pivot data to reorganize values into a new layout.
 
 -   `pivot_wider(data, name_from = "name", values_from = "value")`: The inverse of `pivot_longer()`.
     "Widen" data by expanding two columns into several.
-    
+
     -   The initial `table2` looks like the following:
-    
+
     ```{r}
     #| output: true
 
     table2
     ```
-    
-    
-    - One column provides the new column names, the other the values. The output of `pivot_wider()` will look like the following:
+
+    -   One column provides the new column names, the other the values. The output of `pivot_wider()` will look like the following:
 
     ```{r}
     #| output: true
@@ -129,15 +129,14 @@ Use these functions to split or combine cells into individual, isolated values.
 -   `unite(data, col, ..., sep = "_", remove = TRUE, na.rm = FALSE)`: Collapse cells across several columns into a single column.
 
     -   The initial `table5` looks like the following:
-    
+
     ```{r}
     #| output: true
 
     table5
     ```
-    
-    -   The output of `unite()` will look like the following:
 
+    -   The output of `unite()` will look like the following:
 
     ```{r}
     #| output: true
@@ -147,7 +146,7 @@ Use these functions to split or combine cells into individual, isolated values.
 
 -   `separate(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE, convert = FALSE, extra = "warn", fill = "warn", ...)`: Separate each cell in a column into several columns.
     Also `extract()`.
-    
+
     -   The initial `table3` looks like the following:
 
     ```{r}
@@ -155,7 +154,7 @@ Use these functions to split or combine cells into individual, isolated values.
 
     table3
     ```
-    
+
     -   The output of `separate()` will look like the following:
 
     ```{r}
@@ -167,15 +166,14 @@ Use these functions to split or combine cells into individual, isolated values.
 -   `separate_rows(data, ..., sep = "[^[:alnum:].]+", convert = FALSE)`: Separate each cell in a column into several rows.
 
     -   The initial `table3` looks like the following:
-    
+
     ```{r}
     #| output: true
 
     table3
     ```
-    
-    -   The output of `separate_rows()` will look like the following:
 
+    -   The output of `separate_rows()` will look like the following:
 
     ```{r}
     #| output: true
@@ -400,3 +398,4 @@ packageVersion("tibble")
 ```
 
 ------------------------------------------------------------------------
+

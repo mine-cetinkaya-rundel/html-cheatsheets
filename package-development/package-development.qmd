@@ -4,6 +4,7 @@ format:
   html:
     toc: true
     highlight-style: a11y-dark
+    css: css/cheatsheet.css
 editor: visual
 execute:
   eval: true
@@ -19,7 +20,6 @@ however the accessibility of them is being worked on, so for now better to just
 use text.
 -->
 ```
-
 Visit [r-pkgs.org](https://r-pkgs.org) to learn more about writing and publishing packages for R.
 
 ```{r}
@@ -111,7 +111,6 @@ target="_"
 </div>
 </div>
 ```
-
 ### Key steps in the workflow (with keyboard shortcuts)
 
 -   **`load_all()`** (Ctrl/Cmd + Shift + L): Load code

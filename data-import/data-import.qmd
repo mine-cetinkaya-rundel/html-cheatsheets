@@ -4,6 +4,7 @@ format:
   html:
     toc: true
     highlight-style: a11y-dark
+    css: css/cheatsheet.css
 editor: visual
 execute:
   eval: true
@@ -321,7 +322,7 @@ Each column type has a function and corresponding string abbreviation.
 
     ```{r}
     #| eval: false
-    
+
     read_*(file, show_col_types = FALSE)
     ```
 
@@ -329,7 +330,7 @@ Each column type has a function and corresponding string abbreviation.
 
     ```{r}
     #| eval: false
-    
+
     read_*(file, col_select = c(age, earn))
     ```
 
@@ -338,7 +339,7 @@ Each column type has a function and corresponding string abbreviation.
 
     ```{r}
     #| eval: false
-    
+
     read_*(file, guess_max = Inf)
     ```
 
@@ -348,7 +349,7 @@ Each column type has a function and corresponding string abbreviation.
 
     ```{r}
     #| eval: false
-    
+
     read_csv(
       file, 
       col_type = list(.default = col_double())
@@ -359,7 +360,7 @@ Each column type has a function and corresponding string abbreviation.
 
     ```{r}
     #| eval: false
-    
+
     read_csv(
       file, 
       col_type = list(x = col_double(), y = "l", z = "_")
@@ -370,7 +371,7 @@ Each column type has a function and corresponding string abbreviation.
 
     ```{r}
     #| eval: false
-    
+
     # col types: skip, guess, integer, logical, character
     read_csv(
       file, 
@@ -458,7 +459,7 @@ read_excel(path, sheet = NULL, range = NULL)
 
     ```{r}
     #| eval: false
-    
+
     read_excel(path, col_types = "text")
     ```
 
@@ -466,7 +467,7 @@ read_excel(path, sheet = NULL, range = NULL)
 
     ```{r}
     #| eval: false
-    
+
     read_excel(
       path,
       col_types = c("text", "guess", "guess","numeric")
@@ -569,7 +570,7 @@ Use the `col_types` argument of `read_sheet()`**/**`range_read()` to set the col
 
     ```{r}
     #| eval: false
-    
+
     read_sheet(path, guess_max = Inf)
     ```
 
@@ -577,7 +578,7 @@ Use the `col_types` argument of `read_sheet()`**/**`range_read()` to set the col
 
     ```{r}
     #| eval: false
-    
+
     read_sheet(path, col_types = "c")
     ```
 
@@ -585,7 +586,7 @@ Use the `col_types` argument of `read_sheet()`**/**`range_read()` to set the col
 
     ```{r}
     #| eval: false
-    
+
     # col types: skip, guess, integer, logical, character
     read_sheets(ss, col_types = "_?ilc")
     ```
