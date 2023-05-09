@@ -5,6 +5,10 @@ format:
     toc: true
     highlight-style: a11y-dark
 editor: visual
+execute:
+  eval: true
+  output: false
+  warning: true
 ---
 
 One of the first steps of a project is to import outside data into R.
@@ -12,6 +16,12 @@ Data is often stored in tabular formats, like csv files or spreadsheets.
 
 -   The first half of this cheatsheet shows how to import and save text files into R using **readr**.
 -   The second half shows how to import spreadsheet data from Excel files using **readxl** or Google Sheets using **googlesheets4**.
+
+```{r}
+library(readr)
+library(readxl)
+library(googlesheets4)
+```
 
 For importing other types of data try one of the following packages:
 
@@ -35,136 +45,223 @@ See `?read_delim`.
 ```{r}
 #| eval: false
 
-read_*(file, col_names = TRUE, col_types = NULL, col_select = NULL, id = NULL, locale, n_max = Inf, skip = 0, na = c("", "NA"), guess_max = min(1000, n_max), show_col_types = TRUE)
+read_*(
+  file, 
+  col_names = TRUE, col_types = NULL, col_select = NULL, 
+  show_col_types = TRUE
+  id = NULL, locale, 
+  n_max = Inf, skip = 0, guess_max = min(1000, n_max), 
+  na = c("", "NA")
+)
 ```
 
 ### Examples
 
--   Read files with any delimiter.
-    If no delimiter is specified, it will automatically guess: `read_delim("file.txt", delim = "|")`
+-   Read files with any delimiter: `read_delim()`.
+    If no delimiter is specified, it will automatically guess.
 
     -   If the file you want to import is the following:
 
-            A|B|C
-            1|2|3
-            4|5|NA
+        ```         
+        A|B|C
+        1|2|3
+        4|5|NA
+        ```
 
-    -   It will look like the following when imported:
+        ```{r}
+        #| label: write-file-txt
+        #| echo: false
 
-        ```{r echo = FALSE}
         write_file("A|B|C\n1|2|3\n4|5|NA", file = "file.txt")
+        ```
+
+    -   Read it with `read_delim()` and it will look like the following when imported:
+
+        ```{r}
+
         read_delim("file.txt", delim = "|", show_col_types = FALSE)
         ```
 
-    -   To make `file.txt`, run: `write_file("A|B|C\n1|2|3\n4|5|NA", file = "file.txt")`.
+    -   To make `file.txt`, run:
 
--   Read a comma delimited file with period decimal marks: `read_csv("file.csv")`
+        ```{r}
+        #| ref.label: write-file-txt
+        #| eval: false
+        ```
+
+-   Read a comma delimited file with period decimal marks: `read_csv()`.
 
     -   If the file you want to import is the following:
 
-            A,B,C
-            1,2,3
-            4,5,NA
+        ```         
+        A,B,C
+        1,2,3
+        4,5,NA
+        ```
 
-    -   It will look like the following when imported:
+        ```{r}
+        #| label: write-file-csv
+        #| echo: false
 
-        ```{r echo = FALSE}
         write_file("A,B,C\n1,2,3\n4,5,NA", file = "file.csv")
+        ```
+
+    -   Read it with `read_csv()` and it will look like the following when imported:
+
+        ```{r}
         read_csv("file.csv", show_col_types = FALSE)
         ```
 
-    -   To make `file.csv`, run: `write_file("A,B,C\n1,2,3\n4,5,NA", file = "file.csv")`.
+    -   To make `file.csv`, run:
 
--   Read semicolon delimited files with comma decimal marks: `read_csv2("file2.csv")`
+        ```{r}
+        #| ref.label: write-file-csv
+        #| eval: false
+        ```
+
+-   Read semicolon delimited files with comma decimal marks: `read_csv2()`.
 
     -   If the file you want to import is the following:
 
-            A;B;C
-            1,5;2;3
-            4,5;5;NA
+        ```         
+        A;B;C
+        1,5;2;3
+        4,5;5;NA
+        ```
 
-    -   It will look like the following when imported:
+        ```{r}
+        #| label: write-file-csv2
+        #| echo: false
 
-        ```{r echo = FALSE, message = FALSE}
         write_file("A;B;C\n1,5;2;3\n4,5;5;NA", file = "file2.csv")
+        ```
+
+    -   Read it with `read_csv2()` and it will look like the following when imported:
+
+        ```{r}
         read_csv2("file2.csv", show_col_types = FALSE)
         ```
 
-    -   To make `file2.csv`, run: `write_file("A;B;C\n1,5;2;3\n4,5;5;NA", file = "file2.csv")`.
+    -   To make `file2.csv`, run:
 
--   Read a tab delimited file: `read_tsv("file.tsv")` or `read_table("file.tsv")`.
+        ```{r}
+        #| ref.label: write-file-csv2
+        #| eval: false
+        ```
+
+-   Read a tab delimited file: `read_tsv()` or `read_table()`.
 
     Read a fixed width file: `read_fwf("file.tsv", fwf_widths(c(2, 2, NA)))`.
 
     -   If the file you want to import is the following:
 
-            A B C
-            1 2 3
-            4 5 NA
+        ```         
+        A B C
+        1 2 3
+        4 5 NA
+        ```
 
-    -   It will look like the following when imported:
+        ```{r}
+        #| label: write-file-tsv
+        #| echo: false
 
-        ```{r echo = FALSE, message = FALSE}
         write_file("A\tB\tC\n1\t2\t3\n4\t5\tNA\n", file = "file.tsv")
+        ```
+
+    -   Read it with `read_tsv()` and it will look like the following when imported:
+
+        ```{r}
         read_tsv("file.tsv", show_col_types = FALSE)
         ```
 
-    -   To make `file.tsv`, run: `write_file("A\tB\tC\n1\t2\t3\n4\t5\tNA\n", file = "file.tsv")`.
+    -   To make `tsv`, run:
+
+        ```{r}
+        #| ref.label: write-file-tsv
+        #| eval: false
+        ```
 
 ### Useful read arguments
 
-Suppose you have the following CSV file that you want to read in, called `file.csv`:
+Suppose you have the following CSV files that you want to read in, called `file.csv`:
 
-    A,B,C
-    1,2,3
-    4,5,NA
+`file.csv`
 
-To make this file, run:
+```         
+A,B,C
+1,2,3
+4,5,NA
+```
 
-```{r eval = FALSE}
+`file3.csv`
+
+```         
+A,B,C
+7,8,9
+NA,11,12
+```
+
+To make these files, run:
+
+```{r}
 write_file("A,B,C\n1,2,3\n4,5,NA", file = "file.csv")
+write_file("A,B,C\n7,8,9\nNA,11,12", file = "file3.csv")
 ```
 
 -   No header: `col_names = FALSE`
 
-    ```{r message = FALSE}
+    ```{r}
+    #| message: false
+
     read_csv("file.csv", col_names = FALSE)
     ```
 
 -   Provide header: `col_names = c("x", "y", "z")`
 
-    ```{r message = FALSE}
+    ```{r}
+    #| message: false
+
     read_csv("file.csv", col_names = c("x", "y", "z"))
     ```
 
 -   Skip lines:
 
-    ```{r message = FALSE}
+    ```{r}
+    #| message: false
+
     read_csv("file.csv", skip = 1)
     ```
 
 -   Read a subset of lines:
 
-    ```{r message = FALSE}
+    ```{r}
+    #| message: false
+
     read_csv("file.csv", skip = 1)
     ```
 
 -   Read values as missing:
 
-    ```{r message = FALSE}
+    ```{r}
+    #| message: false
+
     read_csv("file.csv", na = c("1"))
     ```
 
 -   Specify decimal marks:
 
-    ```{r message = FALSE}
+    ```{r}
+    #| message: false
+
     read_delim("file2.csv", locale = locale(decimal_mark = ","))
     ```
 
 -   Read multiple files into a single table:
 
-    ```{r eval = FALSE}
-    read_csv(c("f1.csv", "f2.csv", "f3.csv"), id = "origin_file")
+    ```{r}
+    #| message: false
+
+    read_csv(c("file.csv", "file3.csv"), id = "origin_file")
     ```
 
 ### Save data with readr
@@ -172,7 +269,11 @@ write_file("A,B,C\n1,2,3\n4,5,NA", file = "file.csv")
 ```{r}
 #| eval: false
 
-write_*(x, file, na = "NA", append, col_names, quote, escape, eol, num_threads, progress)
+write_*(
+  x, file, 
+  na = "NA", 
+  append, col_names, quote, escape, eol, num_threads, progress
+)
 ```
 
 -   Write files with any delimiter: `write_delim(x, file, delim = " ")`
@@ -185,15 +286,15 @@ write_*(x, file, na = "NA", append, col_names, quote, escape, eol, num_threads, 
 Column specifications define what data type each column of a file will be imported as.
 By default readr will generate a column spec when a file is read and output a summary.
 
-`spec(x)`: Extract the full column specification for the given imported data frame.
+`spec(df)`: Extract the full column specification for the given imported data frame.
 
 ```{r}
 #| eval: false
 
-spec(x)
+spec(df)
 # cols(
 #   age = col_integer(),   # age is an integer
-#   sex = col_character(), # sex is a character
+#   edu = col_character(), # edu is a character
 #   earn = col_double()    # earn is a double (numeric)
 # )
 ```
@@ -218,20 +319,26 @@ Each column type has a function and corresponding string abbreviation.
 
 -   Hide col spec message:
 
-    ```{r eval = FALSE}
+    ```{r}
+    #| eval: false
+    
     read_*(file, show_col_types = FALSE)
     ```
 
 -   Select columns to import: Use names, position, or selection helpers.
 
-    ```{r eval = FALSE}
+    ```{r}
+    #| eval: false
+    
     read_*(file, col_select = c(age, earn))
     ```
 
 -   Guess column types: To guess a column type, `read_ *()` looks at the first 1000 rows of data.
     Increase with `guess_max`.
 
-    ```{r eval = FALSE}
+    ```{r}
+    #| eval: false
+    
     read_*(file, guess_max = Inf)
     ```
 
@@ -239,7 +346,9 @@ Each column type has a function and corresponding string abbreviation.
 
 -   Set a default type:
 
-    ```{r eval = FALSE}
+    ```{r}
+    #| eval: false
+    
     read_csv(
       file, 
       col_type = list(.default = col_double())
@@ -248,7 +357,9 @@ Each column type has a function and corresponding string abbreviation.
 
 -   Use column type or string abbreviation:
 
-    ```{r eval = FALSE}
+    ```{r}
+    #| eval: false
+    
     read_csv(
       file, 
       col_type = list(x = col_double(), y = "l", z = "_")
@@ -257,7 +368,9 @@ Each column type has a function and corresponding string abbreviation.
 
 -   Use a single string of abbreviations:
 
-    ```{r eval = FALSE}
+    ```{r}
+    #| eval: false
+    
     # col types: skip, guess, integer, logical, character
     read_csv(
       file, 
@@ -286,12 +399,14 @@ read_excel(path, sheet = NULL, range = NULL)
     | x1  | x2  | x3  | x4  | x5  |
     | x   |     | z   | 8   |     |
     | y   | 7   |     | 9   | 10  |
-    
+
     : Spreadsheet with 5 columns (A through E) and three rows. First row reads x1 through x5. Second and third row have some missing values.
 
 -   It will look like the following when imported:
 
-    ```{r echo = FALSE}
+    ```{r}
+    #| echo: false
+
     write_file("x1,x2,x3,x4,x5\nx, ,z,8, \ny,7, ,9,10", file = "excel.csv")
     read_csv("excel.csv", show_col_types = FALSE)
     ```
@@ -315,10 +430,12 @@ read_excel(path, sheet = NULL, range = NULL)
 
     3.  Use `purrr::map_dfr()` to read multiple files into one data frame.
 
-        ```{r eval = FALSE}
+        ```{r}
+        #| eval: false
+
         path <- "your_file_path.xlsx"
-        path %>% excel_sheets() %>%
-            set_names() %>%
+        path |> excel_sheets() |>
+            set_names() |>
             map_dfr(read_excel, path = path)
         ```
 
@@ -331,19 +448,25 @@ read_excel(path, sheet = NULL, range = NULL)
 -   Guess column types: To guess a column type, `read_excel()` looks at the first 1000 rows of data.
     Increase with the `guess_max` argument.
 
-    ```{r eval = FALSE}
+    ```{r}
+    #| eval: false
+
     read_excel(path, guess_max = Inf)
     ```
 
 -   Set all columns to same type, e.g. character:
 
-    ```{r eval = FALSE}
+    ```{r}
+    #| eval: false
+    
     read_excel(path, col_types = "text")
     ```
 
 -   Set each column individually:
 
-    ```{r eval = FALSE}
+    ```{r}
+    #| eval: false
+    
     read_excel(
       path,
       col_types = c("text", "guess", "guess","numeric")
@@ -356,7 +479,7 @@ read_excel(path, sheet = NULL, range = NULL)
     |---------|---------|-------|------------|-------|
     | TRUE    | 2       | hello | 1947-01-08 | hello |
     | FALSE   | 3.45    | world | 1956-10-21 | 1     |
-    
+
     : Table with 5 columns. Column headers are various data types (logical, numeric, text, date, and list). The data in two rows show examples of data for the given column type.
 
     -   `skip`
@@ -401,12 +524,14 @@ Same as `range_read()`.
     | x1  | x2  | x3  | x4  | x5  |
     | x   |     | z   | 8   |     |
     | y   | 7   |     | 9   | 10  |
-    
+
     : Spreadsheet with 5 columns (A through E) and three rows. First row reads x1 through x5. Second and third row have some missing values.
 
 -   It will look like the following when imported:
 
-    ```{r echo = FALSE}
+    ```{r}
+    #| echo: false
+
     write_file("x1,x2,x3,x4,x5\nx, ,z,8, \ny,7, ,9,10", file = "googlesheet.csv")
     read_csv("googlesheet.csv", show_col_types = FALSE)
     ```
@@ -415,8 +540,10 @@ Same as `range_read()`.
 
 -   **URLs** are in the form:
 
-        https://docs.google.com/spreadsheets/d/
-                    SPREADSHEET_ID/edit#gid=SHEET_ID
+    ```         
+    https://docs.google.com/spreadsheets/d/
+                SPREADSHEET_ID/edit#gid=SHEET_ID
+    ```
 
 -   Get spreadsheet meta data: `gs4_get(ss)`
 
@@ -440,19 +567,25 @@ Use the `col_types` argument of `read_sheet()`**/**`range_read()` to set the col
 -   Guess column types: To guess a column type `read_sheet()`/`range_read()` looks at the first 1000 rows of data.
     Increase with `guess_max`.
 
-    ```{r eval = FALSE}
+    ```{r}
+    #| eval: false
+    
     read_sheet(path, guess_max = Inf)
     ```
 
 -   Set all columns to same type, e.g. character:
 
-    ```{r eval = FALSE}
+    ```{r}
+    #| eval: false
+    
     read_sheet(path, col_types = "c")
     ```
 
 -   Set each column individually:
 
-    ```{r eval = FALSE}
+    ```{r}
+    #| eval: false
+    
     # col types: skip, guess, integer, logical, character
     read_sheets(ss, col_types = "_?ilc")
     ```
@@ -504,23 +637,32 @@ Also use the range argument with cell specification functions `cell_limits()`, `
 
 ------------------------------------------------------------------------
 
-License: [CC BY SA](https://creativecommons.org/licenses/by-sa/4.0/) RStudio
+CC BY SA Posit Software, PBC • [info\@posit.co](mailto:info@posit.co) • [posit.co](https://posit.co)
 
-Packages and versions featured:
+Learn more at
 
--   readr 2.0.0: [readr.tidyverse.org](https://readr.tidyverse.org)
--   readxl 1.3.1: [readxl.tidyverse.org](https://readxl.tidyverse.org/)
--   googlesheets4 1.0.0: [googlesheets4.tidyverse.org](https://googlesheets4.tidyverse.org/)
+-   readr: [readr.tidyverse.org](https://readr.tidyverse.org)
+-   readxl: [readxl.tidyverse.org](https://readxl.tidyverse.org/)
+-   googlesheets4: [googlesheets4.tidyverse.org](https://googlesheets4.tidyverse.org/)
 
-Updated:  2021-08
+Updated: `r format(Sys.Date(), "%Y-%m")`.
 
-RStudio® is a trademark of RStudio, PBC, [info\@rstudio.com](mailto:info@rstudio.com), 844-448-1212, [rstudio.com](http://rstudio.com).
+```{r}
+#| output: true
+
+packageVersion("readr")
+packageVersion("readxl")
+packageVersion("googlesheets4")
+```
+
+------------------------------------------------------------------------
 
 ```{r include = FALSE}
 fs::file_delete(
   c("file.txt",
   "file.csv",
   "file2.csv",
+  "file3.csv",
   "file.tsv",
   "excel.csv",
   "googlesheet.csv")
