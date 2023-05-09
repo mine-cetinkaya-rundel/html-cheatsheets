@@ -7,15 +7,15 @@ sns <- import("seaborn")
 fmri <- sns$load_dataset("fmri")
 dim(fmri)
 
-# creates fmri
+# creates tips
 source_python("python.py")
-dim(fmri)
+dim(tips)
 
-# creates fmri in main
+# creates tips in main
 py_run_file("python.py")
-dim(py$fmri)
+dim(py$tips)
 
-py_run_string("print(fmri.shape)")
+py_run_string("print(tips.shape)")
 
 
 

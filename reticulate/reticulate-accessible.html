@@ -168,19 +168,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>fmri <span class="ot">&lt;-</span> sns<span class="sc">$</span><span class="fu">load_dataset</span>(<span class="st">"fmri"</span>)</span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(fmri)</span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># creates fmri</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># creates tips</span></span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">source_python</span>(<span class="st">"python.py"</span>)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(fmri)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(tips)</span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># creates fmri in main</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># creates tips in main</span></span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="fu">py_run_file</span>(<span class="st">"python.py"</span>)</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(py<span class="sc">$</span>fmri)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(py<span class="sc">$</span>tips)</span>
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="fu">py_run_string</span>(<span class="st">"print(fmri.shape)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="fu">py_run_string</span>(<span class="st">"print(tips.shape)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>python.py</code> Example:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>fmri <span class="op">=</span> sns.load_dataset(<span class="st">"fmri"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>tips <span class="op">=</span> sns.load_dataset(<span class="st">"tips"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Call Python from R code in three ways:</p>
 <section id="import-python-modules" class="level3">
 <h3 class="anchored" data-anchor-id="import-python-modules">Import Python Modules</h3>
@@ -192,8 +192,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>sns <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"seaborn"</span>)</span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>fmri <span class="ot">&lt;-</span> sns<span class="sc">$</span><span class="fu">load_dataset</span>(<span class="st">"fmri"</span>)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(fmri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>tips <span class="ot">&lt;-</span> sns<span class="sc">$</span><span class="fu">load_dataset</span>(<span class="st">"tips"</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(tips)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><p><code>import(module, as = NULL, convert = TRUE, delay_load = FALSE)</code>: Import a Python module. If <code>convert = TRUE</code>, Python objects are converted to their equivalent R types. Also <code>import_from_path()</code>.</p>
@@ -215,7 +215,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Use <code>source_python()</code> to source a Python script and make the Python functions and objects it creates available in the calling R environment.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source_python</span>(<span class="st">"python.py"</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(py<span class="sc">$</span>fmri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(py<span class="sc">$</span>tips)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><p><code>source_python(file, envir = parent.frame(), convert = TRUE)</code>: Run a Python script, assigning objects to a specified R environment.</p>
@@ -229,9 +229,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Execute Python code into the <code>main</code> Python modules with <code>py_run_file()</code> or <code>py_run_string()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">py_run_file</span>(<span class="st">"python.py"</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(py<span class="sc">$</span>fmri)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(py<span class="sc">$</span>tips)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">py_run_string</span>(<span class="st">"print(fmri.shape)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">py_run_string</span>(<span class="st">"print(tips.shape)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><p><code>py_run_string(code, local = FALSE, convert = TRUE)</code>: Run Python code (passed as a string) in the main module.</p>
@@ -431,12 +431,13 @@ Expand to read about reticulate features in the RStudio IDE
 <li><p>Press <code>Enter</code> to run code.</p></li>
 <li><p>Type <code>exit</code> to close and return to R console.</p>
 <pre><code>&gt; reticulate::repl_python()
-Python 3.6.13 (/Users/rstudiointern/Library/r-miniconda/envs/r-reticulate/bin/python)
-Reticulate 1.20 REPL -- A Python interpreter in R.
+Python 3.9.16 (/Users/mine/.virtualenvs/r-reticulate/bin/python)
+Reticulate 1.28 REPL -- A Python interpreter in R.
+Enter 'exit' or 'quit' to exit the REPL and return to R.
 &gt;&gt;&gt; import seaborn as sns
-&gt;&gt;&gt; fmri = sns.load_dataset("fmri")
-&gt;&gt;&gt; fmri.shape
-(1064, 5)
+&gt;&gt;&gt; tips = sns.load_dataset("tips")
+&gt;&gt;&gt; tips.shape
+(244, 7)
 &gt;&gt;&gt; exit
 &gt;</code></pre></li>
 </ol>
@@ -449,7 +450,7 @@ Reticulate 1.20 REPL -- A Python interpreter in R.
 <ul>
 <li><p><code>install_python(version, list = FALSE, force = FALSE)</code>: Download and install Python.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install_python</span>(<span class="st">"3.6.13"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install_python</span>(<span class="st">"3.9.16"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 <li><p><code>py_available(initialize = FALSE)</code>: Check if Python is available on your system. Also <code>py_module_available()</code> and <code>py_numpy_module()</code>.</p>
 <div class="cell">

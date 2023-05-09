@@ -77,22 +77,22 @@ sns <- import("seaborn")
 fmri <- sns$load_dataset("fmri")
 dim(fmri)
 
-# creates fmri
+# creates tips
 source_python("python.py")
-dim(fmri)
+dim(tips)
 
-# creates fmri in main
+# creates tips in main
 py_run_file("python.py")
-dim(py$fmri)
+dim(py$tips)
 
-py_run_string("print(fmri.shape)")
+py_run_string("print(tips.shape)")
 ```
 
 `python.py` Example:
 
 ``` python
 import seaborn as sns
-fmri = sns.load_dataset("fmri")
+tips = sns.load_dataset("tips")
 ```
 
 Call Python from R code in three ways:
@@ -109,8 +109,8 @@ use_virtualenv("r-reticulate")
 
 sns <- import("seaborn")
 
-fmri <- sns$load_dataset("fmri")
-dim(fmri)
+tips <- sns$load_dataset("tips")
+dim(tips)
 ```
 
 -   `import(module, as = NULL, convert = TRUE, delay_load = FALSE)`: Import a Python module.
@@ -139,7 +139,7 @@ Use `source_python()` to source a Python script and make the Python functions an
 
 ```{r}
 source_python("python.py")
-dim(py$fmri)
+dim(py$tips)
 ```
 
 -   `source_python(file, envir = parent.frame(), convert = TRUE)`: Run a Python script, assigning objects to a specified R environment.
@@ -154,9 +154,9 @@ Execute Python code into the `main` Python modules with `py_run_file()` or `py_r
 
 ```{r}
 py_run_file("python.py")
-dim(py$fmri)
+dim(py$tips)
 
-py_run_string("print(fmri.shape)")
+py_run_string("print(tips.shape)")
 ```
 
 -   `py_run_string(code, local = FALSE, convert = TRUE)`: Run Python code (passed as a string) in the main module.
@@ -368,12 +368,13 @@ A REPL (Read, Eval, Print Loop) is a command line where you can run Python code 
 
     ```         
     > reticulate::repl_python()
-    Python 3.6.13 (/Users/rstudiointern/Library/r-miniconda/envs/r-reticulate/bin/python)
-    Reticulate 1.20 REPL -- A Python interpreter in R.
+    Python 3.9.16 (/Users/mine/.virtualenvs/r-reticulate/bin/python)
+    Reticulate 1.28 REPL -- A Python interpreter in R.
+    Enter 'exit' or 'quit' to exit the REPL and return to R.
     >>> import seaborn as sns
-    >>> fmri = sns.load_dataset("fmri")
-    >>> fmri.shape
-    (1064, 5)
+    >>> tips = sns.load_dataset("tips")
+    >>> tips.shape
+    (244, 7)
     >>> exit
     >
     ```
@@ -392,7 +393,7 @@ Then suggest your instance to reticulate.
     ```{r}
     #| eval: false
 
-    install_python("3.6.13")
+    install_python("3.9.16")
     ```
 
 -   `py_available(initialize = FALSE)`: Check if Python is available on your system.
